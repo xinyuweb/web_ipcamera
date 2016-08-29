@@ -1,0 +1,434 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<title>ipCAM</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+<META http-equiv="Pragma" CONTENT="no-cache">
+
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+
+<meta HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"> 
+<!-- ImageReady Preload Script (ipCAM.psd) -->
+<script src="public.js"></script>
+<script language="JavaScript1.2" src="cgi-bin/hi3510/getplatformattr.cgi" type="text/javascript"></script>
+<script type="text/javascript">
+<!--
+<!--
+
+var xmlhttp = null;
+if (window.XMLHttpRequest) 
+{
+    // If IE7, Mozilla, Safari, and so on: Use native object.
+    xmlhttp = new XMLHttpRequest();
+}
+else
+{
+    if (window.ActiveXObject) 
+    {
+    // ...otherwise, use the ActiveX control for IE5.x and IE6.
+        xmlhttp = new ActiveXObject('MSXML2.XMLHTTP.3.0');
+    }
+}
+
+function newImage(arg) {
+	if (document.images) {
+		rslt = new Image();
+		rslt.src = arg;
+		return rslt;
+	}
+}
+
+function changeImages() {
+	if (document.images && (preloadFlag == true)) {
+		for (var i=0; i<changeImages.arguments.length; i+=2) {
+			document[changeImages.arguments[i]].src = changeImages.arguments[i+1];
+		}
+	}
+}
+
+var preloadFlag = false;
+function preloadImages() {
+	if (document.images) {
+		index_08_Over = newImage("images/index_08-Over.gif");
+		index_09_Over = newImage("images/index_09-Over.gif");
+		index_11_Over = newImage("images/index_11-Over.gif");
+		index_12_Over = newImage("images/index_12-Over.gif");
+		index_13_Over = newImage("images/index_13-Over.gif");
+		index_39_Over = newImage("images/index_39-Over.gif");
+		index_39_Down = newImage("images/index_39-Down.gif");
+		preloadFlag = true;
+	}
+}
+
+// -->
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+
+function checkProhibitedCharacter ( string )
+{
+//if( string.search(/[^a-zA-Z0-9_\!\"\#\$\%\&\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\\\]\^\`\{\|\}\~\s]/) != -1 )
+if(string.search(/[^a-zA-Z0-9_\!\"\#\$\%\&\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\\\]\^\`\{\|\}\~\s]/) != -1 )
+//if(( string.search("\/") != -1 )||( string.search(/\\/) != -1 )||( string.search(":") != -1 )||( string.search("&") != -1 )||( string.search("=") != -1 ))
+{
+	
+  alert(str_alert4);
+  return false;
+}
+
+else if(( string.search("`") != -1 )||( string.search(/\$/) != -1 )|| ( string.search("\/") != -1 )||( string.search(/\\/) != -1 )||( string.search(":") != -1 )||( string.search("&") != -1 )||( string.search("=") != -1 )||( string.search("\"") != -1 ))
+{
+ alert(str_alert4+"( ,:,&,=,\\\,\/,$,`)");
+return false;
+}
+
+else
+{
+return true;
+}
+}
+function checkProhibitedCharacterUser(string)
+{
+	if(string.search("=") != -1)
+	{
+		alert(str_alert4+"( ,:,&,=,\",\\\,\/)");
+		return false
+	}
+else 
+	{
+		return checkProhibitedCharacter ( string );
+	}
+}
+function hasHankakuKana(str)
+{
+	var code;
+	for (var i = 0; i < str.length; ++i) 
+	{
+		code = str.charCodeAt(i);
+		if (code >= 0xff61 && code <= 0xff9f)
+ 		{
+			return true;
+		}
+	}
+	return false;
+}
+function hasZenKaku(str){
+var code;
+for (var i = 0; i < str.length; ++i) {
+code = str.charCodeAt(i);
+if (code > 256 && (code < 0xff61 || code > 0xff9f)) {
+return true;
+}
+}
+return false;
+}
+function checkHankakuNoKana(str,cObj,strMsg)
+{
+		var tmp;
+    if (hasZenKaku(str) == true || hasHankakuKana(str) == true)
+    {
+			if (strMsg==null || strMsg=='' ) alert(str_alert68);
+  		else alert(strMsg);
+			cObj.select();
+			return false;
+		}
+		return true;
+}
+
+function onlynumber()
+{
+	if (!(event.keyCode==46)&&!(event.keyCode==8)&&!(event.keyCode==37)&&!(event.keyCode==39))
+		if (!((event.keyCode>=48 && event.keyCode<=57)||(event.keyCode>=96 && event.keyCode <= 105)))
+			event.returnValue=false;
+}
+
+var errfound;
+function error(elem,itemcname,text)  
+ {
+  if (errfound) return;
+  window.alert(itemcname+str_alert55+"\n\n"+text);
+  elem.select();
+  elem.focus();
+  errfound = true;
+  }
+
+function ValidIp(itemc,itemcname)  //检查是否合法IP地址
+{
+  var i,n,st,j;
+  n=0;j=0;
+  for (i=0;i<itemc.value.length;i++)
+   {
+    st=itemc.value.substr(i,1);
+    if (st==".") 
+     {
+      j++;
+      if (j==1 && n==0) error(itemc,itemcname,str_alert56);
+      if (0>n || n>255) error(itemc,itemcname,str_alert59);
+      n=0;
+      }
+    else
+     {
+      if ("0">st || st>"9") error(itemc,itemcname,str_alert4);
+      n=n*10+parseInt(st);
+      }
+    }
+  if (j!=3) error(itemc,itemcname,str_alert58);
+  if (0>n || n>255) error(itemc,itemcname,str_alert61);
+  if (n==0) error(itemc,itemcname,str_alert60);
+}
+
+function do_filename()
+{
+	var form=document.form1;
+	var i;
+	
+	if(form.linkradio[0].checked==true)
+	{
+		for(i=0;i<=5;i++)
+		{
+       		document.getElementById('layer'+i).style.visibility="visible";
+   		}
+	}
+	else
+	{
+		for(i=0;i<=5;i++)
+		{
+       		document.getElementById('layer'+i).style.visibility="hidden";
+   		}
+	}
+}
+
+function on_load()
+{
+	if (enable == "1")
+		document.form1.linkradio[0].checked = true;
+	else
+		document.form1.linkradio[1].checked = true;
+		
+	document.form1.devid.value = devid;
+	document.form1.port.value = port;
+	document.form1.svrip.value = server;	
+
+	if (mediatype == "2")		
+		document.form1.audioradio[0].checked = true;
+	else
+		document.form1.audioradio[1].checked = true;
+	
+	if (alarmflag == "1")
+		document.form1.alarmradio[0].checked = true;
+	else
+		document.form1.alarmradio[1].checked = true;		
+	
+	do_filename();	
+}
+
+	
+function do_submit()
+{
+	var form1=document.form1;
+	var form=document.form2;
+	
+	form.cururl.value=document.URL;
+	
+	if (form1.linkradio[0].checked == true)
+		form.enable.value = 1;
+	else
+		form.enable.value = 0;
+
+	if (form1.audioradio[0].checked == true)
+		form.mediatype.value = 2;
+	else
+		form.mediatype.value = 1;		
+
+	if (form1.alarmradio[0].checked == true)
+		form.alarmflag.value = 1;
+	else
+		form.alarmflag.value = 0;		
+		
+	if (form1.devid.value == "")
+		form.devid.value = 0;
+	else
+	{
+		if(checkHankakuNoKana(form1.devid.value,form1.devid,str_alert69)==false)return false;
+		//if(checkProhibitedCharacter(form1.devid.value)==false)return false;	
+		form.devid.value = form1.devid.value;	
+	}
+	
+	if (form1.port.value == "")
+	{
+		alert(str_alert70);
+		return false;
+	}
+	else
+	{
+		if(checkHankakuNoKana(form1.devid.value,form1.devid,str_alert71)==false)return false;
+		if(checkProhibitedCharacter(form1.devid.value)==false)return false;	
+		form.port.value = form1.port.value;	
+	}	
+	
+	if (form1.svrip.value == "")
+	{
+		alert(str_server_address);
+		form1.svrip.focus();
+		return false;
+	}									
+	else
+	{
+	if( checkProhibitedCharacterUser(form1.svrip.value)== false )
+	{
+		form1.svrip.focus();
+		return false;
+	}
+	
+	if(checkHankakuNoKana(form1.svrip.value,form1.svrip,str_alert32)==false)
+	{
+		return false;
+	}
+
+    ValidIp(form1.svrip,str_server_address1);
+			
+	}
+	  if(errfound)
+	  {
+	    return false;
+	   }	
+	
+	form.server.value=form1.svrip.value;	
+	
+	alert(str_alert1);		
+
+	form.enable.name="-enable";
+	form.devid.name="-devid";
+	form.alarmflag.name="-alarmflag";
+	form.port.name="-port";
+	form.server.name="-server";
+	form.mediatype.name="-mediatype";
+	form.action="cgi-bin/hi3510/param.cgi";
+	form.submit();
+}
+
+</script>
+<!-- End Preload Script -->
+<style type="text/css">
+<!--
+.style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.style2 {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style5 {font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style6 {color: #810000}
+.style7 {
+
+     background-color:#bbbbaa;
+     }
+-->
+</style>
+</head>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="on_load();">
+              <form name="form1">	
+                    <table width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5" id="table1">
+                <tbody>
+                        <tr>
+						<td colspan="2" style="font-size:24px" class="style6"><strong><script>document.write(str_platform)</script></strong></td>
+                </tr>
+                <tr>
+                  <td align="left" bgcolor="#CCCCCC" colspan="2"><span class="style6"><strong><script>document.write(str_platform_settings)</script></strong></span></td>
+                </tr>
+                  <tr>
+                  <td width="220"><script>document.write(str_pf_con)</script></td>
+                  <td>
+					<input type="radio" name="linkradio" value="radiobutton1" onClick="do_filename()">
+					<script>document.write(str_start_up)</script>
+  <input type="radio" name="linkradio" value="radiobutton2" onClick="do_filename()">
+					<script>document.write(str_close1)</script></td>
+                </tr>
+                <tr id="layer0">
+                  <td align="left" width="220"><script>document.write(str_dev_id)</script></td>
+                  <td align="left">
+					<input name="devid" size="10" type="text" onKeyDown="onlynumber()"></td>
+                  </tr>
+                <tr id="layer2">
+                  <td align="left"><script>document.write(str_server_port)</script></td>
+                  <td align="left">
+					<input name="port" size="10" type="text" onKeyDown="onlynumber()"></td>
+                  </tr>
+                		<tr id="layer3">
+                  <td align="left" width="220"><script>document.write(str_server_address2)</script></td>
+                  <td align="left">
+					<input name="svrip" maxlength="15" size="20" type="text"></td>
+                  		</tr>
+                <tr id="layer5">
+                  <td width="5">  
+					</td><td align="left" class="style6"><script>document.write(str_alert72)</script></td>
+                  </tr>
+                <tr id="layer1">
+                  <td align="left" width="220"><script>document.write(str_alert73)</script></td>
+                  <td align="left">
+					<input type="radio" name="audioradio" value="2">
+					<script>document.write(str_start_up)</script>
+  <input type="radio" name="audioradio" value="1">
+					<script>document.write(str_close1)</script></td>
+                  </tr>
+
+                <tr id="layer4">
+
+                  <td align="left" width="220"><script>document.write(str_alert74)</script></td>
+
+                  <td align="left">
+					<input type="radio" name="alarmradio" value="21">
+					<script>document.write(str_start_up)</script>
+  <input type="radio" name="alarmradio" value="11">
+					<script>document.write(str_close1)</script></td>
+                  </tr>
+                      </tbody>
+                    </table>
+            </form>  
+               <table align="center" border="0" cellpadding="0" cellspacing="3" width="95%">
+                  <tr>
+				  	<td width="220"></td>
+                    <td width="80"><button onClick="do_submit()"><script>document.write(str_sure)</script></button></td>
+                    <td align="left"><button onClick="javascript:location.reload(true)"><script>document.write(str_refresh)</script></button></td>
+                  </tr>
+</table>
+    <form name="form2" method="post">
+	<input name="cmd" type="hidden" value="setplatformattr">
+	<input name="cururl" type="hidden">
+	<input name="enable" type="hidden">
+	<input name="devid" type="hidden">
+	<input name="port" type="hidden">
+	<input name="mediatype" type="hidden">
+	<input name="alarmflag" type="hidden">
+	<input name="server" type="hidden">				
+	</form>
+<!-- ImageReady Slices (ipCAM.psd - Slices: 02, 05, 06, 08, 09, 11, 12, 13, 15, 21, 22, 28, 30, 35, 36, 39, 42, 46, 50, 53) -->
+<!-- End ImageReady Slices -->
+</body>
+</html>

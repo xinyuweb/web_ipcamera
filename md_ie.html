@@ -1,0 +1,807 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<title>ipCAM</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+<META http-equiv="Pragma" CONTENT="no-cache">
+
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+
+<meta HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"> 
+<!-- ImageReady Preload Script (ipCAM.psd) -->
+<script src="public.js"></script>
+<script src="lib/prototype.js" type="text/javascript"></script>	
+<script src="lib/scriptaculous.js?load=builder,dragdrop" type="text/javascript"></script>
+<script src="cropper.js" type="text/javascript"></script>
+<SCRIPT language=JavaScript src="slider.js"></SCRIPT>
+<script language="JavaScript1.2" src="cgi-bin/hi3510/param.cgi?cmd=getvideoattr&cmd=getmdattr&cmd=getsetupflag&cmd=getaudioflag&cmd=getvideoattr" type="text/javascript"></script>
+<script type="text/javascript">
+<!--
+
+<!--
+
+var init_x1, init_y1, init_x2, init_y2, wid, hei;
+
+//showarea();
+
+function showarea()
+{
+/*
+	init_x1=10;
+	init_y1=10;
+	init_x2=250;
+	init_y2=200;
+*/			
+		// setup the callback function
+		function onEndCrop( coords, dimensions ) {
+			init_x1= coords.x1;
+			init_y1 = coords.y1;
+			init_x2 = coords.x2;
+			init_y2 = coords.y2;
+			wid = dimensions.width;
+			hei = dimensions.height;
+		}
+		
+		//alert("showarea");
+		// basic example
+		Event.observe( 
+			window, 
+			'load', 
+			function() { 
+				new Cropper.Img( 
+					'rimg12',
+					{
+						onEndCrop: onEndCrop,
+						displayOnInit: true,
+						onloadCoords: { x1: init_x1, y1: init_y1, x2: init_x2, y2: init_y2 }
+					}
+				) 
+			}
+		); 		
+		
+		
+		if( typeof(dump) != 'function' ) {
+			Debug.init(true, '/');
+			
+			function dump( msg ) {
+				Debug.raise( msg );
+			};
+		} else dump( '---------------------------------------\n' );	
+}
+
+function newImage(arg) {
+	if (document.images) {
+		rslt = new Image();
+		rslt.src = arg;
+		return rslt;
+	}
+}
+
+function changeImages() {
+	if (document.images && (preloadFlag == true)) {
+		for (var i=0; i<changeImages.arguments.length; i+=2) {
+			document[changeImages.arguments[i]].src = changeImages.arguments[i+1];
+		}
+	}
+}
+
+var preloadFlag = false;
+function preloadImages() {
+	if (document.images) {
+		index_08_Over = newImage("images/index_08-Over.gif");
+		index_09_Over = newImage("images/index_09-Over.gif");
+		index_11_Over = newImage("images/index_11-Over.gif");
+		index_12_Over = newImage("images/index_12-Over.gif");
+		index_13_Over = newImage("images/index_13-Over.gif");
+		index_39_Over = newImage("images/index_39-Over.gif");
+		index_39_Down = newImage("images/index_39-Down.gif");
+		preloadFlag = true;
+	}
+}
+
+// -->
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+
+
+var img2345 = new Image();
+
+function update()
+{	
+	var imgObj = document.getElementById('rimg12');
+	
+	imgObj.src = img2345.src;
+	img2345.src = "/tmpfs/auto.jpg?" + (new Date()).getTime();
+}
+
+function takeError()
+{
+	img2345.src = "/tmpfs/auto.jpg?" + (new Date()).getTime();
+}
+
+function startonload()
+{
+	img2345.src = "/tmpfs/auto.jpg?" + (new Date()).getTime();
+	img2345.onerror=takeError;
+	img2345.onload=update;
+}
+
+function on_load()
+{
+ if (navigator.appName.indexOf("Microsoft Internet Explorer") != -1)
+    on_yesIE();
+	else
+	on_onIE();
+}
+
+function on_onIE()
+{
+document.getElementById("yesIE").style.display = "none";
+
+form1.sensonly.value=Number(m1_sensitivity);
+
+if (m1_enable == "1")
+    		{
+    			form1.winonly.checked=true;
+    		}
+}
+
+function on_yesIE()
+{
+document.getElementById("noIE").style.display = "none";
+	
+	
+			var ip=document.location.host;
+			var url = "http://"+ip;
+			form1.DHiMPlayer.SetUrl(url,80,11,name0,password0);
+			if((videomode=="51")||(videomode=="52")||(videomode=="53")||(videomode=="54"))
+			{form1.DHiMPlayer.SetWndPos(0, 0, 800, 600);}
+		    else if((videomode=="20")||(videomode=="17"))
+			 {if(vinorm=="P") {form1.DHiMPlayer.SetWndPos(0, 0, 800, 600);}
+			 else {form1.DHiMPlayer.SetWndPos(0, 0, 960, 540);}
+			 }
+			else 
+			{form1.DHiMPlayer.SetWndPos(0, 0, 960, 540);}
+    		form1.DHiMPlayer.play();
+    		form1.DHiMPlayer.OpenMdSetPage(1);
+    		if (m1_enable == "1")
+    		{
+    			form1.win1.checked=true;
+    		}
+    		form1.DHiMPlayer.EnablePic(0, m1_enable, m1_w, m1_h, m1_x, m1_y);
+    		if (m2_enable == "1")
+    		{
+    			form1.win2.checked=true;
+    		}
+    		form1.DHiMPlayer.EnablePic(1, m2_enable, m2_w, m2_h, m2_x, m2_y);
+    		if (m3_enable == "1")
+    		{
+    			form1.win3.checked=true;
+    		}
+    		form1.DHiMPlayer.EnablePic(2, m3_enable, m3_w, m3_h, m3_x, m3_y);
+    		if (m4_enable == "1")
+    		{
+    			form1.win4.checked=true; 
+    		}
+    		form1.DHiMPlayer.EnablePic(3, m4_enable, m4_w, m4_h, m4_x, m4_y);
+			   			   			
+    		form1.sens1text.value=Number(m1_sensitivity);
+    		form1.sens2text.value=Number(m2_sensitivity);
+    		form1.sens3text.value=Number(m3_sensitivity);
+    		form1.sens4text.value=Number(m4_sensitivity);
+	
+  		
+	}
+
+function winchk(n)
+{
+	if (n == 0)
+	{
+		if (form1.win1.checked == true)
+			form1.DHiMPlayer.EnablePic(n, 1, m1_w, m1_h, m1_x, m1_y);
+		else
+			form1.DHiMPlayer.EnablePic(n, 0, m1_w, m1_h, m1_x, m1_y);
+	}			
+	else if (n == 1)
+	{
+		if (form1.win2.checked == true)
+			form1.DHiMPlayer.EnablePic(n, 1, m2_w, m2_h, m2_x, m2_y);
+		else
+			form1.DHiMPlayer.EnablePic(n, 0, m2_w, m2_h, m2_x, m2_y);
+	}
+	else if (n == 2)
+	{
+		if (form1.win3.checked == true)
+			form1.DHiMPlayer.EnablePic(n, 1, m3_w, m3_h, m3_x, m3_y);
+		else
+			form1.DHiMPlayer.EnablePic(n, 0, m3_w, m3_h, m3_x, m3_y);
+	}
+	else if (n == 3)
+	{
+		if (form1.win4.checked == true)
+			form1.DHiMPlayer.EnablePic(n, 1, m4_w, m4_h, m4_x, m4_y);
+		else
+			form1.DHiMPlayer.EnablePic(n, 0, m4_w, m4_h, m4_x, m4_y);
+	}		
+}
+
+
+function do_submit()
+{
+	var i;
+	
+		form2.cururl.value = document.URL;
+	
+	form2.s0.value = Number(form1.sens1text.value) ;
+	form2.s1.value = Number(form1.sens2text.value) ;
+	form2.s2.value = Number(form1.sens3text.value) ;
+	form2.s3.value = Number(form1.sens4text.value) ;
+
+
+	form2.t0.value = m1_threshold;
+	form2.t1.value = m2_threshold;
+	form2.t2.value = m3_threshold;
+	form2.t3.value = m4_threshold;
+		
+
+	if (form1.win1.checked)	
+		form2.enable0.value = "1";
+	else
+		form2.enable0.value = "0";
+	if (form1.win2.checked)	
+		form2.enable1.value = "1";
+	else
+		form2.enable1.value = "0";
+	if (form1.win3.checked)	
+		form2.enable2.value = "1";
+	else
+		form2.enable2.value = "0";
+	if (form1.win4.checked)	
+		form2.enable3.value = "1";
+	else
+		form2.enable3.value = "0";
+
+
+
+		form2.w0.value = form1.DHiMPlayer.GetPic(0, 0);
+		form2.h0.value = form1.DHiMPlayer.GetPic(0, 1);
+		form2.x0.value = form1.DHiMPlayer.GetPic(0, 2);
+		form2.y0.value = form1.DHiMPlayer.GetPic(0, 3);
+		form2.chn0.value = 1;
+		form2.name0.value = 1;
+		
+		form2.w1.value = form1.DHiMPlayer.GetPic(1, 0);
+		form2.h1.value = form1.DHiMPlayer.GetPic(1, 1);
+		form2.x1.value = form1.DHiMPlayer.GetPic(1, 2);
+		form2.y1.value = form1.DHiMPlayer.GetPic(1, 3);
+		form2.chn1.value = 1;
+		form2.name1.value = 2;
+		
+		form2.w2.value = form1.DHiMPlayer.GetPic(2, 0);
+		form2.h2.value = form1.DHiMPlayer.GetPic(2, 1);
+		form2.x2.value = form1.DHiMPlayer.GetPic(2, 2);
+		form2.y2.value = form1.DHiMPlayer.GetPic(2, 3);
+		form2.chn2.value = 1;
+		form2.name2.value = 3;
+		
+		form2.w3.value = form1.DHiMPlayer.GetPic(3, 0);
+		form2.h3.value = form1.DHiMPlayer.GetPic(3, 1);
+		form2.x3.value = form1.DHiMPlayer.GetPic(3, 2);
+		form2.y3.value = form1.DHiMPlayer.GetPic(3, 3);
+		form2.chn3.value = 1;
+		form2.name3.value = 4;
+		
+
+		form2.chn0.name="-chn";
+		form2.enable0.name="-enable";
+		form2.s0.name="-s";
+		form2.t0.name="-t";
+		form2.name0.name="-name";
+		form2.x0.name="-x";
+		form2.y0.name="-y";
+		form2.w0.name="-w";
+		form2.h0.name="-h";	
+		
+		form2.chn1.name="-chn";
+		form2.enable1.name="-enable";
+		form2.s1.name="-s";
+		form2.t1.name="-t";
+		form2.name1.name="-name";
+		form2.x1.name="-x";
+		form2.y1.name="-y";
+		form2.w1.name="-w";
+		form2.h1.name="-h";	
+		
+		form2.chn2.name="-chn";
+		form2.enable2.name="-enable";
+		form2.s2.name="-s";
+		form2.t2.name="-t";
+		form2.name2.name="-name";
+		form2.x2.name="-x";
+		form2.y2.name="-y";
+		form2.w2.name="-w";
+		form2.h2.name="-h";	
+		
+		form2.chn3.name="-chn";
+		form2.enable3.name="-enable";
+		form2.s3.name="-s";
+		form2.t3.name="-t";
+		form2.name3.name="-name";
+		form2.x3.name="-x";
+		form2.y3.name="-y";
+		form2.w3.name="-w";
+		form2.h3.name="-h";	
+
+	form2.action="cgi-bin/hi3510/param.cgi";
+	form2.submit();					
+}
+
+function do_submit1()
+{
+	var i;
+	
+	form3.cururl.value = document.URL;
+	
+	form3.s.value = Number(form1.sensonly.value) ;
+
+	form3.t.value = m1_threshold;		
+
+	if (form1.winonly.checked)	
+		{form3.enable.value = "1";	
+		if((videomode=="51")||(videomode=="52")||(videomode=="53")||(videomode=="54"))
+		{form3.w.value = 1280;
+		 form3.h.value = 960;}
+		 else if((videomode=="20")||(videomode=="17"))
+			 {if(vinorm=="P") {form3.w.value = 1280;form3.h.value = 960;}
+			 else {form3.w.value = 1280;form3.h.value = 720;}
+			 }
+		else
+	  	{form3.w.value = 1280;
+		 form3.h.value = 720;}
+		
+		
+		
+		form3.x.value = 0;
+		form3.y.value = 0;
+		form3.chn.value = 1;
+		form3.name.value = 1;
+		
+		form3.enable1.value = "0";
+		form3.chn1.value = 1;
+		form3.name1.value = 2;
+		
+		form3.enable2.value = "0";
+		form3.chn2.value = 1;
+		form3.name2.value = 3;
+		
+		form3.enable3.value = "0";
+		form3.chn3.value = 1;
+		form3.name3.value = 4;}
+	else
+		{form3.enable.value = "0";
+		form3.w.value = m1_w;
+		form3.h.value = m1_h;
+		form3.x.value = m1_x;
+		form3.y.value = m1_y;
+		form3.chn.value = 1;
+		form3.name.value = 1;
+		
+		form3.enable1.value = "0";
+		form3.chn1.value = 1;
+		form3.name1.value = 2;
+		
+		form3.enable2.value = "0";
+		form3.chn2.value = 1;
+		form3.name2.value = 3;
+		
+		form3.enable3.value = "0";
+		form3.chn3.value = 1;
+		form3.name3.value = 4;
+		}
+
+
+		
+
+		form3.chn.name="-chn";
+		form3.enable.name="-enable";
+		form3.s.name="-s";
+		form3.t.name="-t";
+		form3.name.name="-name";
+		form3.x.name="-x";
+		form3.y.name="-y";
+		form3.w.name="-w";
+		form3.h.name="-h";	
+		
+		form3.chn1.name="-chn";
+		form3.enable1.name="-enable";
+		form3.name1.name="-name";	
+		
+		form3.chn2.name="-chn";
+		form3.enable2.name="-enable";
+		form3.name2.name="-name";	
+		
+		form3.chn3.name="-chn";
+		form3.enable3.name="-enable";
+		form3.name3.name="-name";		
+				
+
+	form3.action="cgi-bin/hi3510/param.cgi";
+	form3.submit();					
+}
+
+function call_me()
+{
+	return;
+}
+
+</script>
+<!-- End Preload Script -->
+<link rel="stylesheet" type="text/css" href="debug.css" media="all" />
+<style type="text/css">
+<!--
+.style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.style2 {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style5 {font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style6 {color: #990000}
+.style7 {
+
+     background-color:#bbbbaa;
+}
+.style51 {font-size: 12px;
+	color: #000000;
+	font-family: Arial, Helvetica, sans-serif;
+}
+-->
+</style>
+</head>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="on_load();" onscroll="flush()">
+        <form name="form1">
+        <table width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5" id="yesIE">
+			<tr><td colspan="6" style="font-size:24px" class="style6"><strong><script>document.write(str_motion_alarm)</script></strong></td></tr></tr>
+            <tr>
+              <td align="left" name="player11" id="player11" colspan="6">
+			  <SCRIPT type=text/JavaScript>			  			  			  
+			   if (navigator.appName.indexOf("Microsoft Internet Explorer") != -1)
+			{
+              document.open();
+              document.write('<object classid="clsid:42B182F9-3F08-484E-9913-07193A5D36A6" codebase="ENWebClientPlus.ocx#version=3,0,2,0" id="DHiMPlayer"  align="absbottom" >');
+			  document.write('<param name="_Version" value="65536"> <param name="_ExtentX" value="8890"> <param name="_ExtentY" value="7461">');
+			  document.write('<param name="_StockProps" value="0">');
+	 		  document.write('<embed src="65536"  align="middle" _version="65536" width="0" height="0" _extentx="10954" _extenty="6826" _stockprops="0"> </object>');
+			  document.close();
+			  }
+			  else
+			{ 
+			
+			}
+			  
+			  
+				</SCRIPT>
+              </td>            	
+            <tr>
+              <td width=197 align="left" id="mymd">
+              	<input type="checkbox" name="win1" value="ON" onClick="winchk(0)"> 
+			  <script>document.write(str_window)</script>1</td>            	
+              <td width=197 align="left" id="mymd">
+              	<input type="checkbox" name="win2" value="ON" onClick="winchk(1)"> 
+			  <script>document.write(str_window)</script>2</td>            	
+              <td width=197 align="left" id="mymd">
+              	<input type="checkbox" name="win3" value="ON" onClick="winchk(2)"> 
+			  <script>document.write(str_window)</script>3</td>            	
+              <td width=197 align="left" id="mymd">
+              	<input type="checkbox" name="win4" value="ON" onClick="winchk(3)"> 
+			  <script>document.write(str_window)</script>4</td>            	
+              <td width=156 align="center" id="mymd" rowspan="5"><button onClick="do_submit()" type="button"><script>document.write(str_sure)</script></button></td>            	
+            </tr>            	
+            <tr>
+              <td align="left" id="mymd" height="20">
+           	  <script>document.write(str_alert54)</script></td>            	
+              <td align="left" id="mymd" height="20">
+           	  <script>document.write(str_alert54)</script></td>            	
+              <td align="left" id="mymd" height="20">
+           	  <script>document.write(str_alert54)</script></td>            	
+              <td align="left" id="mymd" height="20">
+           	  <script>document.write(str_alert54)</script></td>            	
+            </tr>            	
+            <tr>
+              <td align="left" id="mymd">
+              	    <script language="JavaScript">		
+	var A_TPL = {
+		'b_vertical' : false,
+		'b_watch': true,
+		'n_controlWidth': 130,
+		'n_controlHeight': 22,
+		'n_sliderWidth': 13,
+		'n_sliderHeight': 9,
+		'n_pathLeft' : 0,
+		'n_pathTop' : 7,
+		'n_pathLength' : 117,
+		's_imgControl': 'images/guidao.jpg',
+		's_imgSlider': 'images/huadongtiao.jpg',
+		'n_zIndex': 1
+	}
+	var A_INIT = {
+		's_form' : 0,
+		's_name': 'sens1text',
+		'n_minValue' : 1,
+		'n_maxValue' : 100,
+		'n_value' : Number(m1_sensitivity),
+		'n_step' : 1
+	}
+
+	new slider(A_INIT, A_TPL, call_me);
+</script>              
+           	  　</td>            	
+              <td align="left" id="mymd">
+              	    <script language="JavaScript">		
+	var A_TPL = {
+		'b_vertical' : false,
+		'b_watch': true,
+		'n_controlWidth': 130,
+		'n_controlHeight': 22,
+		'n_sliderWidth': 13,
+		'n_sliderHeight': 9,
+		'n_pathLeft' : 0,
+		'n_pathTop' : 7,
+		'n_pathLength' : 117,
+		's_imgControl': 'images/guidao.jpg',
+		's_imgSlider': 'images/huadongtiao.jpg',
+		'n_zIndex': 1
+	}
+	var A_INIT = {
+		's_form' : 0,
+		's_name': 'sens2text',
+		'n_minValue' : 1,
+		'n_maxValue' : 100,
+		'n_value' : Number(m2_sensitivity),
+		'n_step' : 1
+	}
+
+	new slider(A_INIT, A_TPL, call_me);
+</script>              	　
+           	  </td>            	
+              <td align="left" id="mymd">
+              	    <script language="JavaScript">		
+	var A_TPL = {
+		'b_vertical' : false,
+		'b_watch': true,
+		'n_controlWidth': 130,
+		'n_controlHeight': 22,
+		'n_sliderWidth': 13,
+		'n_sliderHeight': 9,
+		'n_pathLeft' : 0,
+		'n_pathTop' : 7,
+		'n_pathLength' : 117,
+		's_imgControl': 'images/guidao.jpg',
+		's_imgSlider': 'images/huadongtiao.jpg',
+		'n_zIndex': 1
+	}
+	var A_INIT = {
+		's_form' : 0,
+		's_name': 'sens3text',
+		'n_minValue' : 1,
+		'n_maxValue' : 100,
+		'n_value' : Number(m3_sensitivity),
+		'n_step' : 1
+	}
+
+	new slider(A_INIT, A_TPL, call_me);
+</script>              	　
+           	  </td>            	
+              <td align="left" id="mymd">
+              	    <script language="JavaScript">		
+	var A_TPL = {
+		'b_vertical' : false,
+		'b_watch': true,
+		'n_controlWidth': 130,
+		'n_controlHeight': 22,
+		'n_sliderWidth': 13,
+		'n_sliderHeight': 9,
+		'n_pathLeft' : 0,
+		'n_pathTop' : 7,
+		'n_pathLength' : 117,
+		's_imgControl': 'images/guidao.jpg',
+		's_imgSlider': 'images/huadongtiao.jpg',
+		'n_zIndex': 1
+	}
+	var A_INIT = {
+		's_form' : 0,
+		's_name': 'sens4text',
+		'n_minValue' : 1,
+		'n_maxValue' : 100,
+		'n_value' : Number(m4_sensitivity),
+		'n_step' : 1
+	}
+
+	new slider(A_INIT, A_TPL, call_me);
+</script>              
+           	  　</td>            	
+            </tr>            	
+            <tr>
+              <td align="left" id="mymd">
+           	  <input type="text" name="sens1text" size="2" value="0" maxlength="2" readOnly="readonly"></td>            	
+              <td align="left" id="mymd">
+           	  <input type="text" name="sens2text" size="2" value="0" maxlength="2" readOnly="readonly"></td>            	
+              <td align="left" id="mymd">
+           	  <input type="text" name="sens3text" size="2" value="0" maxlength="2" readOnly="readonly"></td>            	
+              <td align="left" id="mymd">
+           	  <input type="text" name="sens4text" size="2" value="0" maxlength="2" readOnly="readonly"></td>            	
+            </tr>            	
+            <tr>
+              <td align="center" id="mymd">
+           	  　</td>            	
+              <td align="center" id="mymd">
+           	  　</td>            	
+              <td align="center" id="mymd">
+           	  　</td>            	
+              <td align="center" id="mymd">
+           	  　</td>            	
+            </tr>            	
+          </table>
+		  <br>
+		  <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" class="style51" id="noIE">
+		  <tr><td colspan="6" style="font-size:24px" class="style6"><strong><script>document.write(str_motion_alarm)</script></strong></td></tr></tr>
+            <tr>
+              <td align="left" id="mymd">&nbsp;</td>
+              <td align="left" id="mymd">&nbsp;</td>
+            <tr>
+              <td width=202 align="left" id="mymd"><input type="checkbox" name="winonly" value="ON" onClick="winchkonly()">
+                  <script>document.write(str_window);</script>1</td>
+              <td width=444 align="left" id="mymd">&nbsp;</td>
+            <tr>
+              <td width=202 align="left" id="mymd" height="33"><script>document.write(str_alert54);</script></td>
+              <td width=444 align="left" id="mymd">&nbsp;</td>
+            <tr>
+              <td width=202 align="left" id="mymd"><script language="JavaScript">		
+	var A_TPL = {
+		'b_vertical' : false,
+		'b_watch': true,
+		'n_controlWidth': 130,
+		'n_controlHeight': 22,
+		'n_sliderWidth': 13,
+		'n_sliderHeight': 9,
+		'n_pathLeft' : 0,
+		'n_pathTop' : 7,
+		'n_pathLength' : 117,
+		's_imgControl': 'images/guidao.jpg',
+		's_imgSlider': 'images/huadongtiao.jpg',
+		'n_zIndex': 1
+	}
+	var A_INIT = {
+		's_form' : 0,
+		's_name': 'sensonly',
+		'n_minValue' : 1,
+		'n_maxValue' : 100,
+		'n_value' : Number(m1_sensitivity),
+		'n_step' : 1
+	}
+
+	new slider(A_INIT, A_TPL, call_me);
+          </script>              </td></tr>
+              <td width=202 ></td>
+            <tr>
+              <td width=202 align="left" id="mymd"><input type="text" name="sensonly" size="2" value="0" maxlength="2" readonly="readonly"></td>
+              <td width=444 align="left" id="mymd"><div align="left">
+                  <button type="button" onClick="do_submit1()">
+                  <script>document.write(str_sure);</script>
+                  </button>
+              </div></td>
+            <tr>
+              <td rowspan="6"></td>
+              <td rowspan="6"></td>
+          </table>
+        </form>
+  <form name="form2" method="post">
+  <input name="cmd" type="hidden" value="setmdattr">
+  <input name="cururl" type="hidden">
+  <input name="name0" type="hidden">
+  <input name="x0" type="hidden">
+  <input name="y0" type="hidden">
+  <input name="w0" type="hidden">
+  <input name="h0" type="hidden">
+  <input name="s0" type="hidden">
+  <input name="t0" type="hidden">
+  <input name="enable0" type="hidden">
+  <input name="chn0" type="hidden">
+  <input name="cmd" type="hidden" value="setmdattr">
+  <input name="name1" type="hidden">
+  <input name="x1" type="hidden">
+  <input name="y1" type="hidden">
+  <input name="w1" type="hidden">
+  <input name="h1" type="hidden">
+  <input name="s1" type="hidden">
+  <input name="t1" type="hidden">
+  <input name="enable1" type="hidden">
+  <input name="chn1" type="hidden">
+  <input name="cmd" type="hidden" value="setmdattr">
+  <input name="name2" type="hidden">
+  <input name="x2" type="hidden">
+  <input name="y2" type="hidden">
+  <input name="w2" type="hidden">
+  <input name="h2" type="hidden">
+  <input name="s2" type="hidden">
+  <input name="t2" type="hidden">
+  <input name="enable2" type="hidden">
+  <input name="chn2" type="hidden">
+  <input name="cmd" type="hidden" value="setmdattr">
+  <input name="name3" type="hidden">
+  <input name="x3" type="hidden">
+  <input name="y3" type="hidden">
+  <input name="w3" type="hidden">
+  <input name="h3" type="hidden">
+  <input name="s3" type="hidden">
+  <input name="t3" type="hidden">
+  <input name="enable3" type="hidden">
+  <input name="chn3" type="hidden">
+  </form>
+  
+  <form name="form3" method="post">
+  <input name="cmd" type="hidden" value="setmdattr">
+  <input name="cururl" type="hidden">
+  <input name="name" type="hidden">
+  <input name="x" type="hidden">
+  <input name="y" type="hidden">
+  <input name="w" type="hidden">
+  <input name="h" type="hidden">
+  <input name="s" type="hidden">
+  <input name="t" type="hidden">
+  <input name="enable" type="hidden">
+  <input name="chn" type="hidden">
+  
+   <input name="cmd" type="hidden" value="setmdattr">
+  <input name="name1" type="hidden">
+  <input name="enable1" type="hidden">
+  <input name="chn1" type="hidden">
+  
+   <input name="cmd" type="hidden" value="setmdattr">
+  <input name="name2" type="hidden">
+  <input name="enable2" type="hidden">
+  <input name="chn2" type="hidden">
+  
+   <input name="cmd" type="hidden" value="setmdattr">
+  <input name="name3" type="hidden">
+  <input name="enable3" type="hidden">
+  <input name="chn3" type="hidden">
+  </form>
+<script>
+function flush()
+{
+	form1.DHiMPlayer.InvalidateWnd();
+}
+</script>
+<!-- ImageReady Slices (ipCAM.psd - Slices: 02, 05, 06, 08, 09, 11, 12, 13, 15, 21, 22, 28, 30, 35, 36, 39, 42, 46, 50, 53) -->
+<!-- End ImageReady Slices -->
+</body>
+</html>

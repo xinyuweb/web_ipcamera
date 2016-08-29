@@ -1,0 +1,185 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+
+  <title>ipCAM</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
+
+  <meta http-equiv="Pragma" content="no-cache">
+
+
+  <meta http-equiv="Cache-Control" content="no-cache">
+	
+
+  <meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT">
+<!-- ImageReady Preload Script (ipCAM.psd) --> 
+
+<script src="public.js"></script>
+
+  <script language="JavaScript1.2" src="cgi-bin/hi3510/param.cgi?cmd=getftpattr" type="text/javascript"></script>
+ <script src="lib/ftp.js"></script>
+  <script type="text/javascript">
+function on_load()
+{
+	load_form_ftserver();
+	load_form_ftport();
+	load_form_ftusername();
+	load_form_ftpassword();
+	load_form_ftmode();
+	load_form_ftpath();
+}
+
+	
+function do_submit()
+{
+	var s = document.getElementById("form_submit");
+	
+    if (!check_form_ftserver())
+		return false;
+	if (!check_form_ftport())
+		return false;
+	if (!check_form_ftusername())
+		return false;
+	if (!check_form_ftpassword())
+		return false; 
+	if (!check_form_ftpath())
+	    return false; 
+
+	submit_form_ftserver();
+	submit_form_ftport();
+	submit_form_ftusername();
+	submit_form_ftpassword();
+	submit_form_ftmode();
+	submit_form_ftpath();
+
+	s.cururl.value = document.URL;
+	s.action = "cgi-bin/hi3510/param.cgi";
+	s.submit();
+}
+
+
+
+  </script>
+
+  <style type="text/css">
+<!--
+.style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.style2 {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style5 {font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style6 {color: #810000}
+-->
+  </style>
+</head>
+
+<body leftmargin="0" topmargin="0" onLoad="on_load();" marginheight="0" marginwidth="0">
+
+      <table width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5">
+
+         		 
+                <tbody>
+                        <tr>
+				<td colspan="2" style="font-size:24px" class="style6"><strong><script>document.write(str_ftp)</script></strong></td>
+                </tr>
+
+                <tr>
+                  <td align="left" bgcolor="#CCCCCC" colspan="2"><strong><span class="style6"><script>document.write(str_ftp_set)</script></span></strong>                </tr>
+                 <tr>                  </tr>
+
+                <tr id="layer0">
+
+                  <td width="220" align="left">
+                  <script>document.write(str_server1)</script> </td>
+
+                  <td align="left"><input id="form_ftserver" maxlength="64" size="22" type="text"> </td>
+                  </tr>
+
+                  <tr id="layer1" align="left">
+
+                  <td><script>document.write(str_port2)</script></td>
+
+                  <td><input id="form_ftport" maxlength="6" size="22" type="text"></td>
+                </tr>
+
+                <tr id="layer2">
+
+                  <td align="left"><script>document.write(str_username)</script></td>
+
+                  <td align="left"><input id="form_ftusername" maxlength="64" size="22" type="text"></td>
+                  </tr>
+
+                <tr id="layer3" align="left">
+
+                  <td><script>document.write(str_password)</script></td>
+
+                  <td><input id="form_ftpassword" maxlength="64" size="22" type="password"></td>
+                </tr>
+
+                <tr id="layer5" align="left">
+
+                  <td><script>document.write(str_ftppath)</script></td>
+
+                  <td><input id="form_ftpath" maxlength="64" size="22" type="text"></td>
+                </tr>
+
+
+                <tr id="layer4" align="left">
+
+                	<td><script>document.write(str_passive_mode)</script></td>
+
+                  <td>
+                  	<input id="form_ftmode1" name="moderadio" value="radiobutton" type="radio">
+					<script>document.write(str_start_up)</script>
+                        <input id="form_ftmode0" name="moderadio" value="radiobutton" type="radio">
+					<script>document.write(str_close1)</script></td>
+                  </tr>
+                <tr id="layer4" align="left">
+                  <td>&nbsp;</td>
+                  <td><BUTTON onClick="window.open('test_ftp.html','test_ftp','height=150,width=400,top=200,left=300,toolbar=no,menubar=no,scrollbars=yes,location=no,status=no')"> <script>document.write(str_btn_test); </script></BUTTON>
+	&nbsp;&nbsp;&nbsp;<script>document.write(str_note_testtitle); </script></td>
+                </tr>             
+        </tbody>
+   </table>
+ 
+                  <table align="center" border="0" cellpadding="0" cellspacing="3" width="95%">
+                  <tbody>
+                      <tr>
+					  <td width="220"></td>
+                    <td width="80"><button onClick="do_submit()"><script>document.write(str_sure)</script></button></td>
+                    <td align="left"><button onClick="javascript:location.reload(true)"><script>document.write(str_refresh)</script></button></td>
+                   </tr>            
+                    </tbody>
+</table>
+                  </td>
+          </tr>
+              </tbody>
+            </table>
+            <form id="form_submit" method="post">
+	<input name="cmd" type="hidden" value="setftpattr">
+	<input name="cururl" type="hidden">
+	<input name="ft_server" type="hidden">
+	<input name="ft_port" type="hidden">
+	<input name="ft_username" type="hidden">
+	<input name="ft_password" type="hidden">
+	<input name="ft_mode" type="hidden">
+	<input name="ft_dirname" type="hidden">
+</form>
+
+        	<!--
+	<input name="cmd" type="hidden" value="setddnsattr">
+	-->
+          
+<!-- ImageReady Slices (ipCAM.psd - Slices: 02, 05, 06, 08, 09, 11, 12, 13, 15, 21, 22, 28, 30, 35, 36, 39, 42, 46, 50, 53) -->
+<!-- End ImageReady Slices -->
+</body>
+</html>

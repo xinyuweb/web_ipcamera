@@ -1,0 +1,1663 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<title>ipCAM</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+<META http-equiv="Pragma" CONTENT="no-cache">
+
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+
+<meta HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"> 
+<!-- ImageReady Preload Script (ipCAM.psd) -->
+<script src="public.js"></script>
+<script src="lib/prototype.js" type="text/javascript"></script>	
+<script src="lib/scriptaculous.js?load=builder,dragdrop" type="text/javascript"></script>
+<script src="cropper.js" type="text/javascript"></script>
+<SCRIPT language=JavaScript src="slider.js"></SCRIPT>
+<script src="resources/AC_RunActiveContent.js" language="javascript"></script>
+<script language="JavaScript1.2" src="cgi-bin/hi3510/param.cgi?cmd=getvideoattr&cmd=getmdattr&cmd=getsetupflag&cmd=getaudioflag&cmd=getvideoattr&cmd=getircutattr&cmd=getinfrared&cmd=getrtmpattr&cmd=getimageattr&cmd=getimagemaxsize&cmd=getserverinfo" type="text/javascript"></script>
+<script type="text/javascript" src="jquery-2.2.1.js"></script>
+<script type="text/javascript" src="Drag.js"></script>
+<script type="text/javascript">
+<!--
+
+<!--
+var f3w=f3h=f3x=f3y=0;
+var init_x1, init_y1, init_x2, init_y2, wid, hei;
+
+
+//showarea();
+
+function showarea()
+{
+/*
+	init_x1=10;
+	init_y1=10;
+	init_x2=250;
+	init_y2=200;
+*/			
+		// setup the callback function
+		function onEndCrop( coords, dimensions ) {
+			init_x1= coords.x1;
+			init_y1 = coords.y1;
+			init_x2 = coords.x2;
+			init_y2 = coords.y2;
+			wid = dimensions.width;
+			hei = dimensions.height;
+		}
+		
+		//alert("showarea");
+		// basic example
+		Event.observe( 
+			window, 
+			'load', 
+			function() { 
+				new Cropper.Img( 
+					'rimg12',
+					{
+						onEndCrop: onEndCrop,
+						displayOnInit: true,
+						onloadCoords: { x1: init_x1, y1: init_y1, x2: init_x2, y2: init_y2 }
+					}
+				) 
+			}
+		); 		
+		
+		
+		if( typeof(dump) != 'function' ) {
+			Debug.init(true, '/');
+			
+			function dump( msg ) {
+				Debug.raise( msg );
+			};
+		} else dump( '---------------------------------------\n' );	
+}
+
+function newImage(arg) {
+	if (document.images) {
+		rslt = new Image();
+		rslt.src = arg;
+		return rslt;
+	}
+}
+
+function changeImages() {
+	if (document.images && (preloadFlag == true)) {
+		for (var i=0; i<changeImages.arguments.length; i+=2) {
+			document[changeImages.arguments[i]].src = changeImages.arguments[i+1];
+		}
+	}
+}
+
+var preloadFlag = false;
+function preloadImages() {
+	if (document.images) {
+		index_08_Over = newImage("images/index_08-Over.gif");
+		index_09_Over = newImage("images/index_09-Over.gif");
+		index_11_Over = newImage("images/index_11-Over.gif");
+		index_12_Over = newImage("images/index_12-Over.gif");
+		index_13_Over = newImage("images/index_13-Over.gif");
+		index_39_Over = newImage("images/index_39-Over.gif");
+		index_39_Down = newImage("images/index_39-Down.gif");
+		preloadFlag = true;
+	}
+}
+
+// -->
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+
+
+var img2345 = new Image();
+
+function update()
+{	
+	var imgObj = document.getElementById('rimg12');
+	
+	imgObj.src = img2345.src;
+	img2345.src = "/tmpfs/auto.jpg?" + (new Date()).getTime();
+}
+
+function takeError()
+{
+	img2345.src = "/tmpfs/auto.jpg?" + (new Date()).getTime();
+}
+
+function startonload()
+{
+	img2345.src = "/tmpfs/auto.jpg?" + (new Date()).getTime();
+	img2345.onerror=takeError;
+	img2345.onload=update;
+}
+
+function on_load()
+{
+ if (navigator.appName.indexOf("Microsoft Internet Explorer") != -1)
+    on_yesIE();
+	else
+	on_onIE();
+}
+
+function on_onIE()
+{
+//document.getElementById("yesIE").style.display = "none";
+
+form1.sensonly.value=Number(m1_sensitivity);
+
+if (m1_enable == "1")
+    		{
+    			form1.winonly.checked=true;
+    		}
+}
+
+function on_yesIE()
+{
+document.getElementById("noIE").style.display = "none";
+	
+	
+			var ip=document.location.host;
+			var url = "http://"+ip;
+			form1.DHiMPlayer.SetUrl(url,80,11,name0,password0);
+			if((videomode=="51")||(videomode=="52")||(videomode=="53")||(videomode=="54"))
+			{form1.DHiMPlayer.SetWndPos(0, 0, 800, 600);}
+		    else if((videomode=="20")||(videomode=="17"))
+			 {if(vinorm=="P") {form1.DHiMPlayer.SetWndPos(0, 0, 800, 600);}
+			 else {form1.DHiMPlayer.SetWndPos(0, 0, 960, 540);}
+			 }
+			else 
+			{form1.DHiMPlayer.SetWndPos(0, 0, 960, 540);}
+    		form1.DHiMPlayer.play();
+    		form1.DHiMPlayer.OpenMdSetPage(1);
+    		if (m1_enable == "1")
+    		{
+    			form1.win1.checked=true;
+    		}
+    		form1.DHiMPlayer.EnablePic(0, m1_enable, m1_w, m1_h, m1_x, m1_y);
+    		if (m2_enable == "1")
+    		{
+    			form1.win2.checked=true;
+    		}
+    		form1.DHiMPlayer.EnablePic(1, m2_enable, m2_w, m2_h, m2_x, m2_y);
+    		if (m3_enable == "1")
+    		{
+    			form1.win3.checked=true;
+    		}
+    		form1.DHiMPlayer.EnablePic(2, m3_enable, m3_w, m3_h, m3_x, m3_y);
+    		if (m4_enable == "1")
+    		{
+    			form1.win4.checked=true; 
+    		}
+    		form1.DHiMPlayer.EnablePic(3, m4_enable, m4_w, m4_h, m4_x, m4_y);
+			   			   			
+    		form1.sens1text.value=Number(m1_sensitivity);
+    		form1.sens2text.value=Number(m2_sensitivity);
+    		form1.sens3text.value=Number(m3_sensitivity);
+    		form1.sens4text.value=Number(m4_sensitivity);
+	
+  		
+	}
+
+function winchk(n)
+{
+	if (n == 0)
+	{
+		if (form1.win1.checked == true)
+			form1.DHiMPlayer.EnablePic(n, 1, m1_w, m1_h, m1_x, m1_y);
+		else
+			form1.DHiMPlayer.EnablePic(n, 0, m1_w, m1_h, m1_x, m1_y);
+	}			
+	else if (n == 1)
+	{
+		if (form1.win2.checked == true)
+			form1.DHiMPlayer.EnablePic(n, 1, m2_w, m2_h, m2_x, m2_y);
+		else
+			form1.DHiMPlayer.EnablePic(n, 0, m2_w, m2_h, m2_x, m2_y);
+	}
+	else if (n == 2)
+	{
+		if (form1.win3.checked == true)
+			form1.DHiMPlayer.EnablePic(n, 1, m3_w, m3_h, m3_x, m3_y);
+		else
+			form1.DHiMPlayer.EnablePic(n, 0, m3_w, m3_h, m3_x, m3_y);
+	}
+	else if (n == 3)
+	{
+		if (form1.win4.checked == true)
+			form1.DHiMPlayer.EnablePic(n, 1, m4_w, m4_h, m4_x, m4_y);
+		else
+			form1.DHiMPlayer.EnablePic(n, 0, m4_w, m4_h, m4_x, m4_y);
+	}		
+}
+
+
+
+
+
+var queryParameters = new Array();
+var flashVars = "";
+var tag = "";
+var url1 = "";
+        
+
+function initialise() 
+{
+	
+
+	function getUrlParam( name )
+	{
+		  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+		  var regexS = "[\\?&]"+name+"=([^&#]*)";
+		  var regex = new RegExp( regexS );
+		  var results = regex.exec( window.location.href );
+		  if( results == null )
+				return "";
+		  else
+				return unescape( results[1] );
+	}
+	var ip=document.location.hostname;
+	var streamnum=11;
+	var rturl = "rtmp://"+ip+":"+rtmpport+"/flash/"+streamnum+":"+name0+":"+password0;
+
+	queryParameters['source'] = getUrlParam('source');
+	queryParameters['type'] = getUrlParam('type');
+	queryParameters['idx'] = getUrlParam('idx');
+
+	if( queryParameters['source'] == "" )
+		queryParameters['source'] = rturl;
+	
+	if( queryParameters['type'] == "" )
+		queryParameters['type'] = "live";
+		
+	if( queryParameters['idx'] == "" )
+		queryParameters['idx'] = "7";
+
+	flashVars += "&src=";
+	flashVars += queryParameters['source'];
+
+	flashVars += "&autoHideControlBar=";
+	flashVars += unescape("true");
+
+	flashVars += "&streamType=";
+	flashVars += queryParameters['type'];
+
+	flashVars += "&autoPlay=";
+	flashVars += unescape("true");
+
+	tag = "&lt;object width='640' height='377' id='StrobeMediaPlayback' name='StrobeMediaPlayback' type='application/x-shockwave-flash' classid='clsid:d27cdb6e-ae6d-11cf-96b8-444553540000' &gt;&lt;param name='movie' value='swfs/StrobeMediaPlayback.swf' /&gt; &lt;param name='quality' value='high' /&gt; &lt;param name='bgcolor' value='#000000' /&gt; &lt;param name='allowfullscreen' value='true' /&gt; &lt;param name='flashvars' value= '"+					
+	flashVars+"'/&gt;&lt;embed src='swfs/StrobeMediaPlayback.swf' width='400' height='300' id='StrobeMediaPlayback' quality='high' bgcolor='#000000' name='StrobeMediaPlayback' allowfullscreen='true' pluginspage='http://www.adobe.com/go/getflashplayer'   flashvars='"+ flashVars +"' type='application/x-shockwave-flash'&gt; &lt;/embed&gt;&lt;/object&gt;";
+
+	
+} 
+	
+	
+initialise();
+
+
+function do_submit()
+{
+	var i;
+	
+		form2.cururl.value = document.URL;
+	
+	form2.s0.value = Number(form1.sens1text.value) ;
+	form2.s1.value = Number(form1.sens2text.value) ;
+	form2.s2.value = Number(form1.sens3text.value) ;
+	form2.s3.value = Number(form1.sens4text.value) ;
+
+
+	form2.t0.value = m1_threshold;
+	form2.t1.value = m2_threshold;
+	form2.t2.value = m3_threshold;
+	form2.t3.value = m4_threshold;
+		
+
+	if (form1.win1.checked)	
+		form2.enable0.value = "1";
+	else
+		form2.enable0.value = "0";
+	if (form1.win2.checked)	
+		form2.enable1.value = "1";
+	else
+		form2.enable1.value = "0";
+	if (form1.win3.checked)	
+		form2.enable2.value = "1";
+	else
+		form2.enable2.value = "0";
+	if (form1.win4.checked)	
+		form2.enable3.value = "1";
+	else
+		form2.enable3.value = "0";
+
+
+
+		form2.w0.value = form1.DHiMPlayer.GetPic(0, 0);
+		form2.h0.value = form1.DHiMPlayer.GetPic(0, 1);
+		form2.x0.value = form1.DHiMPlayer.GetPic(0, 2);
+		form2.y0.value = form1.DHiMPlayer.GetPic(0, 3);
+		form2.chn0.value = 1;
+		form2.name0.value = 1;
+		
+		form2.w1.value = form1.DHiMPlayer.GetPic(1, 0);
+		form2.h1.value = form1.DHiMPlayer.GetPic(1, 1);
+		form2.x1.value = form1.DHiMPlayer.GetPic(1, 2);
+		form2.y1.value = form1.DHiMPlayer.GetPic(1, 3);
+		form2.chn1.value = 1;
+		form2.name1.value = 2;
+		
+		form2.w2.value = form1.DHiMPlayer.GetPic(2, 0);
+		form2.h2.value = form1.DHiMPlayer.GetPic(2, 1);
+		form2.x2.value = form1.DHiMPlayer.GetPic(2, 2);
+		form2.y2.value = form1.DHiMPlayer.GetPic(2, 3);
+		form2.chn2.value = 1;
+		form2.name2.value = 3;
+		
+		form2.w3.value = form1.DHiMPlayer.GetPic(3, 0);
+		form2.h3.value = form1.DHiMPlayer.GetPic(3, 1);
+		form2.x3.value = form1.DHiMPlayer.GetPic(3, 2);
+		form2.y3.value = form1.DHiMPlayer.GetPic(3, 3);
+		form2.chn3.value = 1;
+		form2.name3.value = 4;
+		
+
+		form2.chn0.name="-chn";
+		form2.enable0.name="-enable";
+		form2.s0.name="-s";
+		form2.t0.name="-t";
+		form2.name0.name="-name";
+		form2.x0.name="-x";
+		form2.y0.name="-y";
+		form2.w0.name="-w";
+		form2.h0.name="-h";	
+		
+		form2.chn1.name="-chn";
+		form2.enable1.name="-enable";
+		form2.s1.name="-s";
+		form2.t1.name="-t";
+		form2.name1.name="-name";
+		form2.x1.name="-x";
+		form2.y1.name="-y";
+		form2.w1.name="-w";
+		form2.h1.name="-h";	
+		
+		form2.chn2.name="-chn";
+		form2.enable2.name="-enable";
+		form2.s2.name="-s";
+		form2.t2.name="-t";
+		form2.name2.name="-name";
+		form2.x2.name="-x";
+		form2.y2.name="-y";
+		form2.w2.name="-w";
+		form2.h2.name="-h";	
+		
+		form2.chn3.name="-chn";
+		form2.enable3.name="-enable";
+		form2.s3.name="-s";
+		form2.t3.name="-t";
+		form2.name3.name="-name";
+		form2.x3.name="-x";
+		form2.y3.name="-y";
+		form2.w3.name="-w";
+		form2.h3.name="-h";	
+
+	form2.action="cgi-bin/hi3510/param.cgi";
+	form2.submit();					
+}
+
+function do_submit1()
+{
+	var i;
+	
+	form3.cururl.value = document.URL;
+	
+	form3.s.value = Number(form1.sensonly.value) ;
+
+	form3.t.value = m1_threshold;		
+
+	if (form1.winonly.checked)	 {
+		
+		
+		form3.enable.value = "1";	
+		/*
+		if((videomode=="51")||(videomode=="52")||(videomode=="53")||(videomode=="54"))
+		{form3.w.value = 1280;
+		 form3.h.value = 960;}
+		 else if((videomode=="20")||(videomode=="17"))
+			 {if(vinorm=="P") {form3.w.value = 1280;form3.h.value = 960;}
+			 else {form3.w.value = 1280;form3.h.value = 720;}
+			 }
+		else
+	  	{
+			
+		 form3.w.value = f3w;
+		 form3.h.value = f3h;
+		}*/
+		
+		var oft = $('#dragDiv').position();
+		
+		
+		form3.w.value = parseInt($('#dragDiv').width())   * 2;
+		form3.h.value = parseInt($('#dragDiv').height())  * 2;
+		 
+		form3.x.value = oft.left  * 2;
+		form3.y.value = oft.top   * 2;
+		
+		
+		form3.chn.value = 1;
+		form3.name.value = 1;
+		
+		form3.enable1.value = "0";
+		form3.chn1.value = 1;
+		form3.name1.value = 2;
+		
+		form3.enable2.value = "0";
+		form3.chn2.value = 1;
+		form3.name2.value = 3;
+		
+		form3.enable3.value = "0";
+		form3.chn3.value = 1;
+		form3.name3.value = 4;}
+	else
+		{
+			form3.enable.value = "0";
+			form3.w.value = m1_w;
+			form3.h.value = m1_h;
+			form3.x.value = m1_x;
+			form3.y.value = m1_y;
+			form3.chn.value = 1;
+			form3.name.value = 1;
+			
+			form3.enable1.value = "0";
+			form3.chn1.value = 1;
+			form3.name1.value = 2;
+			
+			form3.enable2.value = "0";
+			form3.chn2.value = 1;
+			form3.name2.value = 3;
+			
+			form3.enable3.value = "0";
+			form3.chn3.value = 1;
+			form3.name3.value = 4;
+		}
+
+
+		
+
+		form3.chn.name="-chn";
+		form3.enable.name="-enable";
+		form3.s.name="-s";
+		form3.t.name="-t";
+		form3.name.name="-name";
+		form3.x.name="-x";
+		form3.y.name="-y";
+		form3.w.name="-w";
+		form3.h.name="-h";	
+		
+		form3.chn1.name="-chn";
+		form3.enable1.name="-enable";
+		form3.name1.name="-name";	
+		
+		form3.chn2.name="-chn";
+		form3.enable2.name="-enable";
+		form3.name2.name="-name";	
+		
+		form3.chn3.name="-chn";
+		form3.enable3.name="-enable";
+		form3.name3.name="-name";		
+				
+
+	form3.action="cgi-bin/hi3510/param.cgi";
+	form3.submit();					
+}
+
+function call_me()
+{
+	return;
+}
+
+
+
+
+</script>
+<!-- End Preload Script -->
+<style type="text/css">
+<!--
+.style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.style2 {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style5 {font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style6 {color: #990000}
+.style7 {
+
+     background-color:#bbbbaa;
+}
+.style51 {font-size: 12px;
+	color: #000000;
+	font-family: Arial, Helvetica, sans-serif;
+}
+-->
+</style>
+</head>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="on_load();" onscroll="flush()">
+        <form name="form1">
+        <table width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5" style="display:none;" id="yesIE">
+			<tr><td colspan="6" style="font-size:24px" class="style6"><strong><script>document.write(str_motion_alarm)</script></strong></td></tr></tr>
+            <tr>
+              <td align="left" name="player11" id="player11" colspan="6">
+			  <SCRIPT type=text/JavaScript>			  			  			  
+			   if (navigator.appName.indexOf("Microsoft Internet Explorer") != -1)
+			{
+              document.open();
+              document.write('<object classid="clsid:42B182F9-3F08-484E-9913-07193A5D36A6" codebase="ENWebClientPlus.ocx#version=3,0,2,0" id="DHiMPlayer"  align="absbottom" >');
+			  document.write('<param name="_Version" value="65536"> <param name="_ExtentX" value="8890"> <param name="_ExtentY" value="7461">');
+			  document.write('<param name="_StockProps" value="0">');
+	 		  document.write('<embed src="65536"  align="middle" _version="65536" width="0" height="0" _extentx="10954" _extenty="6826" _stockprops="0"> </object>');
+			  document.close();
+			  }
+			  else
+			{ 
+				var hasRequestedVersion = DetectFlashVer(10, 0, 0);
+
+				if(!hasRequestedVersion)
+				{
+					var div = document.getElementById("ipcam_display");
+					div.innerHTML = '<a href="http://www.adobe.com/go/getflashplayer/" style="color:black"><img src="ERROR_getFlashPlayer.gif" width="641" height="377" /></a>';
+	
+				}
+				else{
+					
+					  if((videomode=="51")||(videomode=="52")||(videomode=="53")||(videomode=="54")){w=800;h=600;}
+						else if((videomode=="20")||(videomode=="17"))
+						 {if(vinorm=="P") {w=800;h=600;}
+						 else {w=960;h=540;}
+						 }	
+						 else {w=960;h=540;}
+													
+							AC_FL_RunContent(
+								"src", "swfs/StrobeMediaPlayback",
+								"width", w,
+								"height", h,
+								"id", "StrobeMediaPlayback",
+								"quality", "high",
+								"bgcolor", "#000000",
+								"name", "StrobeMediaPlayback",
+								"allowfullscreen","true",
+								"type", "application/x-shockwave-flash",
+								"pluginspage", "http://www.adobe.com/go/getflashplayer",
+								"flashvars", flashVars 
+							);
+						
+					}
+			}
+			  
+			  
+				</SCRIPT>
+              </td>            	
+            <tr>
+              <td width=197 align="left" id="mymd">
+              	<input type="checkbox" name="win1" value="ON" onClick="winchk(0)"> 
+			  <script>document.write(str_window)</script>1</td>            	
+              <td width=197 align="left" id="mymd">
+              	<input type="checkbox" name="win2" value="ON" onClick="winchk(1)"> 
+			  <script>document.write(str_window)</script>2</td>            	
+              <td width=197 align="left" id="mymd">
+              	<input type="checkbox" name="win3" value="ON" onClick="winchk(2)"> 
+			  <script>document.write(str_window)</script>3</td>            	
+              <td width=197 align="left" id="mymd">
+              	<input type="checkbox" name="win4" value="ON" onClick="winchk(3)"> 
+			  <script>document.write(str_window)</script>4</td>            	
+              <td width=156 align="center" id="mymd" rowspan="5"><button onClick="do_submit()" type="button"><script>document.write(str_sure)</script></button></td>            	
+            </tr>            	
+            <tr>
+              <td align="left" id="mymd" height="20">
+           	  <script>document.write(str_alert54)</script></td>            	
+              <td align="left" id="mymd" height="20">
+           	  <script>document.write(str_alert54)</script></td>            	
+              <td align="left" id="mymd" height="20">
+           	  <script>document.write(str_alert54)</script></td>            	
+              <td align="left" id="mymd" height="20">
+           	  <script>document.write(str_alert54)</script></td>            	
+            </tr>            	
+            <tr>
+              <td align="left" id="mymd">
+              	    <script language="JavaScript">		
+	var A_TPL = {
+		'b_vertical' : false,
+		'b_watch': true,
+		'n_controlWidth': 130,
+		'n_controlHeight': 22,
+		'n_sliderWidth': 13,
+		'n_sliderHeight': 9,
+		'n_pathLeft' : 0,
+		'n_pathTop' : 7,
+		'n_pathLength' : 117,
+		's_imgControl': 'images/guidao.jpg',
+		's_imgSlider': 'images/huadongtiao.jpg',
+		'n_zIndex': 1
+	}
+	var A_INIT = {
+		's_form' : 0,
+		's_name': 'sens1text',
+		'n_minValue' : 1,
+		'n_maxValue' : 100,
+		'n_value' : Number(m1_sensitivity),
+		'n_step' : 1
+	}
+
+	new slider(A_INIT, A_TPL, call_me);
+</script>              
+           	  　</td>            	
+              <td align="left" id="mymd">
+              	    <script language="JavaScript">		
+	var A_TPL = {
+		'b_vertical' : false,
+		'b_watch': true,
+		'n_controlWidth': 130,
+		'n_controlHeight': 22,
+		'n_sliderWidth': 13,
+		'n_sliderHeight': 9,
+		'n_pathLeft' : 0,
+		'n_pathTop' : 7,
+		'n_pathLength' : 117,
+		's_imgControl': 'images/guidao.jpg',
+		's_imgSlider': 'images/huadongtiao.jpg',
+		'n_zIndex': 1
+	}
+	var A_INIT = {
+		's_form' : 0,
+		's_name': 'sens2text',
+		'n_minValue' : 1,
+		'n_maxValue' : 100,
+		'n_value' : Number(m2_sensitivity),
+		'n_step' : 1
+	}
+
+	new slider(A_INIT, A_TPL, call_me);
+</script>              	　
+           	  </td>            	
+              <td align="left" id="mymd">
+              	    <script language="JavaScript">		
+	var A_TPL = {
+		'b_vertical' : false,
+		'b_watch': true,
+		'n_controlWidth': 130,
+		'n_controlHeight': 22,
+		'n_sliderWidth': 13,
+		'n_sliderHeight': 9,
+		'n_pathLeft' : 0,
+		'n_pathTop' : 7,
+		'n_pathLength' : 117,
+		's_imgControl': 'images/guidao.jpg',
+		's_imgSlider': 'images/huadongtiao.jpg',
+		'n_zIndex': 1
+	}
+	var A_INIT = {
+		's_form' : 0,
+		's_name': 'sens3text',
+		'n_minValue' : 1,
+		'n_maxValue' : 100,
+		'n_value' : Number(m3_sensitivity),
+		'n_step' : 1
+	}
+
+	new slider(A_INIT, A_TPL, call_me);
+</script>              	　
+           	  </td>            	
+              <td align="left" id="mymd">
+              	    <script language="JavaScript">		
+	var A_TPL = {
+		'b_vertical' : false,
+		'b_watch': true,
+		'n_controlWidth': 130,
+		'n_controlHeight': 22,
+		'n_sliderWidth': 13,
+		'n_sliderHeight': 9,
+		'n_pathLeft' : 0,
+		'n_pathTop' : 7,
+		'n_pathLength' : 117,
+		's_imgControl': 'images/guidao.jpg',
+		's_imgSlider': 'images/huadongtiao.jpg',
+		'n_zIndex': 1
+	}
+	var A_INIT = {
+		's_form' : 0,
+		's_name': 'sens4text',
+		'n_minValue' : 1,
+		'n_maxValue' : 100,
+		'n_value' : Number(m4_sensitivity),
+		'n_step' : 1
+	}
+
+	new slider(A_INIT, A_TPL, call_me);
+</script>              
+           	  　</td>            	
+            </tr>            	
+            <tr>
+              <td align="left" id="mymd">
+           	  <input type="text" name="sens1text" size="2" value="0" maxlength="2" readOnly="readonly"></td>            	
+              <td align="left" id="mymd">
+           	  <input type="text" name="sens2text" size="2" value="0" maxlength="2" readOnly="readonly"></td>            	
+              <td align="left" id="mymd">
+           	  <input type="text" name="sens3text" size="2" value="0" maxlength="2" readOnly="readonly"></td>            	
+              <td align="left" id="mymd">
+           	  <input type="text" name="sens4text" size="2" value="0" maxlength="2" readOnly="readonly"></td>            	
+            </tr>            	
+            <tr>
+              <td align="center" id="mymd">
+           	  　</td>            	
+              <td align="center" id="mymd">
+           	  　</td>            	
+              <td align="center" id="mymd">
+           	  　</td>            	
+              <td align="center" id="mymd">
+           	  　</td>            	
+            </tr>            	
+          </table>
+		  <br>
+		  <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" class="style51" id="noIE">
+		  <tr><td colspan="6" style="font-size:24px" class="style6"><strong><script>document.write(str_motion_alarm)</script></strong></td></tr></tr>
+          
+          	
+            <tr>
+              <td align="left" colspan="6" style=" position:relative;">
+              
+                              
+                <style type="text/css">
+                #rRightDown,#rLeftDown,#rLeftUp,#rRightUp,#rRight,#rLeft,#rUp,#rDown{
+                    position:absolute;
+                    background:#C00;
+                    width:7px;
+                    height:7px;
+                    z-index:5;
+                    font-size:0;
+                }
+                
+                #rLeftDown,#rRightUp{cursor:ne-resize;}
+                #rRightDown,#rLeftUp{cursor:nw-resize;}
+                #rRight,#rLeft{cursor:e-resize;}
+                #rUp,#rDown{cursor:n-resize;}
+                
+                #rLeftDown{left:-4px;bottom:-4px;}
+                #rRightUp{right:-4px;top:-4px;}
+                #rRightDown{right:-4px;bottom:-4px;background-color:#00F;}
+                #rLeftUp{left:-4px;top:-4px;}
+                #rRight{right:-4px;top:50%;margin-top:-4px;}
+                #rLeft{left:-4px;top:50%;margin-top:-4px;}
+                #rUp{top:-4px;left:50%;margin-left:-4px;}
+                #rDown{bottom:-4px;left:50%;margin-left:-4px;}
+                
+                #bgDiv{ /*position:relative;*/ position:absolute; display:none;}
+                #dragDiv{border:1px solid #0FE207; width:100px; height:60px; top:50px; left:50px;}
+                </style>
+                <div id="bgDiv">
+                  <div id="dragDiv">
+                    <div id="rRightDown"> </div>
+                    <div id="rLeftDown"> </div>
+                    <div id="rRightUp"> </div>
+                    <div id="rLeftUp"> </div>
+                    <div id="rRight"> </div>
+                    <div id="rLeft"> </div>
+                    <div id="rUp"> </div>
+                    <div id="rDown"></div>
+                  </div>
+                </div> 
+              
+			  <SCRIPT type=text/JavaScript>			  			  			  
+			   if (navigator.appName.indexOf("Microsoft Internet Explorer") != -1)
+			{
+              document.open();
+              document.write('<object classid="clsid:42B182F9-3F08-484E-9913-07193A5D36A6" codebase="ENWebClientPlus.ocx#version=3,0,2,0" id="DHiMPlayer"  align="absbottom" >');
+			  document.write('<param name="_Version" value="65536"> <param name="_ExtentX" value="8890"> <param name="_ExtentY" value="7461">');
+			  document.write('<param name="_StockProps" value="0">');
+	 		  document.write('<embed src="65536"  align="middle" _version="65536" width="0" height="0" _extentx="10954" _extenty="6826" _stockprops="0"> </object>');
+			  document.close();
+			  }
+			  else
+			{ 
+				var hasRequestedVersion = DetectFlashVer(10, 0, 0);
+
+				if(!hasRequestedVersion)
+				{
+					var div = document.getElementById("ipcam_display");
+					div.innerHTML = '<a href="http://www.adobe.com/go/getflashplayer/" style="color:black"><img src="ERROR_getFlashPlayer.gif" width="641" height="377" /></a>';
+	
+				}
+				else{
+					   var w=640;
+					   var h=360;
+										
+							AC_FL_RunContent(
+								"src", "swfs/StrobeMediaPlayback",
+								"width", w,
+								"height", h,
+								"id", "StrobeMediaPlayback",
+								"quality", "high",
+								"bgcolor", "#000000",
+								"name", "StrobeMediaPlayback",
+								"allowfullscreen","true",
+								"type", "application/x-shockwave-flash",
+								"pluginspage", "http://www.adobe.com/go/getflashplayer",
+								"flashvars", flashVars 
+							);
+						
+					}
+			}
+			  
+			  
+				</SCRIPT>
+              </td>            	
+            <tr>
+            
+          
+            <tr>
+              <td align="left" id="mymd">&nbsp;</td>
+              <td align="left" id="mymd">&nbsp;</td>
+            <tr>
+              <td width=202 align="left" id="mymd"><input type="checkbox" name="winonly" id="winonly" value="ON" onClick="$.fn.winchkonly(this)">
+                  <script>document.write(str_window);</script>1</td>
+              <td width=444 align="left" id="mymd">&nbsp;</td>
+            <tr>
+              <td width=202 align="left" id="mymd" height="33"><script>document.write(str_alert54);</script></td>
+              <td width=444 align="left" id="mymd">&nbsp;</td>
+            <tr>
+              <td width=202 align="left" id="mymd"><script language="JavaScript">		
+	var A_TPL = {
+		'b_vertical' : false,
+		'b_watch': true,
+		'n_controlWidth': 130,
+		'n_controlHeight': 22,
+		'n_sliderWidth': 13,
+		'n_sliderHeight': 9,
+		'n_pathLeft' : 0,
+		'n_pathTop' : 7,
+		'n_pathLength' : 117,
+		's_imgControl': 'images/guidao.jpg',
+		's_imgSlider': 'images/huadongtiao.jpg',
+		'n_zIndex': 1
+	}
+	var A_INIT = {
+		's_form' : 0,
+		's_name': 'sensonly',
+		'n_minValue' : 1,
+		'n_maxValue' : 100,
+		'n_value' : Number(m1_sensitivity),
+		'n_step' : 1
+	}
+
+	new slider(A_INIT, A_TPL, call_me);
+          </script>              </td></tr>
+              <td width=202 ></td>
+            <tr>
+              <td width=202 align="left" id="mymd"><input type="text" name="sensonly" size="2" value="0" maxlength="2" readonly></td>
+              <td width=444 align="left" id="mymd"><div align="left">
+                  <button type="button" onClick="do_submit1()">
+                  <script>document.write(str_sure);</script>
+                  </button>
+              </div></td>
+            <tr>
+              <td rowspan="6"></td>
+              <td rowspan="6"></td>
+          </table>
+        </form>
+  <form name="form2" method="post">
+  <input name="cmd" type="hidden" value="setmdattr">
+  <input name="cururl" type="hidden">
+  <input name="name0" type="hidden">
+  <input name="x0" type="hidden">
+  <input name="y0" type="hidden">
+  <input name="w0" type="hidden">
+  <input name="h0" type="hidden">
+  <input name="s0" type="hidden">
+  <input name="t0" type="hidden">
+  <input name="enable0" type="hidden">
+  <input name="chn0" type="hidden">
+  <input name="cmd" type="hidden" value="setmdattr">
+  <input name="name1" type="hidden">
+  <input name="x1" type="hidden">
+  <input name="y1" type="hidden">
+  <input name="w1" type="hidden">
+  <input name="h1" type="hidden">
+  <input name="s1" type="hidden">
+  <input name="t1" type="hidden">
+  <input name="enable1" type="hidden">
+  <input name="chn1" type="hidden">
+  <input name="cmd" type="hidden" value="setmdattr">
+  <input name="name2" type="hidden">
+  <input name="x2" type="hidden">
+  <input name="y2" type="hidden">
+  <input name="w2" type="hidden">
+  <input name="h2" type="hidden">
+  <input name="s2" type="hidden">
+  <input name="t2" type="hidden">
+  <input name="enable2" type="hidden">
+  <input name="chn2" type="hidden">
+  <input name="cmd" type="hidden" value="setmdattr">
+  <input name="name3" type="hidden">
+  <input name="x3" type="hidden">
+  <input name="y3" type="hidden">
+  <input name="w3" type="hidden">
+  <input name="h3" type="hidden">
+  <input name="s3" type="hidden">
+  <input name="t3" type="hidden">
+  <input name="enable3" type="hidden">
+  <input name="chn3" type="hidden">
+  </form>
+  
+  <form name="form3" method="post">
+  <input name="cmd" type="hidden" value="setmdattr">
+  <input name="cururl" type="hidden">
+  <input name="name" type="hidden">
+  <input name="x" type="hidden">
+  <input name="y" type="hidden">
+  <input name="w" type="hidden">
+  <input name="h" type="hidden">
+  <input name="s" type="hidden">
+  <input name="t" type="hidden">
+  <input name="enable" type="hidden">
+  <input name="chn" type="hidden">
+  
+   <input name="cmd" type="hidden" value="setmdattr">
+  <input name="name1" type="hidden">
+  <input name="enable1" type="hidden">
+  <input name="chn1" type="hidden">
+  
+   <input name="cmd" type="hidden" value="setmdattr">
+  <input name="name2" type="hidden">
+  <input name="enable2" type="hidden">
+  <input name="chn2" type="hidden">
+  
+   <input name="cmd" type="hidden" value="setmdattr">
+  <input name="name3" type="hidden">
+  <input name="enable3" type="hidden">
+  <input name="chn3" type="hidden">
+  </form>
+  
+  
+ 
+  
+<script>
+function flush()
+{
+	form1.DHiMPlayer.InvalidateWnd();
+}
+
+
+//自定义缩放
+
+var isIE = (document.all) ? true : false;
+
+var $$ = function (id) {
+	return "string" == typeof id ? document.getElementById(id) : id;
+};
+
+var Class = {
+	create: function() {
+		return function() { this.initialize.apply(this, arguments); }
+	}
+}
+
+var Extend = function(destination, source) {
+	for (var property in source) {
+		destination[property] = source[property];
+	}
+}
+
+var Bind = function(object, fun) {
+	return function() {
+		return fun.apply(object, arguments);
+	}
+}
+
+var BindAsEventListener = function(object, fun) {
+	var args = Array.prototype.slice.call(arguments).slice(2);
+	return function(event) {
+		return fun.apply(object, [event || window.event].concat(args));
+	}
+}
+
+var CurrentStyle = function(element){
+	return element.currentStyle || document.defaultView.getComputedStyle(element, null);
+}
+
+function addEventHandler(oTarget, sEventType, fnHandler) {
+	if (oTarget.addEventListener) {
+		oTarget.addEventListener(sEventType, fnHandler, false);
+	} else if (oTarget.attachEvent) {
+		oTarget.attachEvent("on" + sEventType, fnHandler);
+	} else {
+		oTarget["on" + sEventType] = fnHandler;
+	}
+};
+
+function removeEventHandler(oTarget, sEventType, fnHandler) {
+    if (oTarget.removeEventListener) {
+        oTarget.removeEventListener(sEventType, fnHandler, false);
+    } else if (oTarget.detachEvent) {
+        oTarget.detachEvent("on" + sEventType, fnHandler);
+    } else { 
+        oTarget["on" + sEventType] = null;
+    }
+};
+
+
+//缩放程序
+var Resize = Class.create();
+Resize.prototype = {
+  //缩放对象
+  initialize: function(obj, options) {
+	this._obj = $$(obj);//缩放对象
+	
+	this._styleWidth = this._styleHeight = this._styleLeft = this._styleTop = 0;//样式参数
+	this._sideRight = this._sideDown = this._sideLeft = this._sideUp = 0;//坐标参数
+	this._fixLeft = this._fixTop = 0;//定位参数
+	this._scaleLeft = this._scaleTop = 0;//定位坐标
+	
+	this._mxSet = function(){};//范围设置程序
+	this._mxRightWidth = this._mxDownHeight = this._mxUpHeight = this._mxLeftWidth = 0;//范围参数
+	this._mxScaleWidth = this._mxScaleHeight = 0;//比例范围参数
+	
+	this._fun = function(){};//缩放执行程序
+	
+	//获取边框宽度
+	var _style = CurrentStyle(this._obj);
+	this._borderX = (parseInt(_style.borderLeftWidth) || 0) + (parseInt(_style.borderRightWidth) || 0);
+	this._borderY = (parseInt(_style.borderTopWidth) || 0) + (parseInt(_style.borderBottomWidth) || 0);
+	//事件对象(用于绑定移除事件)
+	this._fR = BindAsEventListener(this, this.Resize);
+	this._fS = Bind(this, this.Stop);
+	
+	this.SetOptions(options);
+	//范围限制
+	this.Max = !!this.options.Max;
+	this._mxContainer = $$(this.options.mxContainer) || null;
+	this.mxLeft = Math.round(this.options.mxLeft);
+	this.mxRight = Math.round(this.options.mxRight);
+	this.mxTop = Math.round(this.options.mxTop);
+	this.mxBottom = Math.round(this.options.mxBottom);
+	//宽高限制
+	this.Min = !!this.options.Min;
+	this.minWidth = Math.round(this.options.minWidth);
+	this.minHeight = Math.round(this.options.minHeight);
+	//按比例缩放
+	this.Scale = !!this.options.Scale;
+	this.Ratio = Math.max(this.options.Ratio, 0);
+	
+	this.onResize = this.options.onResize;
+	
+	this._obj.style.position = "absolute";
+	!this._mxContainer || CurrentStyle(this._mxContainer).position == "relative" || (this._mxContainer.style.position = "relative");
+  },
+  //设置默认属性
+  SetOptions: function(options) {
+    this.options = {//默认值
+		Max:		false,//是否设置范围限制(为true时下面mx参数有用)
+		mxContainer:"",//指定限制在容器内
+		mxLeft:		0,//左边限制
+		mxRight:	9999,//右边限制
+		mxTop:		0,//上边限制
+		mxBottom:	9999,//下边限制
+		Min:		false,//是否最小宽高限制(为true时下面min参数有用)
+		minWidth:	50,//最小宽度
+		minHeight:	50,//最小高度
+		Scale:		false,//是否按比例缩放
+		Ratio:		0,//缩放比例(宽/高)
+		onResize:	function(){}//缩放时执行
+    };
+    Extend(this.options, options || {});
+  },
+  //设置触发对象
+  Set: function(resize, side) {
+	var resize = $$(resize), fun;
+	if(!resize) return;
+	//根据方向设置
+	switch (side.toLowerCase()) {
+	case "up" :
+		fun = this.Up;
+		break;
+	case "down" :
+		fun = this.Down;
+		break;
+	case "left" :
+		fun = this.Left;
+		break;
+	case "right" :
+		fun = this.Right;
+		break;
+	case "left-up" :
+		fun = this.LeftUp;
+		break;
+	case "right-up" :
+		fun = this.RightUp;
+		break;
+	case "left-down" :
+		fun = this.LeftDown;
+		break;
+	case "right-down" :
+	default :
+		fun = this.RightDown;
+	};
+	//设置触发对象
+	addEventHandler(resize, "mousedown", BindAsEventListener(this, this.Start, fun));
+  },
+  //准备缩放
+  Start: function(e, fun, touch) {	
+	//防止冒泡(跟拖放配合时设置)
+	e.stopPropagation ? e.stopPropagation() : (e.cancelBubble = true);
+	//设置执行程序
+	this._fun = fun;
+	//样式参数值
+	this._styleWidth = this._obj.clientWidth;
+	this._styleHeight = this._obj.clientHeight;
+	this._styleLeft = this._obj.offsetLeft;
+	this._styleTop = this._obj.offsetTop;
+	//四条边定位坐标
+	this._sideLeft = e.clientX - this._styleWidth;
+	this._sideRight = e.clientX + this._styleWidth;
+	this._sideUp = e.clientY - this._styleHeight;
+	this._sideDown = e.clientY + this._styleHeight;
+	//top和left定位参数
+	this._fixLeft = this._styleLeft + this._styleWidth;
+	this._fixTop = this._styleTop + this._styleHeight;
+	//缩放比例
+	if(this.Scale){
+		//设置比例
+		this.Ratio = Math.max(this.Ratio, 0) || this._styleWidth / this._styleHeight;
+		//left和top的定位坐标
+		this._scaleLeft = this._styleLeft + this._styleWidth / 2;
+		this._scaleTop = this._styleTop + this._styleHeight / 2;
+	};
+	//范围限制
+	if(this.Max){
+		//设置范围参数
+		var mxLeft = this.mxLeft, mxRight = this.mxRight, mxTop = this.mxTop, mxBottom = this.mxBottom;
+		//如果设置了容器，再修正范围参数
+		if(!!this._mxContainer){
+			mxLeft = Math.max(mxLeft, 0);
+			mxTop = Math.max(mxTop, 0);
+			mxRight = Math.min(mxRight, this._mxContainer.clientWidth);
+			mxBottom = Math.min(mxBottom, this._mxContainer.clientHeight);
+		};
+		//根据最小值再修正
+		mxRight = Math.max(mxRight, mxLeft + (this.Min ? this.minWidth : 0) + this._borderX);
+		mxBottom = Math.max(mxBottom, mxTop + (this.Min ? this.minHeight : 0) + this._borderY);
+		//由于转向时要重新设置所以写成function形式
+		this._mxSet = function(){
+			this._mxRightWidth = mxRight - this._styleLeft - this._borderX;
+			this._mxDownHeight = mxBottom - this._styleTop - this._borderY;
+			this._mxUpHeight = Math.max(this._fixTop - mxTop, this.Min ? this.minHeight : 0);
+			this._mxLeftWidth = Math.max(this._fixLeft - mxLeft, this.Min ? this.minWidth : 0);
+		};
+		this._mxSet();
+		//有缩放比例下的范围限制
+		if(this.Scale){
+			this._mxScaleWidth = Math.min(this._scaleLeft - mxLeft, mxRight - this._scaleLeft - this._borderX) * 2;
+			this._mxScaleHeight = Math.min(this._scaleTop - mxTop, mxBottom - this._scaleTop - this._borderY) * 2;
+		};
+	};
+	//mousemove时缩放 mouseup时停止
+	addEventHandler(document, "mousemove", this._fR);
+	addEventHandler(document, "mouseup", this._fS);
+	if(isIE){
+		addEventHandler(this._obj, "losecapture", this._fS);
+		this._obj.setCapture();
+	}else{
+		addEventHandler(window, "blur", this._fS);
+		e.preventDefault();
+	};
+  },
+  //缩放
+  Resize: function(e) {
+	//清除选择
+	window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+	//执行缩放程序
+	this._fun(e);
+	//设置样式，变量必须大于等于0否则ie出错
+	with(this._obj.style){
+		width = this._styleWidth + "px"; height = this._styleHeight + "px";
+		top = this._styleTop + "px"; left = this._styleLeft + "px";
+	}
+	//附加程序
+	this.onResize();
+  },
+  //缩放程序
+  //上
+  Up: function(e) {
+	this.RepairY(this._sideDown - e.clientY, this._mxUpHeight);
+	this.RepairTop();
+	this.TurnDown(this.Down);
+  },
+  //下
+  Down: function(e) {
+	this.RepairY(e.clientY - this._sideUp, this._mxDownHeight);
+	this.TurnUp(this.Up);
+  },
+  //右
+  Right: function(e) {
+	this.RepairX(e.clientX - this._sideLeft, this._mxRightWidth);
+	this.TurnLeft(this.Left);
+  },
+  //左
+  Left: function(e) {
+	this.RepairX(this._sideRight - e.clientX, this._mxLeftWidth);
+	this.RepairLeft();
+	this.TurnRight(this.Right);
+  },
+  //右下
+  RightDown: function(e) {
+	this.RepairAngle(
+		e.clientX - this._sideLeft, this._mxRightWidth,
+		e.clientY - this._sideUp, this._mxDownHeight
+	);
+	this.TurnLeft(this.LeftDown) || this.Scale || this.TurnUp(this.RightUp);
+  },
+  //右上
+  RightUp: function(e) {
+	this.RepairAngle(
+		e.clientX - this._sideLeft, this._mxRightWidth,
+		this._sideDown - e.clientY, this._mxUpHeight
+	);
+	this.RepairTop();
+	this.TurnLeft(this.LeftUp) || this.Scale || this.TurnDown(this.RightDown);
+  },
+  //左下
+  LeftDown: function(e) {
+	this.RepairAngle(
+		this._sideRight - e.clientX, this._mxLeftWidth,
+		e.clientY - this._sideUp, this._mxDownHeight
+	);
+	this.RepairLeft();
+	this.TurnRight(this.RightDown) || this.Scale || this.TurnUp(this.LeftUp);
+  },
+  //左上
+  LeftUp: function(e) {
+	this.RepairAngle(
+		this._sideRight - e.clientX, this._mxLeftWidth,
+		this._sideDown - e.clientY, this._mxUpHeight
+	);
+	this.RepairTop(); this.RepairLeft();
+	this.TurnRight(this.RightUp) || this.Scale || this.TurnDown(this.LeftDown);
+  },
+  //修正程序
+  //水平方向
+  RepairX: function(iWidth, mxWidth) {
+	iWidth = this.RepairWidth(iWidth, mxWidth);
+	if(this.Scale){
+		var iHeight = this.RepairScaleHeight(iWidth);
+		if(this.Max && iHeight > this._mxScaleHeight){
+			iHeight = this._mxScaleHeight;
+			iWidth = this.RepairScaleWidth(iHeight);
+		}else if(this.Min && iHeight < this.minHeight){
+			var tWidth = this.RepairScaleWidth(this.minHeight);
+			if(tWidth < mxWidth){ iHeight = this.minHeight; iWidth = tWidth; }
+		}
+		this._styleHeight = iHeight;
+		this._styleTop = this._scaleTop - iHeight / 2;
+	}
+	this._styleWidth = iWidth;
+  },
+  //垂直方向
+  RepairY: function(iHeight, mxHeight) {
+	iHeight = this.RepairHeight(iHeight, mxHeight);
+	if(this.Scale){
+		var iWidth = this.RepairScaleWidth(iHeight);
+		if(this.Max && iWidth > this._mxScaleWidth){
+			iWidth = this._mxScaleWidth;
+			iHeight = this.RepairScaleHeight(iWidth);
+		}else if(this.Min && iWidth < this.minWidth){
+			var tHeight = this.RepairScaleHeight(this.minWidth);
+			if(tHeight < mxHeight){ iWidth = this.minWidth; iHeight = tHeight; }
+		}
+		this._styleWidth = iWidth;
+		this._styleLeft = this._scaleLeft - iWidth / 2;
+	}
+	this._styleHeight = iHeight;
+  },
+  //对角方向
+  RepairAngle: function(iWidth, mxWidth, iHeight, mxHeight) {
+	iWidth = this.RepairWidth(iWidth, mxWidth);	
+	if(this.Scale){
+		iHeight = this.RepairScaleHeight(iWidth);
+		if(this.Max && iHeight > mxHeight){
+			iHeight = mxHeight;
+			iWidth = this.RepairScaleWidth(iHeight);
+		}else if(this.Min && iHeight < this.minHeight){
+			var tWidth = this.RepairScaleWidth(this.minHeight);
+			if(tWidth < mxWidth){ iHeight = this.minHeight; iWidth = tWidth; }
+		}
+	}else{
+		iHeight = this.RepairHeight(iHeight, mxHeight);
+	}
+	this._styleWidth = iWidth;
+	this._styleHeight = iHeight;
+  },
+  //top
+  RepairTop: function() {
+	this._styleTop = this._fixTop - this._styleHeight;
+  },
+  //left
+  RepairLeft: function() {
+	this._styleLeft = this._fixLeft - this._styleWidth;
+  },
+  //height
+  RepairHeight: function(iHeight, mxHeight) {
+	iHeight = Math.min(this.Max ? mxHeight : iHeight, iHeight);
+	iHeight = Math.max(this.Min ? this.minHeight : iHeight, iHeight, 0);
+	return iHeight;
+  },
+  //width
+  RepairWidth: function(iWidth, mxWidth) {
+	iWidth = Math.min(this.Max ? mxWidth : iWidth, iWidth);
+	iWidth = Math.max(this.Min ? this.minWidth : iWidth, iWidth, 0);
+	return iWidth;
+  },
+  //比例高度
+  RepairScaleHeight: function(iWidth) {
+	return Math.max(Math.round((iWidth + this._borderX) / this.Ratio - this._borderY), 0);
+  },
+  //比例宽度
+  RepairScaleWidth: function(iHeight) {
+	return Math.max(Math.round((iHeight + this._borderY) * this.Ratio - this._borderX), 0);
+  },
+  //转向程序
+  //转右
+  TurnRight: function(fun) {
+	if(!(this.Min || this._styleWidth)){
+		this._fun = fun;
+		this._sideLeft = this._sideRight;
+		this.Max && this._mxSet();
+		return true;
+	}
+  },
+  //转左
+  TurnLeft: function(fun) {
+	if(!(this.Min || this._styleWidth)){
+		this._fun = fun;
+		this._sideRight = this._sideLeft;
+		this._fixLeft = this._styleLeft;
+		this.Max && this._mxSet();
+		return true;
+	}
+  },
+  //转上
+  TurnUp: function(fun) {
+	if(!(this.Min || this._styleHeight)){
+		this._fun = fun;
+		this._sideDown = this._sideUp;
+		this._fixTop = this._styleTop;
+		this.Max && this._mxSet();
+		return true;
+	}
+  },
+  //转下
+  TurnDown: function(fun) {
+	if(!(this.Min || this._styleHeight)){
+		this._fun = fun;
+		this._sideUp = this._sideDown;
+		this.Max && this._mxSet();
+		return true;
+	}
+  },
+  //停止缩放
+  Stop: function() {
+	
+	f3w = this._styleWidth;
+	f3h = this._styleHeight;
+	
+	removeEventHandler(document, "mousemove", this._fR);
+	removeEventHandler(document, "mouseup", this._fS);
+	if(isIE){
+		removeEventHandler(this._obj, "losecapture", this._fS);
+		this._obj.releaseCapture();
+	}else{
+		removeEventHandler(window, "blur", this._fS);
+	}
+  }
+};
+
+
+
+var rs = new Resize("dragDiv", { Max: true, mxContainer: "bgDiv" });
+
+rs.Set("rRightDown", "right-down");
+rs.Set("rLeftDown", "left-down");
+
+rs.Set("rRightUp", "right-up");
+rs.Set("rLeftUp", "left-up");
+
+rs.Set("rRight", "right");
+rs.Set("rLeft", "left");
+
+rs.Set("rUp", "up");
+rs.Set("rDown", "down");
+
+
+//拖放程序
+var Drag = Class.create();
+Drag.prototype = {
+  //拖放对象
+  initialize: function(drag, options) {
+	this.Drag = $$(drag);//拖放对象
+	this._x = this._y = 0;//记录鼠标相对拖放对象的位置
+	this._marginLeft = this._marginTop = 0;//记录margin
+	//事件对象(用于绑定移除事件)
+	this._fM = BindAsEventListener(this, this.Move);
+	this._fS = Bind(this, this.Stop);
+	
+	this.MoveX=0;
+	this.MoveY=0;
+	
+	this.SetOptions(options);
+	
+	this.Limit = !!this.options.Limit;
+	this.mxLeft = parseInt(this.options.mxLeft);
+	this.mxRight = parseInt(this.options.mxRight);
+	this.mxTop = parseInt(this.options.mxTop);
+	this.mxBottom = parseInt(this.options.mxBottom);
+	
+	this.LockX = !!this.options.LockX;
+	this.LockY = !!this.options.LockY;
+	this.Lock = !!this.options.Lock;
+	
+	this.onStart = this.options.onStart;
+	this.onMove = this.options.onMove;
+	this.onStop = this.options.onStop;
+	
+	this._Handle = $$(this.options.Handle) || this.Drag;
+	this._mxContainer = $$(this.options.mxContainer) || null;
+	
+	this.Drag.style.position = "absolute";
+	//透明
+	if(isIE && !!this.options.Transparent){
+		//填充拖放对象
+		with(this._Handle.appendChild(document.createElement("div")).style){
+			width = height = "100%"; backgroundColor = "#fff"; filter = "alpha(opacity:0)"; fontSize = 0;
+		}
+	}
+	//修正范围
+	this.Repair();
+	addEventHandler(this._Handle, "mousedown", BindAsEventListener(this, this.Start));
+  },
+  //设置默认属性
+  SetOptions: function(options) {
+	this.options = {//默认值
+		Handle:			"",//设置触发对象（不设置则使用拖放对象）
+		Limit:			false,//是否设置范围限制(为true时下面参数有用,可以是负数)
+		mxLeft:			0,//左边限制
+		mxRight:		9999,//右边限制
+		mxTop:			0,//上边限制
+		mxBottom:		9999,//下边限制
+		mxContainer:	"",//指定限制在容器内
+		LockX:			false,//是否锁定水平方向拖放
+		LockY:			false,//是否锁定垂直方向拖放
+		Lock:			false,//是否锁定
+		Transparent:	false,//是否透明
+		onStart:		function(){},//开始移动时执行
+		onMove:			function(){},//移动时执行
+		onStop:			function(){}//结束移动时执行
+	};
+	Extend(this.options, options || {});
+  },
+  //准备拖动
+  Start: function(oEvent) {
+	if(this.Lock){ return; }
+	this.Repair();
+	//记录鼠标相对拖放对象的位置
+	this._x = oEvent.clientX - this.Drag.offsetLeft;
+	this._y = oEvent.clientY - this.Drag.offsetTop;
+	//记录margin
+	this._marginLeft = parseInt(CurrentStyle(this.Drag).marginLeft) || 0;
+	this._marginTop = parseInt(CurrentStyle(this.Drag).marginTop) || 0;
+	//mousemove时移动 mouseup时停止
+	addEventHandler(document, "mousemove", this._fM);
+	addEventHandler(document, "mouseup", this._fS);
+	if(isIE){
+		//焦点丢失
+		addEventHandler(this._Handle, "losecapture", this._fS);
+		//设置鼠标捕获
+		this._Handle.setCapture();
+	}else{
+		//焦点丢失
+		addEventHandler(window, "blur", this._fS);
+		//阻止默认动作
+		oEvent.preventDefault();
+	};
+	//附加程序
+	this.onStart();
+  },
+  //修正范围
+  Repair: function() {
+	if(this.Limit){
+		//修正错误范围参数
+		this.mxRight = Math.max(this.mxRight, this.mxLeft + this.Drag.offsetWidth);
+		this.mxBottom = Math.max(this.mxBottom, this.mxTop + this.Drag.offsetHeight);
+		//如果有容器必须设置position为relative或absolute来相对或绝对定位，并在获取offset之前设置
+		!this._mxContainer || CurrentStyle(this._mxContainer).position == "relative" || CurrentStyle(this._mxContainer).position == "absolute" || (this._mxContainer.style.position = "relative");
+	}
+  },
+  //拖动
+  Move: function(oEvent) {
+	//判断是否锁定
+	if(this.Lock){ this.Stop(); return; };
+	//清除选择
+	window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+	//设置移动参数
+	var iLeft = oEvent.clientX - this._x, iTop = oEvent.clientY - this._y;
+	//设置范围限制
+	if(this.Limit){
+		//设置范围参数
+		var mxLeft = this.mxLeft, mxRight = this.mxRight, mxTop = this.mxTop, mxBottom = this.mxBottom;
+		//如果设置了容器，再修正范围参数
+		if(!!this._mxContainer){
+			mxLeft = Math.max(mxLeft, 0);
+			mxTop = Math.max(mxTop, 0);
+			mxRight = Math.min(mxRight, this._mxContainer.clientWidth);
+			mxBottom = Math.min(mxBottom, this._mxContainer.clientHeight);
+		};
+		//修正移动参数
+		iLeft = Math.max(Math.min(iLeft, mxRight - this.Drag.offsetWidth), mxLeft);
+		iTop = Math.max(Math.min(iTop, mxBottom - this.Drag.offsetHeight), mxTop);
+	}
+	//设置位置，并修正margin
+	if(!this.LockX){ this.Drag.style.left = iLeft - this._marginLeft + "px"; }
+	if(!this.LockY){ this.Drag.style.top = iTop - this._marginTop + "px"; }
+	
+	
+	
+	//附加程序
+	this.onMove();
+  },
+  //停止拖动
+  Stop: function() {
+	//移除事件
+	removeEventHandler(document, "mousemove", this._fM);
+	removeEventHandler(document, "mouseup", this._fS);
+	if(isIE){
+		removeEventHandler(this._Handle, "losecapture", this._fS);
+		this._Handle.releaseCapture();
+	}else{
+		removeEventHandler(window, "blur", this._fS);
+	};
+	
+	
+	f3x = this.Drag.style.lef;
+	f3y = this.Drag.style.top;
+	
+	//附加程序
+	this.onStop();
+  }
+};
+
+
+
+var dg = new Drag("dragDiv", { Limit: true, mxContainer: "bgDiv" });
+
+
+
+$(function (){
+	
+	$('#bgDiv').css({'position':'absolute',left:0,top:0}).show();
+	$('#bgDiv').width(w);
+	$('#bgDiv').height(h);
+	$('#dragDiv').css({left:(m1_x / 2) , top:(m1_y / 2),width:(m1_w / 2),height:( m1_h / 2 )});
+	$('#bgDiv').show();
+	
+	$.fn.winchkonly = function (obj) {
+		
+		if (obj.checked) {
+			$('#bgDiv').css({'position':'absolute',left:0,top:0}).show();
+			$('#bgDiv').width(w);
+			$('#bgDiv').height(h);
+			
+			
+			$('#dragDiv').css({left:(m1_x / 2) , top:(m1_y / 2),width:(m1_w / 2),height:( m1_h / 2 )});
+		}else {
+			$('#bgDiv').hide();
+		}
+	}
+	
+	
+	if (m1_enable == "1")
+	{
+		form1.winonly.checked=true;
+	}else {
+		$('#bgDiv').hide();
+	}
+	
+	
+		
+});
+</script>
+<!-- ImageReady Slices (ipCAM.psd - Slices: 02, 05, 06, 08, 09, 11, 12, 13, 15, 21, 22, 28, 30, 35, 36, 39, 42, 46, 50, 53) -->
+<!-- End ImageReady Slices -->
+</body>
+</html>

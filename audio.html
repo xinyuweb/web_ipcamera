@@ -1,0 +1,348 @@
+﻿<html>
+<head>
+<title>ipCAM</title>
+<meta content="text/html; charset=UTF-8" http-equiv="content-type">
+<META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+<META http-equiv="Pragma" CONTENT="no-cache">
+
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+
+<meta HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"> 
+<script src="public.js"></script>
+<!-- ImageReady Preload Script (ipCAM.psd) -->
+<SCRIPT LANGUAGE="JavaScript1.2" SRC="cgi-bin/hi3510/param.cgi?cmd=getaencattr&-chn=011&cmd=getaencattr&-chn=012&cmd=getaencattr&-chn=013&cmd=getaudioinvolume&cmd=getaudiooutvolume" TYPE="text/javascript"></SCRIPT>
+<script type="text/javascript">
+<!--
+
+function do_sizechange()
+{
+	
+	
+}
+
+function do_sizechange0()
+{
+	
+	
+}
+
+function do_sizechange1()
+{
+	
+	
+}
+function on_load()
+{
+	var form=document.form1;
+
+    if(aeformat_1=="g711a")
+	{
+	   form.audioselect1.options[0].selected=true;
+    }
+    else
+	{
+		form.audioselect1.options[1].selected=true;
+	}
+
+	if(aeswitch_1==1)
+	{
+		form.audiobutton1[0].checked=true;
+	}
+    else
+	{
+		form.audiobutton1[1].checked=true;
+	}
+
+
+    if(aeformat_2=="g711a")
+	{
+	   form.audioselect2.options[0].selected=true;
+    }
+    else
+	{
+		form.audioselect2.options[1].selected=true;
+	}  
+
+	if(aeswitch_2==1)
+	{
+		form.audiobutton2[0].checked=true;
+	}
+    else
+	{
+		form.audiobutton2[1].checked=true;
+	}
+	    if(aeformat_3=="g711a")
+	{
+	   form.audioselect3.options[0].selected=true;
+    }
+    else
+	{
+		form.audioselect3.options[1].selected=true;
+	}  
+
+	if(aeswitch_3==1)
+	{
+		form.audiobutton3[0].checked=true;
+	}
+    else
+	{
+		form.audiobutton3[1].checked=true;
+	}
+	
+	do_sizechange();
+	do_sizechange0();
+	do_sizechange1();
+	form.volumein.value = volume;	
+    form.volumeout.value = ao_volume;
+
+}
+function default1()
+{
+        var form =document.form3;
+		form.cururl.value =document.URL;
+        form.volume.value=80;
+		form.volume.name="-volume";
+		form.ao_volume.value=95;
+		form.ao_volume.name="-volume";
+	   
+
+		form.action="cgi-bin/hi3510/param.cgi";
+		form.submit();
+
+}
+function do_submit()
+	{
+		var form =document.form2;
+		var form1=document.form1;
+		form.cururl.value =document.URL;
+			
+		form.chn1.value = 11;
+		
+		form.aeformat1.value=form1.audioselect1.value;
+		
+
+		form.chn2.value = 12;
+		
+		form.aeformat2.value=form1.audioselect1.value;
+				
+		
+		form.chn3.value = 13;
+		
+		form.aeformat3.value=form1.audioselect1.value;
+		
+
+		if(form1.audiobutton1[0].checked==true)
+		{
+			form.aeswitch1.value=1;
+		}
+		else
+		{
+			form.aeswitch1.value=0;
+		}
+        
+        
+		if(form1.audiobutton2[0].checked==true)
+		{
+			form.aeswitch2.value=1;
+		}
+		else
+		{
+			form.aeswitch2.value=0;
+		}
+       
+		
+		if(form1.audiobutton3[0].checked==true)
+		{
+			form.aeswitch3.value=1;
+		}
+		else
+		{
+			form.aeswitch3.value=0;
+		}
+        
+ 
+if(checkProhibitedCharacter(form1.volumein,form1.volumein.value)==false)return false;
+if(checkProhibitedCharacter(form1.volumeout,form1.volumeout.value)==false)return false;
+       
+	   if ((form1.volumein.value < 1) || (form1.volumein.value > 100))
+	{
+		alert(str_err_volume);
+		form1.volumein.select();
+		return false;
+	}
+      if ((form1.volumeout.value < 1) || (form1.volumeout.value > 100))
+	{
+		alert(str_err_volume);
+		form1.volumeout.select();
+		return false;
+	}
+	
+	/*if((form.aeformat1.value != aeformat_1)||(form.aeformat2.value != aeformat_2)||(form.aeformat3.value != aeformat_3)||(form.aeswitch1.value != aeswitch_1)||(form.aeswitch2.value != aeswitch_2)||(form.aeswitch3.value != aeswitch_3))
+   {
+	alert(str_note_needreset);
+    }
+	*/
+	
+	
+	
+	form.chn1.name = "-chn";
+	form.aeformat1.name="-aeformat";
+	form.chn2.name = "-chn";
+	form.aeformat2.name="-aeformat";
+	form.chn3.name = "-chn";
+	form.aeformat3.name="-aeformat";
+	form.aeswitch1.name="-aeswitch";
+	form.aeswitch2.name="-aeswitch";
+	form.aeswitch3.name="-aeswitch";
+	
+	  
+	    form.volume.value=form1.volumein.value;
+		form.volume.name="-volume";
+		form.ao_volume.value=form1.volumeout.value;
+		form.ao_volume.name="-volume";
+	   
+
+		form.action="cgi-bin/hi3510/param.cgi";
+		form.submit();
+	}//-->
+
+</script>
+<!-- End Preload Script -->
+<style type="text/css">
+<!--
+.style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.style2 {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style5 {font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style6 {color: #810000}
+-->
+</style>
+</head>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="on_load();">
+       <div id="body_audio" style="display:block"> <form name="form1">
+            	<table width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5">
+                <tr>
+                 <td colspan="2" style="font-size:24px" class="style6"><strong><script>document.write(str_audio_set)</script></strong></td>
+                  </tr>
+				  <tr  align="left" >
+                  <td><script>document.write(str_audio_formats)</script></td>
+                  <td><select name="audioselect1" size="1">
+                    <option value="g711a" selected>G711</option>
+                    <option value="g726">G726</option>
+                  </select>  </td>
+               	  </tr>
+                <tr>
+                  <td colspan="2" align="left" bgcolor="#CCCCCC"><b><font class="style6"><script>document.write(str_1stream)</script></font></b></td>
+                  </tr>
+                <tr align="left">
+                <td width="220"><script>document.write(str_collection_audio)</script>:</td>
+                  <td>
+					<input type="radio" name="audiobutton1" value="radiobutton11" onClick="do_sizechange()" checked> 
+					<script>document.write(str_start_up)</script>
+                    <input type="radio" name="audiobutton1" value="radiobutton12" onClick="do_sizechange()">
+				 <script>document.write(str_close1)</script> </td>
+                  </tr>
+               
+                <tr>
+                  <td colspan="2" align="left" bgcolor="#CCCCCC"><b><font class="style6"><script>document.write(str_2stream)</script></font></b></td>
+                </tr>
+                <tr>
+                <td><script>document.write(str_collection_audio)</script>:</td>
+                  <td>
+					<input type="radio" name="audiobutton2" value="radiobutton21" onClick="do_sizechange0()" checked>
+					<script>document.write(str_start_up)</script>
+                   <input type="radio" name="audiobutton2" value="radiobutton20" onClick="do_sizechange0()"><script>document.write(str_close1)</script>  </td>
+                  </tr>
+				<tr  align="left" id="layer1"  style="display:none">
+                  <td><script>document.write(str_audio_formats)</script></td>
+                  <td><select name="audioselect2" size="1">
+                    <option value="g711a" selected>G711</option>
+                    <option value="g726">G726</option>
+                  </select>  </td>
+               	  </tr>
+				  
+				  <tr style="display:none">
+                  <td colspan="2" align="left" bgcolor="#CCCCCC"><b><font class="style6"><script>document.write(str_3stream)</script></font></b></td>
+                </tr>
+                <tr style="display:none">
+                <td><script>document.write(str_collection_audio)</script>:</td>
+                  <td>
+					<input type="radio" name="audiobutton3" value="radiobutton31" onClick="do_sizechange1()" checked>
+					<script>document.write(str_start_up)</script>
+                   <input type="radio" name="audiobutton3" value="radiobutton30" onClick="do_sizechange1()">
+				 <script>document.write(str_close1)</script>  </td>
+                  </tr>
+				<tr  align="left" id="layer2"  style="display:none">
+                  <td><script>document.write(str_audio_formats)</script></td>
+                  <td><select name="audioselect3" size="1">
+                    <option value="g711a" selected>G711</option>
+                    <option value="g726">G726</option>
+                  </select>  </td>
+               	  </tr>
+				  
+				  
+					<tr>
+                  <td height="23" colspan="2" bgcolor="#CCCCCC"><b><font class="style6">
+                    <script>document.write(str_input_options)</script></font></b></td>
+                  	</tr>
+                <tr>
+                  <td><script>document.write(str_audio_in)</script></td>
+                  <td><input type="text" id="form_volumein" name="volumein" size="5" maxlength="4">
+    &nbsp;&nbsp;<script>document.write(str_audio_area)</script></td>
+                </tr>
+				 <tr>
+                  <td><script>document.write(str_audio_out)</script></td>
+                  <td><input type="text" id="form_volumeout" name="volumeout" size="5" maxlength="4">
+    &nbsp;&nbsp;<script>document.write(str_audio_area)</script>
+	&nbsp;&nbsp;&nbsp;<button onClick="default1()" type="button" ><script>document.write(str_default1)</script></button></td>
+                </tr>
+              </table>
+</form>
+    <form name="form2" method="post" target="ifrm">
+    <input name="cmd" type="hidden" value="setaencattr">
+	<input name="cururl" type="hidden">
+	<input name="chn1" type="hidden">  
+	<input name="aeformat1" type="hidden">
+	<input name="aeswitch1" type="hidden">
+	<input name="cmd" type="hidden" value="setaencattr">
+	<input name="chn2" type="hidden">  
+	<input name="aeformat2" type="hidden">
+	<input name="aeswitch2" type="hidden">
+	<input name="cmd" type="hidden" value="setaencattr">
+	<input name="chn3" type="hidden">  
+	<input name="aeformat3" type="hidden">
+	<input name="aeswitch3" type="hidden">
+	<input name="cmd" type="hidden" value="setaudioinvolume">
+	<input name="volume" type="hidden"> 		
+	<input name="cmd" type="hidden" value="setaudiooutvolume">
+	<input name="ao_volume" type="hidden">		
+	</form>
+	
+	 <form name="form3" method="post">
+	 <input name="cmd" type="hidden" value="setaudioinvolume">
+	 <input name="cururl" type="hidden">
+	<input name="volume" type="hidden"> 		
+	<input name="cmd" type="hidden" value="setaudiooutvolume">
+	<input name="ao_volume" type="hidden">		
+	</form>
+                <table align="center" border="0" cellpadding="0" cellspacing="3" width="95%">
+                  <tr>
+				  	<td width="220"></td>
+                    <td width="80"><button onClick="do_submit()" type="button" ><script>document.write(str_sure)</script></button></td>
+                    <td align="left"><button onClick="javascript:location.reload(true)"><script>document.write(str_refresh)</script></button></td>
+                  </tr>
+</table></div>
+<form name="form4" id="form4" action="cgi-bin/hi3510/sysreboot.cgi" target="ifrm"></form>
+<div align="center" id="Time"></div>
+<iframe id="ifrm" name="ifrm" style="display:none"></iframe>
+<!-- ImageReady Slices (ipCAM.psd - Slices: 02, 05, 06, 08, 09, 11, 12, 13, 15, 21, 22, 28, 30, 35, 36, 39, 42, 46, 50, 53) -->
+<!-- End ImageReady Slices -->
+</body>
+</html>

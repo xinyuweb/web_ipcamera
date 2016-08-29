@@ -1,0 +1,91 @@
+<html>
+<head>
+<title>Video Mobile</title>
+<meta content="text/html; charset=utf-8" http-equiv="content-type">
+<script language="javascript">
+<!--
+var img = new Image();
+var imgObj;
+
+function preload()
+{
+	img.src='/tmpfs/auto.jpg?'+new Date;
+}
+
+function changesrc()
+{
+	img1.src=img.src;
+	preload();
+	setTimeout(changesrc,3500);
+}
+
+function update()
+{
+	imgObj = document.getElementById('img1');
+	
+	imgObj.src = img.src;
+	img.src = "/tmpfs/auto.jpg?" + (new Date()).getTime();
+}
+
+function takeError()
+{
+	img.src = "/tmpfs/auto.jpg?" + (new Date()).getTime();
+}
+
+function startonload()
+{
+	img.src = "/tmpfs/auto.jpg?" + (new Date()).getTime();
+	img.onerror=takeError;
+	img.onload=update;
+}
+
+function load()
+{
+	if (navigator.appName.indexOf("Microsoft IE Mobile") != -1)
+	{
+		preload();
+		changesrc();
+		return;
+	}
+	startonload();
+}
+
+function ptzUpSubmit()
+{
+	form1.action="/cgi-bin/hi3510/ytup.cgi";
+	form1.submit();
+}
+
+function ptzDownSubmit()
+{
+	form1.action="/cgi-bin/hi3510/ytdown.cgi";
+	form1.submit();
+}
+
+function ptzLeftSubmit()
+{
+	form1.action="/cgi-bin/hi3510/ytleft.cgi";
+	form1.submit();
+}
+
+function ptzRightSubmit()
+{
+	form1.action="/cgi-bin/hi3510/ytright.cgi";
+	form1.submit();
+}
+
+//-->
+</script>
+</head>
+<body onLoad="load()">
+<form name="form1" method="get" target="test">
+</form>
+<p><input type="button" value="&#8593;" name="B3" onClick="ptzUpSubmit()"> 
+<input type="button" value="&#8595;" name="B2" onClick="ptzDownSubmit()"> 
+<input type="button" value="&#8592;" name="B1" onClick="ptzLeftSubmit()"> 
+<input type="button" value="&#8594;" name="B0" onClick="ptzRightSubmit()"> 
+<input type="button" value="Refresh" name="B4" onClick="location.reload()"></p>
+<p><img id="img1" border="0" src="tmpfs/auto.jpg"></p>
+<iframe name="test" style="none" width="0" height="0"></iframe>
+</body>
+</html>

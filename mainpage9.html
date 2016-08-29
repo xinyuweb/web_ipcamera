@@ -1,0 +1,2107 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>IP Camera</title>
+<meta name="keywords" content="camera">
+ <meta content="text/html; charset=utf-8" http-equiv="content-type">
+
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
+
+  <meta http-equiv="Pragma" content="no-cache">
+
+  <meta http-equiv="Cache-Control" content="no-cache">
+
+  <meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT">
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #999999;
+	font-size:5px;
+}
+.possel {
+cursor: hand;
+background-color: #993333;
+font-weight: bold;
+color: #FFFFFF;
+}
+  .possel2 {
+cursor: hand;
+background-color: #993333;
+font-weight: bold;
+color: #0000FF;
+}
+  .curspan {
+cursor: hand;
+}
+  .curspandis {
+  display:none;
+}
+.STYLE4 {font-size: 1px; color: #E6E6E6;}
+.STYLE6 {font-size: 10px; color: #E6E6E6; }
+.STYLE7 {font-size: 1px; color: #E6E6E6; }
+-->
+</style>
+<link rel="stylesheet" href="style.css" type="text/css">
+
+<script src="public.js"></script>
+<!-- ImageReady Preload Script (ipCAM.psd) --> 
+   <script language="JavaScript1.2" src="cgi-bin/hi3510/param.cgi?cmd=getvencattr&-chn=11&cmd=getvencattr&-chn=12&cmd=getvencattr&-chn=13&cmd=getsetupflag&cmd=getdevices" type="text/javascript"></script>
+  <script type="text/javascript"> 
+   function x_onclick() 
+{
+     if (document.getElementById("x1").checked) {
+       parent.window.location.assign("admin1.html");
+		}
+    if (document.getElementById("x4").checked) {
+        parent.window.location.assign("mainpage4.html");
+    }
+    if (document.getElementById("x9").checked) {
+       parent.window.location.assign("mainpage9.html");
+	}
+}
+
+
+var numctrl;
+ document.cookie="numctrl=0";
+function on_callback_OnLBClick(index)
+{
+    soundstop();
+	if(index == 0)
+	{document.cookie="numctrl=0";
+	 color();}
+	else if(index == 1)
+	{document.cookie="numctrl=1";
+	 color1();}
+	else if(index == 2)
+	{document.cookie="numctrl=2";
+	 color2();}
+	 	else if(index == 3)
+	{document.cookie="numctrl=3";
+	 color3();}
+	 	else if(index == 4)
+	{document.cookie="numctrl=4";
+	 color4();}
+	 	else if(index == 5)
+	{document.cookie="numctrl=5";
+	 color5();}
+	 	else if(index == 6)
+	{document.cookie="numctrl=6";
+	 color6();}
+	 	else if(index == 7)
+	{document.cookie="numctrl=7";
+	 color7();}
+	else 
+	{document.cookie="numctrl=8";
+	 color8();}	
+	 lre();
+}
+
+function lflag()
+	{
+	DHiMPlayer[0].SetMultiPicture(1);
+	DHiMPlayer[1].SetMultiPicture(1);
+	DHiMPlayer[2].SetMultiPicture(1);
+	DHiMPlayer[3].SetMultiPicture(1);
+	DHiMPlayer[4].SetMultiPicture(1);
+	DHiMPlayer[5].SetMultiPicture(1);
+	DHiMPlayer[6].SetMultiPicture(1);
+	DHiMPlayer[7].SetMultiPicture(1);
+	DHiMPlayer[8].SetMultiPicture(1);
+	}
+
+var Currentid,Currentid1,Currentid2,Currentid3,Currentid4,Currentid5,Currentid6,Currentid7,Currentid8=0;	
+function color()
+{
+    Currentid=document.all("tab");
+	Currentid.bgColor="#FF0033";
+	Currentid1=document.all("tab1");
+	Currentid1.bgColor="#999999";
+	Currentid2=document.all("tab2");
+	Currentid2.bgColor="#999999";
+	Currentid3=document.all("tab3");
+	Currentid3.bgColor="#999999";
+	Currentid4=document.all("tab4");
+	Currentid4.bgColor="#999999";
+	Currentid5=document.all("tab5");
+	Currentid5.bgColor="#999999";
+	Currentid6=document.all("tab6");
+	Currentid6.bgColor="#999999";
+	Currentid7=document.all("tab7");
+	Currentid7.bgColor="#999999";
+	Currentid8=document.all("tab8");
+	Currentid8.bgColor="#999999";
+
+	}
+function color1()
+{
+    Currentid=document.all("tab");
+	Currentid.bgColor="#999999";
+	Currentid1=document.all("tab1");
+	Currentid1.bgColor="#FF0033";
+	Currentid2=document.all("tab2");
+	Currentid2.bgColor="#999999";
+	Currentid3=document.all("tab3");
+	Currentid3.bgColor="#999999";
+	Currentid4=document.all("tab4");
+	Currentid4.bgColor="#999999";
+	Currentid5=document.all("tab5");
+	Currentid5.bgColor="#999999";
+	Currentid6=document.all("tab6");
+	Currentid6.bgColor="#999999";
+	Currentid7=document.all("tab7");
+	Currentid7.bgColor="#999999";
+	Currentid8=document.all("tab8");
+	Currentid8.bgColor="#999999";
+
+	}	
+function color2()
+{
+    Currentid=document.all("tab");
+	Currentid.bgColor="#999999";
+	Currentid1=document.all("tab1");
+	Currentid1.bgColor="#999999";
+	Currentid2=document.all("tab2");
+	Currentid2.bgColor="#FF0033";
+	Currentid3=document.all("tab3");
+	Currentid3.bgColor="#999999";
+	Currentid4=document.all("tab4");
+	Currentid4.bgColor="#999999";
+	Currentid5=document.all("tab5");
+	Currentid5.bgColor="#999999";
+	Currentid6=document.all("tab6");
+	Currentid6.bgColor="#999999";
+	Currentid7=document.all("tab7");
+	Currentid7.bgColor="#999999";
+	Currentid8=document.all("tab8");
+	Currentid8.bgColor="#999999";
+
+	}	
+function color3()
+{
+    Currentid=document.all("tab");
+	Currentid.bgColor="#999999";
+	Currentid1=document.all("tab1");
+	Currentid1.bgColor="#999999";
+	Currentid2=document.all("tab2");
+	Currentid2.bgColor="#999999";
+	Currentid3=document.all("tab3");
+	Currentid3.bgColor="#FF0033";
+	Currentid4=document.all("tab4");
+	Currentid4.bgColor="#999999";
+	Currentid5=document.all("tab5");
+	Currentid5.bgColor="#999999";
+	Currentid6=document.all("tab6");
+	Currentid6.bgColor="#999999";
+	Currentid7=document.all("tab7");
+	Currentid7.bgColor="#999999";
+	Currentid8=document.all("tab8");
+	Currentid8.bgColor="#999999";
+
+	}	
+function color4()
+{
+    Currentid=document.all("tab");
+	Currentid.bgColor="#999999";
+	Currentid1=document.all("tab1");
+	Currentid1.bgColor="#999999";
+	Currentid2=document.all("tab2");
+	Currentid2.bgColor="#999999";
+	Currentid3=document.all("tab3");
+	Currentid3.bgColor="#999999";
+	Currentid4=document.all("tab4");
+	Currentid4.bgColor="#FF0033";
+	Currentid5=document.all("tab5");
+	Currentid5.bgColor="#999999";
+	Currentid6=document.all("tab6");
+	Currentid6.bgColor="#999999";
+	Currentid7=document.all("tab7");
+	Currentid7.bgColor="#999999";
+	Currentid8=document.all("tab8");
+	Currentid8.bgColor="#999999";
+
+	}	
+function color5()
+{
+    Currentid=document.all("tab");
+	Currentid.bgColor="#999999";
+	Currentid1=document.all("tab1");
+	Currentid1.bgColor="#999999";
+	Currentid2=document.all("tab2");
+	Currentid2.bgColor="#999999";
+	Currentid3=document.all("tab3");
+	Currentid3.bgColor="#999999";
+	Currentid4=document.all("tab4");
+	Currentid4.bgColor="#999999";
+	Currentid5=document.all("tab5");
+	Currentid5.bgColor="#FF0033";
+	Currentid6=document.all("tab6");
+	Currentid6.bgColor="#999999";
+	Currentid7=document.all("tab7");
+	Currentid7.bgColor="#999999";
+	Currentid8=document.all("tab8");
+	Currentid8.bgColor="#999999";
+	
+	}	
+function color6()
+{
+    Currentid=document.all("tab");
+	Currentid.bgColor="#999999";
+	Currentid1=document.all("tab1");
+	Currentid1.bgColor="#999999";
+	Currentid2=document.all("tab2");
+	Currentid2.bgColor="#999999";
+	Currentid3=document.all("tab3");
+	Currentid3.bgColor="#999999";
+	Currentid4=document.all("tab4");
+	Currentid4.bgColor="#999999";
+	Currentid5=document.all("tab5");
+	Currentid5.bgColor="#999999";
+	Currentid6=document.all("tab6");
+	Currentid6.bgColor="#FF0033";
+	Currentid7=document.all("tab7");
+	Currentid7.bgColor="#999999";
+	Currentid8=document.all("tab8");
+	Currentid8.bgColor="#999999";
+
+	}	
+	function color7()
+{
+    Currentid=document.all("tab");
+	Currentid.bgColor="#999999";
+	Currentid1=document.all("tab1");
+	Currentid1.bgColor="#999999";
+	Currentid2=document.all("tab2");
+	Currentid2.bgColor="#999999";
+	Currentid3=document.all("tab3");
+	Currentid3.bgColor="#999999";
+	Currentid4=document.all("tab4");
+	Currentid4.bgColor="#999999";
+	Currentid5=document.all("tab5");
+	Currentid5.bgColor="#999999";
+	Currentid6=document.all("tab6");
+	Currentid6.bgColor="#999999";
+	Currentid7=document.all("tab7");
+	Currentid7.bgColor="#FF0033";
+	Currentid8=document.all("tab8");
+	Currentid8.bgColor="#999999";
+
+	}	
+	function color8()
+{
+    Currentid=document.all("tab");
+	Currentid.bgColor="#999999";
+	Currentid1=document.all("tab1");
+	Currentid1.bgColor="#999999";
+	Currentid2=document.all("tab2");
+	Currentid2.bgColor="#999999";
+	Currentid3=document.all("tab3");
+	Currentid3.bgColor="#999999";
+	Currentid4=document.all("tab4");
+	Currentid4.bgColor="#999999";
+	Currentid5=document.all("tab5");
+	Currentid5.bgColor="#999999";
+	Currentid6=document.all("tab6");
+	Currentid6.bgColor="#999999";
+	Currentid7=document.all("tab7");
+	Currentid7.bgColor="#999999";
+	Currentid8=document.all("tab8");
+	Currentid8.bgColor="#FF0033";
+	
+	}	
+	
+<!--
+
+<!--
+<!--
+function newImage(arg) {
+if (document.images) {
+rslt = new Image();
+rslt.src = arg;
+return rslt;
+}
+}
+// -->
+function MM_findObj(n, d) { //v4.01
+var p,i,x; if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+//-->
+var w;
+var h;
+var rtsp;
+
+var img2345 = new Image();
+
+function update()
+{
+	var imgObj;
+	
+	imgObj = document.getElementById('rimg12');
+	
+	imgObj.src = img2345.src;
+	img2345.src = "/tmpfs/auto.jpg?" + (new Date()).getTime();
+}
+
+function takeError()
+{
+	img2345.src = "/tmpfs/auto.jpg?" + (new Date()).getTime();
+}
+
+function startonload()
+{
+	img2345.src = "/tmpfs/auto.jpg?" + (new Date()).getTime();
+	img2345.onerror=takeError;
+	img2345.onload=update;
+}
+
+
+function load1()
+{	
+
+    lflag();
+	var ip=document.location.host;
+	//var url="rtsp://"+ip;
+	var url = "http://"+ip;
+alarmsound();	
+alarmrec();
+	if ((navigator.appVersion.indexOf("iPod")!=-1) || (navigator.appVersion.indexOf("iPhone")!=-1))
+	{
+	    document.getElementById("menu").style.display = "none";
+		data="<img src='/tmpfs/auto.jpg' id='rimg12'>";
+		document.getElementById('mydisplay').innerHTML=data;
+	}
+	else
+	{
+		
+		if (navigator.appName.indexOf("Microsoft Internet Explorer") != -1)
+		{
+			var streamnum = DHiMPlayer[0].GetStreamNum();
+			
+			if (streamnum == 11)
+			{
+				w=parseInt(320);
+				h=parseInt(180);
+				document.form1.streamselect[0].selected=true;
+			}
+			else
+			{
+				w=parseInt(320);
+				h=parseInt(180);
+				document.form1.streamselect[1].selected=true;	
+			}
+		}
+		else
+		{
+     document.getElementById("menu").style.display = "none";
+			w=parseInt(320);
+			h=parseInt(180);
+			//w=960;
+			//h=540;
+			rtsp=url+"/"+"iphone/11"+"?"+name0+":"+password0+"&";
+			h=h+14;
+	data='<embed src='+rtsp+' width='+w+' height='+h+' autoplay="true" controller="true" scale="tofit" ShowStatusBar="false" type="video/quicktime"';
+			data=data+' pluginspage="http://www.apple.com/quicktime/download/index.html"> </embed>';
+			document.getElementById('mydisplay').innerHTML=data;
+		}
+	}
+
+	if ((navigator.appVersion.indexOf("iPod")!=-1) || (navigator.appVersion.indexOf("iPhone")!=-1))
+	{
+		startonload();
+	}
+	else
+	{
+		if (navigator.appName.indexOf("Microsoft Internet Explorer") != -1) 
+		{
+			if (document.form1.streamselect[0].selected == true)
+			{
+				if (width_1 == 1280)
+				{
+					w=320;
+					h=180;
+				} 
+				else
+				{
+					w=parseInt(320);
+					h=parseInt(180);	
+				}
+			}	
+			
+			DHiMPlayer[0].SetUrl(url,80,12,name0,password0);
+			DHiMPlayer[0].SetWndPos(0, 0, w, h);
+			DHiMPlayer[0].Play();
+			
+			
+			DHiMPlayer[1].SetUrl(d_host[0],d_port[0],12,d_username[0],d_password[0]);
+			DHiMPlayer[1].SetWndPos(0, 0, w, h);
+			DHiMPlayer[1].Play();
+			
+			
+			DHiMPlayer[2].SetUrl(d_host[1],d_port[1],12,d_username[1],d_password[1]);
+			DHiMPlayer[2].SetWndPos(0, 0, w, h);
+			DHiMPlayer[2].Play();
+			
+			
+			DHiMPlayer[3].SetUrl(d_host[2],d_port[2],12,d_username[2],d_password[2]);
+			DHiMPlayer[3].SetWndPos(0, 0, w, h);
+			DHiMPlayer[3].Play();
+			
+			
+			DHiMPlayer[4].SetUrl(d_host[3],d_port[3],12,d_username[3],d_password[3]);
+			DHiMPlayer[4].SetWndPos(0, 0, w, h);
+			DHiMPlayer[4].Play();
+			
+			
+		    DHiMPlayer[5].SetUrl(d_host[4],d_port[4],12,d_username[4],d_password[4]);
+			DHiMPlayer[5].SetWndPos(0, 0, w, h);
+			DHiMPlayer[5].Play();
+
+			
+	        DHiMPlayer[6].SetUrl(d_host[5],d_port[5],12,d_username[5],d_password[5]);
+			DHiMPlayer[6].SetWndPos(0, 0, w, h);
+			DHiMPlayer[6].Play();
+
+			
+			DHiMPlayer[7].SetUrl(d_host[6],d_port[6],12,d_username[6],d_password[6]);
+			DHiMPlayer[7].SetWndPos(0, 0, w, h);
+			DHiMPlayer[7].Play();
+
+			
+		    DHiMPlayer[8].SetUrl(d_host[7],d_port[7],12,d_username[7],d_password[7]);
+			DHiMPlayer[8].SetWndPos(0, 0, w, h);
+			DHiMPlayer[8].Play();
+
+		
+			
+		}
+	}
+		dismisspic();
+     changeImg();
+	 setInterval("allstate()",30000);  //定时刷新状态
+}
+
+function allstate()
+{
+lre();
+IsMonitorMute();
+IsTalkState();
+}
+function alarmsound() //声音报警状态
+{
+  	var sound;
+	
+	var form=document.form2;
+	sound = DHiMPlayer[0].GetAlarmSound();
+	if (sound == 1){
+	document.form2.soundselect[0].selected=true;
+	}
+	else
+	{
+	document.form2.soundselect[1].selected=true;
+	}
+}
+
+function alarmrec() //报警录像状态
+{
+  	var record;
+	
+	var form=document.form2;
+	record = DHiMPlayer[0].GetAlarmRecord();
+	if (record == 1){
+	document.form2.alarmrecselect[0].selected=true;
+	}
+	else
+	{
+	document.form2.alarmrecselect[1].selected=true;
+	}
+}
+
+function SetEnlarge(index)//放大
+{
+var speed1 =31;
+var strcookie=document.cookie;
+var arrcookie=strcookie.split("; ");
+var numctrl;
+for(var i=0;i<arrcookie.length;i++){
+      var arr=arrcookie[i].split("=");
+      if("numctrl"==arr[0]){
+             numctrl=arr[1];
+             break;
+      }
+}
+  
+  if(numctrl==0)
+  {
+   DHiMPlayer[0].SetEnlarge(1);
+   }
+  else if(numctrl==1)
+  {DHiMPlayer[1].SetEnlarge(1);
+  }
+   else if(numctrl==2)
+  {DHiMPlayer[2].SetEnlarge(1);
+  }
+     else if(numctrl==3)
+  {DHiMPlayer[3].SetEnlarge(1);
+  }
+  else if(numctrl==4)
+  {DHiMPlayer[4].SetEnlarge(1);
+  }
+  else if(numctrl==5)
+  {DHiMPlayer[5].SetEnlarge(1);
+  }
+  else if(numctrl==6)
+  {DHiMPlayer[6].SetEnlarge(1);
+  }
+  else if(numctrl==7)
+  {DHiMPlayer[7].SetEnlarge(1);
+  }
+  else if(numctrl==8)
+  {DHiMPlayer[8].SetEnlarge(1);
+  }
+    else
+  {
+  alert(str_err_hostnum);
+  }
+  }
+ function SetShrink(index)//缩小
+{
+var speed1 =31;
+var strcookie=document.cookie;
+var arrcookie=strcookie.split("; ");
+var numctrl;
+for(var i=0;i<arrcookie.length;i++){
+      var arr=arrcookie[i].split("=");
+      if("numctrl"==arr[0]){
+             numctrl=arr[1];
+             break;
+      }
+}
+  
+  if(numctrl==0)
+  {
+   DHiMPlayer[0].SetEnlarge(-1);
+   }
+  else if(numctrl==1)
+  {DHiMPlayer[1].SetEnlarge(-1);
+  }
+   else if(numctrl==2)
+  {DHiMPlayer[2].SetEnlarge(-1);
+  }
+     else if(numctrl==3)
+  {DHiMPlayer[3].SetEnlarge(-1);
+  }
+   else if(numctrl==4)
+  {DHiMPlayer[4].SetEnlarge(-1);
+  }
+   else if(numctrl==5)
+  {DHiMPlayer[5].SetEnlarge(-1);
+  }
+   else if(numctrl==6)
+  {DHiMPlayer[6].SetEnlarge(-1);
+  }
+   else if(numctrl==7)
+  {DHiMPlayer[7].SetEnlarge(-1);
+  }
+   else if(numctrl==8)
+  {DHiMPlayer[8].SetEnlarge(-1);
+  }
+    else
+  {
+  alert(str_err_hostnum);
+  }
+  } 
+
+
+function snap(index)
+{
+var strcookie=document.cookie;
+var arrcookie=strcookie.split("; ");
+var numctrl;
+for(var i=0;i<arrcookie.length;i++){
+      var arr=arrcookie[i].split("=");
+      if("numctrl"==arr[0]){
+             numctrl=arr[1];
+             break;
+      }
+}
+  
+  if(numctrl==0)
+  {
+   DHiMPlayer[0].Snapshot();
+   }
+  else if(numctrl==1)
+  {DHiMPlayer[1].Snapshot();
+  }
+   else if(numctrl==2)
+  {DHiMPlayer[2].Snapshot();
+  }
+   else if(numctrl==3)
+  {DHiMPlayer[3].Snapshot();
+  }
+    else if(numctrl==4)
+  {DHiMPlayer[4].Snapshot();
+  }
+  else if(numctrl==5)
+  {DHiMPlayer[5].Snapshot();
+  }
+  else if(numctrl==6)
+  {DHiMPlayer[6].Snapshot();
+  }
+  else if(numctrl==7)
+  {DHiMPlayer[7].Snapshot();
+  }
+  else if(numctrl==8)
+  {DHiMPlayer[8].Snapshot();
+  }
+    else
+  {
+  alert(str_err_hostnum);
+  }
+  }
+  
+function record(index)
+{
+var ocxobj;
+	ocxobj = DHiMPlayer[index];
+var strcookie=document.cookie;
+var arrcookie=strcookie.split("; ");
+var numctrl;
+for(var i=0;i<arrcookie.length;i++){
+      var arr=arrcookie[i].split("=");
+      if("numctrl"==arr[0]){
+             numctrl=arr[1];
+             break;
+      }
+}  
+  if(numctrl==0)
+  {
+   DHiMPlayer[0].Record(0);
+   var flag=DHiMPlayer[0].GetRecordState();
+   }
+  else if(numctrl==1)
+  {DHiMPlayer[1].Record(0);
+  var flag=DHiMPlayer[1].GetRecordState();
+  }
+   else if(numctrl==2)
+  {DHiMPlayer[2].Record(0);
+  var flag=DHiMPlayer[2].GetRecordState();
+  }
+    else if(numctrl==3)
+  {DHiMPlayer[3].Record(0);
+  var flag=DHiMPlayer[3].GetRecordState();
+  }
+  else if(numctrl==4)
+  {DHiMPlayer[4].Record(0);
+  var flag=DHiMPlayer[4].GetRecordState();
+  }
+  else if(numctrl==5)
+  {DHiMPlayer[5].Record(0);
+  var flag=DHiMPlayer[5].GetRecordState();
+  }
+  else if(numctrl==6)
+  {DHiMPlayer[6].Record(0);
+  var flag=DHiMPlayer[6].GetRecordState();
+  }
+  else if(numctrl==7)
+  {DHiMPlayer[7].Record(0);
+  var flag=DHiMPlayer[7].GetRecordState();
+  }
+  else if(numctrl==8)
+  {DHiMPlayer[8].Record(0);
+  var flag=DHiMPlayer[8].GetRecordState();
+  }
+  else
+  {
+  alert(str_err_hostnum);
+  }
+
+if(flag==0){
+	if(language=='simple_chinese'){
+  				document.getElementById('recImage_avi').src="images/btn_luxiang_on.gif"  
+ 		 }else if(language=='traditional_chinese'){
+			document.getElementById('recImage_avi').src="images/btn_luxiang_on_tc.gif"
+		}else if(language=='korean'){
+			document.getElementById('recImage_avi').src="images/btn_luxiang_on_kr.gif"
+		}else{
+		 		document.getElementById('recImage_avi').src="images/btn_luxiang_on_en.gif"
+		  }
+
+		}
+else{
+	if(language=='simple_chinese'){
+  				document.getElementById('recImage_avi').src="images/btn_luxiang.gif"  
+ 		 }else if(language=='traditional_chinese'){
+			 document.getElementById('recImage_avi').src="images/btn_luxiang_tc.gif"
+		}else if(language=='korean'){
+			 document.getElementById('recImage_avi').src="images/btn_luxiang_kr.gif"
+		}
+		 else{
+		 document.getElementById('recImage_avi').src="images/btn_luxiang_en.gif"
+		  }
+	}
+  
+  lrestatus();
+  
+}
+
+
+
+
+function lre()
+{
+var strcookie=document.cookie;
+var arrcookie=strcookie.split("; ");
+var numctrl;
+for(var i=0;i<arrcookie.length;i++){
+      var arr=arrcookie[i].split("=");
+      if("numctrl"==arr[0]){
+             numctrl=arr[1];
+             break;
+      }
+}  
+  if(numctrl==0)
+  {
+   var flag=DHiMPlayer[0].GetRecordState();
+   }
+  else if(numctrl==1)
+  {
+  var flag=DHiMPlayer[1].GetRecordState();
+  }
+   else if(numctrl==2)
+  {
+  var flag=DHiMPlayer[2].GetRecordState();
+  }
+    else if(numctrl==3)
+  {
+  var flag=DHiMPlayer[3].GetRecordState();
+  }
+    else if(numctrl==4)
+  {
+  var flag=DHiMPlayer[4].GetRecordState();
+  }
+    else if(numctrl==5)
+  {
+  var flag=DHiMPlayer[5].GetRecordState();
+  }
+    else if(numctrl==6)
+  {
+  var flag=DHiMPlayer[6].GetRecordState();
+  }
+    else if(numctrl==7)
+  {
+  var flag=DHiMPlayer[7].GetRecordState();
+  }
+    else if(numctrl==8)
+  {
+  var flag=DHiMPlayer[8].GetRecordState();
+  }
+  
+  else
+  {
+  alert(str_err_hostnum);
+  }
+
+if(flag==0){
+	if(language=='simple_chinese'){
+  				document.getElementById('recImage_avi').src="images/btn_luxiang_on.gif"  
+ 		 }else if(language=='traditional_chinese'){
+			document.getElementById('recImage_avi').src="images/btn_luxiang_on_tc.gif"
+		}else if(language=='korean'){
+			document.getElementById('recImage_avi').src="images/btn_luxiang_on_kr.gif"
+		}else{
+		 		document.getElementById('recImage_avi').src="images/btn_luxiang_on_en.gif"
+		  }
+
+		}
+else{
+	if(language=='simple_chinese'){
+  				document.getElementById('recImage_avi').src="images/btn_luxiang.gif"  
+ 		 }else if(language=='traditional_chinese'){
+			 document.getElementById('recImage_avi').src="images/btn_luxiang_tc.gif"
+		}else if(language=='korean'){
+			 document.getElementById('recImage_avi').src="images/btn_luxiang_kr.gif"
+		}
+		 else{
+		 document.getElementById('recImage_avi').src="images/btn_luxiang_en.gif"
+		  }
+	}
+  
+  lrestatus();
+  
+}
+
+
+
+
+function lrestatus()
+{
+ var flag1=DHiMPlayer[0].GetRecordState();
+ if(flag1==0)
+ {
+ Currentid=document.all("n_1");
+	Currentid.bgColor="#FF0033"
+ }
+ else
+ {
+  Currentid=document.all("n_1");
+	Currentid.bgColor="#E1E1E1"
+ }
+  var flag2=DHiMPlayer[1].GetRecordState();
+ if(flag2==0)
+ {
+ Currentid=document.all("n_2");
+	Currentid.bgColor="#FF0033"
+ }
+ else
+ {
+  Currentid=document.all("n_2");
+	Currentid.bgColor="#E1E1E1"
+ }
+  var flag3=DHiMPlayer[2].GetRecordState();
+ if(flag3==0)
+ {
+ Currentid=document.all("n_3");
+	Currentid.bgColor="#FF0033"
+ }
+ else
+ {
+  Currentid=document.all("n_3");
+	Currentid.bgColor="#E1E1E1"
+ }
+  var flag4=DHiMPlayer[3].GetRecordState();
+ if(flag4==0)
+ {
+ Currentid=document.all("n_4");
+	Currentid.bgColor="#FF0033"
+ }
+ else
+ {
+  Currentid=document.all("n_4");
+	Currentid.bgColor="#E1E1E1"
+ }
+ 
+   var flag5=DHiMPlayer[4].GetRecordState();
+ if(flag5==0)
+ {
+ Currentid=document.all("n_5");
+	Currentid.bgColor="#FF0033"
+ }
+ else
+ {
+  Currentid=document.all("n_5");
+	Currentid.bgColor="#E1E1E1"
+ }
+
+
+
+  var flag6=DHiMPlayer[5].GetRecordState();
+ if(flag6==0)
+ {
+ Currentid=document.all("n_6");
+	Currentid.bgColor="#FF0033"
+ }
+ else
+ {
+  Currentid=document.all("n_6");
+	Currentid.bgColor="#E1E1E1"
+ }
+
+
+
+  var flag7=DHiMPlayer[6].GetRecordState();
+ if(flag7==0)
+ {
+ Currentid=document.all("n_7");
+	Currentid.bgColor="#FF0033"
+ }
+ else
+ {
+  Currentid=document.all("n_7");
+	Currentid.bgColor="#E1E1E1"
+ }
+
+
+
+  var flag8=DHiMPlayer[7].GetRecordState();
+ if(flag8==0)
+ {
+ Currentid=document.all("n_8");
+	Currentid.bgColor="#FF0033"
+ }
+ else
+ {
+  Currentid=document.all("n_8");
+	Currentid.bgColor="#E1E1E1"
+ }
+
+
+  var flag9=DHiMPlayer[8].GetRecordState();
+ if(flag9==0)
+ {
+ Currentid=document.all("n_9");
+	Currentid.bgColor="#FF0033"
+ }
+ else
+ {
+  Currentid=document.all("n_9");
+	Currentid.bgColor="#E1E1E1"
+ }
+
+}
+
+function path(index)
+{
+var strcookie=document.cookie;
+var arrcookie=strcookie.split("; ");
+var numctrl;
+for(var i=0;i<arrcookie.length;i++){
+      var arr=arrcookie[i].split("=");
+      if("numctrl"==arr[0]){
+             numctrl=arr[1];
+             break;
+      }
+}  
+  if(numctrl==0)
+  {
+   DHiMPlayer[0].SetRecordPath();
+   }
+  else if(numctrl==1)
+  {DHiMPlayer[1].SetRecordPath();
+  }
+   else if(numctrl==2)
+  {DHiMPlayer[2].SetRecordPath();
+  }
+    else if(numctrl==3)
+  {DHiMPlayer[3].SetRecordPath();}
+  else if(numctrl==4)
+  {DHiMPlayer[4].SetRecordPath();}
+  else if(numctrl==5)
+  {DHiMPlayer[5].SetRecordPath();}
+  else if(numctrl==6)
+  {DHiMPlayer[6].SetRecordPath();}
+  else if(numctrl==7)
+  {DHiMPlayer[7].SetRecordPath();}
+  else if(numctrl==8)
+  {DHiMPlayer[8].SetRecordPath();}
+  else
+  {
+  alert(str_err_hostnum);
+  }
+}
+
+
+ function soundstop()
+{ 
+var strcookie=document.cookie;
+var arrcookie=strcookie.split("; ");
+var numctrl;
+for(var i=0;i<arrcookie.length;i++){
+      var arr=arrcookie[i].split("=");
+      if("numctrl"==arr[0]){
+             numctrl=arr[1];
+             break;
+      }
+}  
+  if(numctrl==0)
+  { var MuteState0 = DHiMPlayer[0].GetMuteState;
+    var TalkState0 = DHiMPlayer[0].GetTalkState;}
+  else if(numctrl==1)
+  {var MuteState0 = DHiMPlayer[1].GetMuteState;
+  var TalkState0 = DHiMPlayer[1].GetTalkState;}
+  else if(numctrl==2)
+  {var MuteState0 = DHiMPlayer[2].GetMuteState;
+  var TalkState0 = DHiMPlayer[2].GetTalkState;}
+  else if(numctrl==3)
+  {var MuteState0 = DHiMPlayer[3].GetMuteState;
+  var TalkState0 = DHiMPlayer[3].GetTalkState;}
+  else if(numctrl==4)
+  {var MuteState0 = DHiMPlayer[4].GetMuteState;
+  var TalkState0 = DHiMPlayer[4].GetTalkState;}
+  else if(numctrl==5)
+  {var MuteState0 = DHiMPlayer[5].GetMuteState;
+  var TalkState0 = DHiMPlayer[5].GetTalkState;}
+  else if(numctrl==6)
+  {var MuteState0 = DHiMPlayer[6].GetMuteState;
+  var TalkState0 = DHiMPlayer[6].GetTalkState;}
+  else if(numctrl==7)
+  {var MuteState0 = DHiMPlayer[7].GetMuteState;
+  var TalkState0 = DHiMPlayer[7].GetTalkState;}
+  else if(numctrl==8)
+  {var MuteState0 = DHiMPlayer[8].GetMuteState;
+  var TalkState0 = DHiMPlayer[8].GetTalkState;}
+  else
+  {
+   alert(str_err_hostnum);
+  }
+
+	if (MuteState0 == 1)
+	{
+		audioctrl();
+	}
+	if (TalkState0 == 0)
+	{
+	   talkctrl();
+	}
+IsMonitorMute();
+IsTalkState();
+}
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ function audioctrl(index)
+{
+var strcookie=document.cookie;
+var arrcookie=strcookie.split("; ");
+var numctrl;
+for(var i=0;i<arrcookie.length;i++){
+      var arr=arrcookie[i].split("=");
+      if("numctrl"==arr[0]){
+             numctrl=arr[1];
+             break;
+      }
+}
+  if(numctrl==0)
+  {
+   DHiMPlayer[0].SetMuteState();
+   }
+  else if(numctrl==1)
+  {DHiMPlayer[1].SetMuteState();
+  }
+   else if(numctrl==2)
+  {DHiMPlayer[2].SetMuteState();
+  }
+  else if(numctrl==3)
+  {DHiMPlayer[3].SetMuteState();
+  }
+  else if(numctrl==4)
+  {DHiMPlayer[4].SetMuteState();
+  }
+  else if(numctrl==5)
+  {DHiMPlayer[5].SetMuteState();
+  }
+  else if(numctrl==6)
+  {DHiMPlayer[6].SetMuteState();
+  }
+  else if(numctrl==7)
+  {DHiMPlayer[7].SetMuteState();
+  }
+  else if(numctrl==8)
+  {DHiMPlayer[8].SetMuteState();
+  }
+  else
+  {
+   alert(str_err_hostnum);
+  }	
+}
+
+
+function talkctrl(index)
+{
+var strcookie=document.cookie;
+var arrcookie=strcookie.split("; ");
+var numctrl;
+for(var i=0;i<arrcookie.length;i++){
+      var arr=arrcookie[i].split("=");
+      if("numctrl"==arr[0]){
+             numctrl=arr[1];
+             break;
+      }
+}
+  if(numctrl==0)
+  {
+   DHiMPlayer[0].SetTalkState();
+   }
+  else if(numctrl==1)
+  {DHiMPlayer[1].SetTalkState();
+  }
+   else if(numctrl==2)
+  {DHiMPlayer[2].SetTalkState();
+  }
+  else if(numctrl==3)
+  {DHiMPlayer[3].SetTalkState();
+  }
+  else if(numctrl==4)
+  {DHiMPlayer[4].SetTalkState();
+  }
+  else if(numctrl==5)
+  {DHiMPlayer[5].SetTalkState();
+  }
+  else if(numctrl==6)
+  {DHiMPlayer[6].SetTalkState();
+  }
+  else if(numctrl==7)
+  {DHiMPlayer[7].SetTalkState();
+  }
+  else if(numctrl==8)
+  {DHiMPlayer[8].SetTalkState();
+  }
+  else
+  {
+   alert(str_err_hostnum);
+  }		
+}
+
+ function IsMonitorMute(index) //监听状态
+{
+var strcookie=document.cookie;
+var arrcookie=strcookie.split("; ");
+var numctrl;
+for(var i=0;i<arrcookie.length;i++){
+      var arr=arrcookie[i].split("=");
+      if("numctrl"==arr[0]){
+             numctrl=arr[1];
+             break;
+      }
+}  
+  if(numctrl==0)
+  { var MuteState = DHiMPlayer[0].GetMuteState;
+  }
+  else if(numctrl==1)
+  {var MuteState = DHiMPlayer[1].GetMuteState;}
+  else if(numctrl==2)
+  {var MuteState = DHiMPlayer[2].GetMuteState;}
+  else if(numctrl==3)
+  {var MuteState = DHiMPlayer[3].GetMuteState;}
+  else if(numctrl==4)
+  {var MuteState = DHiMPlayer[4].GetMuteState;}
+  else if(numctrl==5)
+  {var MuteState = DHiMPlayer[5].GetMuteState;}
+  else if(numctrl==6)
+  {var MuteState = DHiMPlayer[6].GetMuteState;}
+  else if(numctrl==7)
+  {var MuteState = DHiMPlayer[7].GetMuteState;}
+  else if(numctrl==8)
+  {var MuteState = DHiMPlayer[8].GetMuteState;}
+  else
+  {
+   alert(str_err_hostnum);
+  }
+
+	if (MuteState == 1){
+		if(language=='simple_chinese'){
+		document.getElementById('img_listen').src = "images/btn_jianting_on.gif";
+		}else if(language=='traditional_chinese'){
+			document.getElementById('img_listen').src = "images/btn_jianting_on_tc.gif";
+		}else if(language=='korean'){
+			document.getElementById('img_listen').src = "images/btn_jianting_on_kr.gif";
+		}else{
+		document.getElementById('img_listen').src = "images/btn_jianting_on_en.gif";
+		}
+		}
+	else{
+		if(language=='simple_chinese'){
+		document.getElementById('img_listen').src = "images/btn_jianting.gif";
+		}else if(language=='traditional_chinese'){
+			document.getElementById('img_listen').src = "images/btn_jianting_tc.gif";
+		}else if(language=='korean'){
+			document.getElementById('img_listen').src = "images/btn_jianting_kr.gif";
+		}else{
+			document.getElementById('img_listen').src = "images/btn_jianting_en.gif";
+		}
+		}
+}
+
+function IsTalkState(index)    //对讲状态
+{
+var strcookie=document.cookie;
+var arrcookie=strcookie.split("; ");
+var numctrl;
+for(var i=0;i<arrcookie.length;i++){
+      var arr=arrcookie[i].split("=");
+      if("numctrl"==arr[0]){
+             numctrl=arr[1];
+             break;
+      }
+}  
+  if(numctrl==0)
+  {var TalkState = DHiMPlayer[0].GetTalkState;}
+  else if(numctrl==1)
+  { var TalkState = DHiMPlayer[1].GetTalkState;}
+  else if(numctrl==2)
+  {var TalkState = DHiMPlayer[2].GetTalkState;}
+  else if(numctrl==3)
+  {var TalkState = DHiMPlayer[3].GetTalkState;}
+  else if(numctrl==4)
+  {var TalkState = DHiMPlayer[4].GetTalkState;}
+  else if(numctrl==5)
+  {var TalkState = DHiMPlayer[5].GetTalkState;}
+  else if(numctrl==6)
+  {var TalkState = DHiMPlayer[6].GetTalkState;}
+  else if(numctrl==7)
+  {var TalkState = DHiMPlayer[7].GetTalkState;}
+  else if(numctrl==8)
+  {var TalkState = DHiMPlayer[8].GetTalkState;}
+  else
+  {
+   alert(str_err_hostnum);
+  }
+	if (TalkState == 0){
+		if(language=='simple_chinese'){
+				document.getElementById('img_talk').src="images/btn_talk_on.gif";
+			}else if(language=='traditional_chinese'){
+			document.getElementById('img_talk').src="images/btn_talk_on_tc.gif";
+		}else if(language=='korean'){
+			document.getElementById('img_talk').src="images/btn_talk_on_kr.gif";
+		}else{
+				document.getElementById('img_talk').src="images/btn_talk_on_en.gif";
+			}
+		}
+	else{
+		if(language=='simple_chinese'){
+				document.getElementById('img_talk').src="images/btn_talk.gif";
+			}else if(language=='traditional_chinese'){
+			document.getElementById('img_talk').src="images/btn_talk_tc.gif";
+		}else if(language=='korean'){
+			document.getElementById('img_talk').src="images/btn_talk_kr.gif";
+		}else{
+				document.getElementById('img_talk').src="images/btn_talk_en.gif";
+			}
+		}
+}
+
+
+function playback()
+{ 
+window.open('backplay.html','playback','height=600,width=1000,top=100,left=100,toolbar=no,menubar=no,scrollbars=yes,location=no,status=no');
+}
+
+
+function ptzcmdSubmit_up(index)
+{
+var speed1 =31;
+var strcookie=document.cookie;
+var arrcookie=strcookie.split("; ");
+var numctrl;
+for(var i=0;i<arrcookie.length;i++){
+      var arr=arrcookie[i].split("=");
+      if("numctrl"==arr[0]){
+             numctrl=arr[1];
+             break;
+      }
+}
+  
+  if(numctrl==0)
+  {
+   DHiMPlayer[0].PtzControl(1,speed1);
+   }
+  else if(numctrl==1)
+  {DHiMPlayer[1].PtzControl(1,speed1);
+  }
+   else if(numctrl==2)
+  {DHiMPlayer[2].PtzControl(1,speed1);
+  }
+   else if(numctrl==3)
+  {DHiMPlayer[3].PtzControl(1,speed1);
+  }
+  else if(numctrl==4)
+  {DHiMPlayer[4].PtzControl(1,speed1);
+  }
+  else if(numctrl==5)
+  {DHiMPlayer[5].PtzControl(1,speed1);
+  }
+  else if(numctrl==6)
+  {DHiMPlayer[6].PtzControl(1,speed1);
+  }
+  else if(numctrl==7)
+  {DHiMPlayer[7].PtzControl(1,speed1);
+  }
+  else if(numctrl==8)
+  {DHiMPlayer[8].PtzControl(1,speed1);
+  }
+    else
+  {
+  alert(str_err_hostnum);
+  }
+  }
+  
+function ptzcmdSubmit_down(index)
+{
+var speed1 =31;
+var strcookie=document.cookie;
+var arrcookie=strcookie.split("; ");
+var numctrl;
+for(var i=0;i<arrcookie.length;i++){
+      var arr=arrcookie[i].split("=");
+      if("numctrl"==arr[0]){
+             numctrl=arr[1];
+             break;
+      }
+}
+  
+  if(numctrl==0)
+  {
+   DHiMPlayer[0].PtzControl(2,speed1);
+   }
+  else if(numctrl==1)
+  {DHiMPlayer[1].PtzControl(2,speed1);
+  }
+   else if(numctrl==2)
+  {DHiMPlayer[2].PtzControl(2,speed1);
+  }
+   else if(numctrl==3)
+  {DHiMPlayer[3].PtzControl(2,speed1);
+  }
+  else if(numctrl==4)
+  {DHiMPlayer[4].PtzControl(2,speed1);
+  }
+  else if(numctrl==5)
+  {DHiMPlayer[5].PtzControl(2,speed1);
+  }
+  else if(numctrl==6)
+  {DHiMPlayer[6].PtzControl(2,speed1);
+  }
+  else if(numctrl==7)
+  {DHiMPlayer[7].PtzControl(2,speed1);
+  }
+  else if(numctrl==8)
+  {DHiMPlayer[8].PtzControl(2,speed1);
+  }
+    else
+  {
+  alert(str_err_hostnum);
+  }
+  }
+
+function ptzcmdSubmit_left(index)
+{
+var speed1 =31;
+var strcookie=document.cookie;
+var arrcookie=strcookie.split("; ");
+var numctrl;
+for(var i=0;i<arrcookie.length;i++){
+      var arr=arrcookie[i].split("=");
+      if("numctrl"==arr[0]){
+             numctrl=arr[1];
+             break;
+      }
+
+}
+  
+  if(numctrl==0)
+  {
+   DHiMPlayer[0].PtzControl(3,speed1);
+   }
+  else if(numctrl==1)
+  {DHiMPlayer[1].PtzControl(3,speed1);
+  }
+   else if(numctrl==2)
+  {DHiMPlayer[2].PtzControl(3,speed1);
+  }
+   else if(numctrl==3)
+  {DHiMPlayer[3].PtzControl(3,speed1);
+  }
+  else if(numctrl==4)
+  {DHiMPlayer[4].PtzControl(3,speed1);
+  }
+  else if(numctrl==5)
+  {DHiMPlayer[5].PtzControl(3,speed1);
+  }
+  else if(numctrl==6)
+  {DHiMPlayer[6].PtzControl(3,speed1);
+  }
+  else if(numctrl==7)
+  {DHiMPlayer[7].PtzControl(3,speed1);
+  }
+  else if(numctrl==8)
+  {DHiMPlayer[8].PtzControl(3,speed1);
+  }
+    else
+  {
+  alert(str_err_hostnum);
+  }
+  }
+
+function ptzcmdSubmit_right(index)
+{
+var speed1 =31;
+var strcookie=document.cookie;
+var arrcookie=strcookie.split("; ");
+var numctrl;
+for(var i=0;i<arrcookie.length;i++){
+      var arr=arrcookie[i].split("=");
+      if("numctrl"==arr[0]){
+             numctrl=arr[1];
+             break;
+      }
+}
+  
+  if(numctrl==0)
+  {
+   DHiMPlayer[0].PtzControl(4,speed1);
+   }
+  else if(numctrl==1)
+  {DHiMPlayer[1].PtzControl(4,speed1);
+  }
+   else if(numctrl==2)
+  {DHiMPlayer[2].PtzControl(4,speed1);
+  }
+    else if(numctrl==3)
+  {DHiMPlayer[3].PtzControl(4,speed1);
+  }
+  else if(numctrl==4)
+  {DHiMPlayer[4].PtzControl(4,speed1);
+  }
+  else if(numctrl==5)
+  {DHiMPlayer[5].PtzControl(4,speed1);
+  }
+  else if(numctrl==6)
+  {DHiMPlayer[6].PtzControl(4,speed1);
+  }
+  else if(numctrl==7)
+  {DHiMPlayer[7].PtzControl(4,speed1);
+  }
+  else if(numctrl==8)
+  {DHiMPlayer[8].PtzControl(4,speed1);
+  }
+    else
+  {
+  alert(str_err_hostnum);
+  }
+  }
+  
+function ptzcmdSubmit_ud(index)
+{
+var speed1 =31;
+var strcookie=document.cookie;
+var arrcookie=strcookie.split("; ");
+var numctrl;
+for(var i=0;i<arrcookie.length;i++){
+      var arr=arrcookie[i].split("=");
+      if("numctrl"==arr[0]){
+             numctrl=arr[1];
+             break;
+      }
+}
+  
+  if(numctrl==0)
+  {
+   DHiMPlayer[0].PtzControl(24,speed1);
+   }
+  else if(numctrl==1)
+  {DHiMPlayer[1].PtzControl(24,speed1);
+  }
+   else if(numctrl==2)
+  {DHiMPlayer[2].PtzControl(24,speed1);
+  }
+     else if(numctrl==3)
+  {DHiMPlayer[3].PtzControl(24,speed1);
+  }
+  else if(numctrl==4)
+  {DHiMPlayer[4].PtzControl(24,speed1);
+  }
+  else if(numctrl==5)
+  {DHiMPlayer[5].PtzControl(24,speed1);
+  }
+  else if(numctrl==6)
+  {DHiMPlayer[6].PtzControl(24,speed1);
+  }
+  else if(numctrl==7)
+  {DHiMPlayer[7].PtzControl(24,speed1);
+  }
+  else if(numctrl==8)
+  {DHiMPlayer[8].PtzControl(24,speed1);
+  }
+    else
+  {
+  alert(str_err_hostnum);
+  } 
+  }
+  
+ function ptzcmdSubmit_lr(index)
+{
+var speed1 =31;
+var strcookie=document.cookie;
+var arrcookie=strcookie.split("; ");
+var numctrl;
+for(var i=0;i<arrcookie.length;i++){
+      var arr=arrcookie[i].split("=");
+      if("numctrl"==arr[0]){
+             numctrl=arr[1];
+             break;
+      }
+}
+  
+  if(numctrl==0)
+  {
+   DHiMPlayer[0].PtzControl(25,speed1);
+   }
+  else if(numctrl==1)
+  {DHiMPlayer[1].PtzControl(25,speed1);
+  }
+   else if(numctrl==2)
+  {DHiMPlayer[2].PtzControl(25,speed1);
+  }
+     else if(numctrl==3)
+  {DHiMPlayer[3].PtzControl(25,speed1);
+  }
+  else if(numctrl==4)
+  {DHiMPlayer[4].PtzControl(25,speed1);
+  }
+  else if(numctrl==5)
+  {DHiMPlayer[5].PtzControl(25,speed1);
+  }
+  else if(numctrl==6)
+  {DHiMPlayer[6].PtzControl(25,speed1);
+  }
+  else if(numctrl==7)
+  {DHiMPlayer[7].PtzControl(25,speed1);
+  }
+  else if(numctrl==8)
+  {DHiMPlayer[8].PtzControl(25,speed1);
+  }
+    else
+  {
+  alert(str_err_hostnum);
+  }
+  }
+  
+function ptzcmdSubmit_center(index)
+{   var speed1 =31;
+var strcookie=document.cookie;
+var arrcookie=strcookie.split("; ");
+var numctrl;
+for(var i=0;i<arrcookie.length;i++){
+      var arr=arrcookie[i].split("=");
+      if("numctrl"==arr[0]){
+             numctrl=arr[1];
+             break;
+      }
+}
+  
+  if(numctrl==0)
+  {
+   DHiMPlayer[0].PtzControl(23,speed1);
+   }
+  else if(numctrl==1)
+  {DHiMPlayer[1].PtzControl(23,speed1);
+  }
+   else if(numctrl==2)
+  {DHiMPlayer[2].PtzControl(23,speed1);
+  }
+     else if(numctrl==3)
+  {DHiMPlayer[3].PtzControl(23,speed1);
+  }
+  else if(numctrl==4)
+  {DHiMPlayer[4].PtzControl(23,speed1);
+  }
+  else if(numctrl==5)
+  {DHiMPlayer[5].PtzControl(23,speed1);
+  }
+  else if(numctrl==6)
+  {DHiMPlayer[6].PtzControl(23,speed1);
+  }
+  else if(numctrl==7)
+  {DHiMPlayer[7].PtzControl(23,speed1);
+  }
+  else if(numctrl==8)
+  {DHiMPlayer[8].PtzControl(23,speed1);
+  }
+    else
+  {
+  alert(str_err_hostnum);
+  }
+}
+
+function ptzcmdSubmit_stop(index)
+{
+var strcookie=document.cookie;
+var arrcookie=strcookie.split("; ");
+var numctrl;
+for(var i=0;i<arrcookie.length;i++){
+      var arr=arrcookie[i].split("=");
+      if("numctrl"==arr[0]){
+             numctrl=arr[1];
+             break;
+      }
+}
+  
+if(numctrl==0)
+{DHiMPlayer[0].PtzControl(0,0);}
+else if(numctrl==1)  
+{DHiMPlayer[1].PtzControl(0,0);}
+else if(numctrl==2)
+{DHiMPlayer[2].PtzControl(0,0);}
+else if(numctrl==3)
+{DHiMPlayer[3].PtzControl(0,0);}
+else if(numctrl==4)
+{DHiMPlayer[4].PtzControl(0,0);}
+else if(numctrl==5)
+{DHiMPlayer[5].PtzControl(0,0);}
+else if(numctrl==6)
+{DHiMPlayer[6].PtzControl(0,0);}
+else if(numctrl==7)
+{DHiMPlayer[7].PtzControl(0,0);}
+else
+{DHiMPlayer[8].PtzControl(0,0);}
+
+}
+
+function set_preset(index)
+{
+var presetset1 = document.getElementById('preset0').value;
+var strcookie=document.cookie;
+var arrcookie=strcookie.split("; ");
+var numctrl;
+for(var i=0;i<arrcookie.length;i++){
+      var arr=arrcookie[i].split("=");
+      if("numctrl"==arr[0]){
+             numctrl=arr[1];
+             break;
+      }
+}
+  
+if(numctrl==0)
+{DHiMPlayer[0].PTZPreset(1,presetset1);}
+else if(numctrl==1)  
+{DHiMPlayer[1].PTZPreset(1,presetset1);}
+else if(numctrl==2)  
+{DHiMPlayer[2].PTZPreset(1,presetset1);}
+else if(numctrl==3)
+{DHiMPlayer[3].PTZPreset(1,presetset1);}
+else if(numctrl==4)
+{DHiMPlayer[4].PTZPreset(1,presetset1);}
+else if(numctrl==5)
+{DHiMPlayer[5].PTZPreset(1,presetset1);}
+else if(numctrl==6)
+{DHiMPlayer[6].PTZPreset(1,presetset1);}
+else if(numctrl==7)
+{DHiMPlayer[7].PTZPreset(1,presetset1);}
+else if(numctrl==8)
+{DHiMPlayer[8].PTZPreset(1,presetset1);}
+
+    else
+  {
+  alert(str_err_hostnum);
+  }
+}
+
+function go_preset(index)
+{
+var presetset = document.getElementById('preset0').value;
+var strcookie=document.cookie;
+var arrcookie=strcookie.split("; ");
+var numctrl;
+for(var i=0;i<arrcookie.length;i++){
+      var arr=arrcookie[i].split("=");
+      if("numctrl"==arr[0]){
+             numctrl=arr[1];
+             break;
+      }
+}
+  
+if(numctrl==0)
+{DHiMPlayer[0].PTZPreset(0,presetset);}
+else if(numctrl==1)  
+{DHiMPlayer[1].PTZPreset(0,presetset);}
+else if(numctrl==2)  
+{DHiMPlayer[2].PTZPreset(0,presetset);}
+else  if(numctrl==3)
+{DHiMPlayer[3].PTZPreset(0,presetset);}
+else  if(numctrl==4)
+{DHiMPlayer[4].PTZPreset(0,presetset);}
+else  if(numctrl==5)
+{DHiMPlayer[5].PTZPreset(0,presetset);}
+else  if(numctrl==6)
+{DHiMPlayer[6].PTZPreset(0,presetset);}
+else  if(numctrl==7)
+{DHiMPlayer[7].PTZPreset(0,presetset);}
+else  if(numctrl==8)
+{DHiMPlayer[8].PTZPreset(0,presetset);}
+
+    else
+  {
+  alert(str_err_hostnum);
+  }
+}	
+
+
+function sd()
+{
+var strcookie=document.cookie;
+var arrcookie=strcookie.split("; ");
+var numctrl;
+for(var i=0;i<arrcookie.length;i++){
+      var arr=arrcookie[i].split("=");
+      if("numctrl"==arr[0]){
+             numctrl=arr[1];
+             break;
+      }
+}
+  
+var url = "/sd";  
+var url1 = "http://"+d_host[0]+":"+d_port[0]+"/sd";  
+var url2 = "http://"+d_host[1]+":"+d_port[1]+"/sd";  
+var url3 = "http://"+d_host[2]+":"+d_port[2]+"/sd"; 
+if(numctrl==0)
+{window.open(url,'_blank');}
+else if(numctrl==1)  
+{
+if (d_host[0]=='')
+alert(str_err_selected);
+else
+window.open(url1,'_blank');}
+
+else if(numctrl==2)  
+{if (d_host[1]=='')
+alert(str_err_selected);
+else
+window.open(url2,'_blank');}
+
+else  if(numctrl==3)
+{
+if (d_host[2]=='')
+alert(str_err_selected);
+else
+window.open(url3,'_blank');}
+
+    else
+  {
+  alert(str_err_hostnum);
+  }
+
+
+}
+
+
+
+  </script>
+  
+  
+  
+  
+<SCRIPT LANGUAGE=javascript FOR="DHiMPlayer" EVENT="OnLBClick(ntype,cx,cy)"> 
+on_callback_OnLBClick(this.name)
+</script>
+</head>
+<style>
+p {
+	display:block; margin:0; padding:0; margin-top:15px;
+}
+</style>
+<body align="center" onLoad="load1();" >
+<table width="100%" height="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="right" valign="middle" height="100%"><table width="352" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td ><img src="images/easyn2_10.gif" width="35" height="20"></td>
+          <td width="424" height="20" background="images/easyn2_11.gif"></td>
+          <td width="24"><img src="images/easyn2_12.gif" width="11" height="20"></td>
+        </tr>
+        <tr>
+          <td valign="top" background="images/easyn2_26.gif" style="background-repeat:repeat-y"><img src="images/easyn2_13.gif" width="35"><br>
+              <br>
+          </td>
+          <td rowspan="3" align="center" id="mydisplay">
+			     <table border="0" cellspacing="0" bgcolor="#999999" width="975" height="558">
+  <tr >
+    <td align="center" valign="middle" bgColor="#FF0033"  id="tab"><span>
+      <object style="TOP: 0px; LEFT: 0px" id="DHiMPlayer" name=0
+            classid="clsid:42B182F9-3F08-484E-9913-07193A5D36A6" codebase="ENWebClientPlus.ocx#version=3,0,2,0" width=320 
+            height=180 viewastext>
+        <param name="_Version" value="65536">
+        <param name="_ExtentX" value="8467">
+        <param name="_ExtentY" value="6350">
+        <param name="_StockProps" value="0">
+      </object>
+    </span></td>
+    <td align="center" valign="middle" id="tab1"><span>
+      <object style="TOP: 0px; LEFT: 0px" id="DHiMPlayer"  name=1
+            classid="clsid:42B182F9-3F08-484E-9913-07193A5D36A6" codebase="ENWebClientPlus.ocx#version=3,0,2,0" width=320 
+            height=180 viewastext>
+        <param name="_Version" value="65536">
+        <param name="_ExtentX" value="8467">
+        <param name="_ExtentY" value="6350">
+        <param name="_StockProps" value="0">
+      </object>
+    </span></td>
+    <td align="center" valign="middle"  id="tab2"><span>
+      <object style="TOP: 0px; LEFT: 0px" id="DHiMPlayer" name=2
+            classid="clsid:42B182F9-3F08-484E-9913-07193A5D36A6" codebase="ENWebClientPlus.ocx#version=3,0,2,0" width=320 
+            height=180 viewastext>
+        <param name="_Version" value="65536">
+        <param name="_ExtentX" value="8467">
+        <param name="_ExtentY" value="6350">
+        <param name="_StockProps" value="0">
+      </object>
+    </span></td>
+  </tr>
+  <tr>
+    <td align="center" valign="middle"  id="tab3"><span >
+      <object style="TOP: 0px; LEFT: 0px" id="DHiMPlayer" name=3
+            classid="clsid:42B182F9-3F08-484E-9913-07193A5D36A6" codebase="ENWebClientPlus.ocx#version=3,0,2,0" width=320 
+            height=180 viewastext>
+        <param name="_Version" value="65536">
+        <param name="_ExtentX" value="8467">
+        <param name="_ExtentY" value="6350">
+        <param name="_StockProps" value="0">
+      </object>
+    </span></td>
+    <td  align="center" valign="middle" id="tab4"><span>
+      <object style="TOP: 0px; LEFT: 0px" id="DHiMPlayer" name=4
+            classid="clsid:42B182F9-3F08-484E-9913-07193A5D36A6" codebase="ENWebClientPlus.ocx#version=3,0,2,0" width=320 
+            height=180 viewastext>
+        <param name="_Version" value="65536">
+        <param name="_ExtentX" value="8467">
+        <param name="_ExtentY" value="6350">
+        <param name="_StockProps" value="0">
+      </object>
+    </span></td>
+   <td align="center" valign="middle"  id="tab5"><span>
+      <object style="TOP: 0px; LEFT: 0px" id="DHiMPlayer" name=5
+            classid="clsid:42B182F9-3F08-484E-9913-07193A5D36A6" codebase="ENWebClientPlus.ocx#version=3,0,2,0" width=320 
+            height=180 viewastext>
+        <param name="_Version" value="65536">
+        <param name="_ExtentX" value="8467">
+        <param name="_ExtentY" value="6350">
+        <param name="_StockProps" value="0">
+        <embed src="65536" width="320" height="180" _version="65536" _extentx="8467" _extenty="6350" _stockprops="0"></embed>
+      </object>
+    </span></td>
+  </tr>
+  <tr>
+   <td align="center" valign="middle"   id="tab6"><span>
+      <object style="TOP: 0px; LEFT: 0px" id="DHiMPlayer" name=6
+            classid="clsid:42B182F9-3F08-484E-9913-07193A5D36A6" codebase="ENWebClientPlus.ocx#version=3,0,2,0" width=320 
+            height=180 viewastext>
+        <param name="_Version" value="65536">
+        <param name="_ExtentX" value="8467">
+        <param name="_ExtentY" value="6350">
+        <param name="_StockProps" value="0">
+      </object>
+    </span></td>
+   <td align="center" valign="middle"  id="tab7"><span>
+      <object style="TOP: 0px; LEFT: 0px" id="DHiMPlayer" name=7
+            classid="clsid:42B182F9-3F08-484E-9913-07193A5D36A6" codebase="ENWebClientPlus.ocx#version=3,0,2,0" width=320 
+            height=180 viewastext>
+        <param name="_Version" value="65536">
+        <param name="_ExtentX" value="8467">
+        <param name="_ExtentY" value="6350">
+        <param name="_StockProps" value="0">
+      </object>
+    </span></td>
+    <td align="center" valign="middle" id="tab8"><span>
+      <object style="TOP: 0px; LEFT: 0px" id="DHiMPlayer" name=8
+            classid="clsid:42B182F9-3F08-484E-9913-07193A5D36A6" codebase="ENWebClientPlus.ocx#version=3,0,2,0" width=320 
+            height=180 viewastext>
+        <param name="_Version" value="65536">
+        <param name="_ExtentX" value="8467">
+        <param name="_ExtentY" value="6350">
+        <param name="_StockProps" value="0">
+      </object>
+    </span></td>
+  </tr>
+</table>
+	      </td>
+          <td rowspan="3" valign="top" background="images/easyn2_27.gif" style="background-repeat:repeat-y"><img src="images/easyn2_15.gif" width="11"></td>
+        </tr>
+        <tr>
+          <td background="images/easyn2_26.gif" style="background-repeat:repeat-y"><img src="images/easyn2_16.gif" width="35"></td>
+        </tr>
+        <tr>
+          <td background="images/easyn2_26.gif" style="background-repeat:repeat-y"><img src="images/easyn2_17.gif" width="35"></td>
+        </tr>
+        <tr>
+          <td><img src="images/easyn2_18.gif" width="35" height="20"></td>
+          <td background="images/easyn2_19.gif"></td>
+          <td><img src="images/easyn2_20.gif" width="11" height="20"></td>
+        </tr>
+    </table></td>
+    <td valign="middle"><div id="maindiv" style="display:block"><table width="209" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="209"><img src="images/easyn2_08.gif" width="209" height="30"></td>
+        </tr>
+        <tr>
+          <td align="center" background="images/easyn2_09.gif" bgcolor="#E1E1E1" style="background-repeat:repeat-x;repeat-y"><img id="img_logo" name="img_logo" src="images/logo_en.gif" width="174" height="36"><br/>
+                  <img id="img_line" name="img_line" src="images/line.gif" width="192" height="2"><br/>
+				  <div id="stream_num" style="display:none"><SCRIPT type=text/JavaScript>
+							document.open();
+							document.write('<form name="form1">');
+							document.write('<table align="center" width="85%"><tr><td>');
+							document.write("<span style='font-size:14px'>"+str_stream+"</span>");
+                          	document.write('<select name="streamselect" onChange="streamchange()">');
+							document.write('<option>');
+							document.write("<span style='font-size:10px'>"+str_1stream+"</span>");
+							document.write('</option>');
+							document.write('<option>');
+							document.write("<span style='font-size:10px'>"+str_2stream+"</span>");
+							document.write('<option>');
+							document.write("<span style='font-size:10px'>"+str_3stream+"</span>");
+							document.write('</option>');
+                          	document.write('</select> '); 
+							document.write('</td></tr></table>');                         	
+						  	document.write('</form>');
+						  	document.close();
+						
+						 </SCRIPT></div>
+						 <div>&nbsp;</div>
+		<div id="menu">
+		<table  border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><input type="radio" id="x1" name="x" language="javascript" onClick="return x_onclick()" ></td>
+    <td><table width="38" height="38" border="1" cellpadding="0" cellspacing="0" bordercolor="#5A96BA">
+          
+             <td ><span class="STYLE4">1</span></td>
+           
+         </table></td>
+    <td><input type="radio" id="x4" name="x" language="javascript" onClick="return x_onclick()" ></td>
+    <td><table width="38" height="38" border="1" cellpadding="0" cellspacing="0" bordercolor="#5A96BA">
+           <tr>
+             <td width="50%" height="50%" align="center" ><span class="STYLE7">1</span></td>
+             <td width="50%" height="50%" align="center" ><span class="STYLE7">2</span></td>
+           </tr>
+           <tr>
+             <td width="50%" height="50%" align="center" ><span class="STYLE7">3</span></td>
+             <td width="50%" height="50%" align="center" ><span class="STYLE7">4</span></td>
+           </tr>
+         </table></td>
+    <td><input type="radio" id="x9" name="x" language="javascript" onClick="return x_onclick()" checked="checked"></td>
+    <td><table width="38" height="38" border="1" cellpadding="0" cellspacing="0" bordercolor="#5A96BA">
+           <tr>
+             <td width="33.3%" height="33.3%" align="center" id="n_1"><span class="STYLE6">1</span></td>
+             <td width="33.3%" height="33.3%" align="center" id="n_2"><span class="STYLE6">2</span></td>
+             <td width="33.3%" height="33.3%" align="center" id="n_3"><span class="STYLE6">3</span></td>
+           </tr>
+           <tr>
+             <td width="33.3%" height="33.3%" align="center" id="n_4"><span class="STYLE6">4</span></td>
+             <td width="33.3%" height="33.3%" align="center" id="n_5"><span class="STYLE6">5</span></td>
+             <td width="33.3%" height="33.3%" align="center" id="n_6"><span class="STYLE6">6</span></td>
+           </tr>
+           <tr>
+             <td width="33.3%" height="33.3%" align="center" id="n_7"><span class="STYLE6">7</span></td>
+             <td width="33.3%" height="33.3%" align="center" id="n_8"><span class="STYLE6">8</span></td>
+             <td width="33.3%" height="33.3%" align="center" id="n_9"><span class="STYLE6">9</span></td>
+           </tr>
+         </table></td>
+  </tr>
+</table></div>
+              <p><img id="img_circle" name="img_circle" src="images/btn_circle.gif" width="105" height="105" border="0" usemap="#Map7Map"><br/>
+              <br/><table align="center" ><tr><td><img src="images/hpatrol_up.gif" width="24" height="23" border="0" id="hpatrol" onClick="ptzcmdSubmit_lr()" alert="左右巡航">&nbsp;</td><td><img src="images/vpatrol_up.gif" width="24" height="23" border="0" id="vpatrol" onClick="ptzcmdSubmit_ud()" alert="上下巡航">&nbsp;</td></tr></table></p>
+			  <p><img id="play_back" class="curspan" name="play_back" src="images/play_back_en.gif" alt="" onClick="playback()" width="57" height="32" hspace="6" border="0"><img id="img_zoom" name="img_zoom" src="images/btn_zoom_en.gif" width="57" height="32" border="0" usemap="#Map8Map">
+             <p id="lpj" > <img id="recImage_avi" class="curspan" name="recImage_avi" src="images/btn_luxiang_en.gif" alt="" onClick="record()" width="57" height="32" hspace="6" border="0"><img id="img_snapshot" class="curspan" name="img_snapshot" src="images/btn_paizhao_en.gif" alt="" onClick="snap()" width="57" height="32" border="0"><img id="img_listen" class="curspan" name="img_listen" src="images/btn_jianting_en.gif" alt=""  onMouseDown="audioctrl()" onMouseUp="IsMonitorMute()" width="57" height="32" hspace="6" border="0"></p><p><img class="curspan"  id="img_talk" name="img_talk" src="images/btn_talk_en.gif" width="57" height="32" hspace="6" border="0" alt="" onMouseDown="talkctrl()" onMouseUp="IsTalkState()"><img class="curspan" id="img_preset1" name="img_preset1" src="images/btn_diaoyong_en.gif"width="57" height="32"  border="0" alt="" onClick="go_preset()"><img class="curspan" id="img_preset2" name="img_preset2"src="images/btn_sheding_en.gif" width="57" height="32" hspace="6" border="0" alt=""  onClick="set_preset()"></p>       
+              <p><img class="curspan" id="img_path" name="img_path"src="images/btn_lujing_en.gif" width="57" height="32" hspace="6" border="0" alt=""  onClick="path()"><span style='font-size:14px'>
+            <script>document.write(str_setnum);</script></span><SELECT id="preset0"><OPTION value="0">1</OPTION><OPTION value="1">2</OPTION><OPTION value="2">3</OPTION><OPTION value="3">4</OPTION><OPTION value="4">5</OPTION><OPTION value="5">6</OPTION><OPTION value="6">7</OPTION><OPTION value="7">8</OPTION></SELECT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>	
+			<div id="alarmaudio"><span style='font-size:14px'>
+			<form name="form2">
+			<script>document.write(str_alarmaudio1);</script>
+			<select name="soundselect" onChange="soundchange()" disabled="true">
+              <option >
+                <script>document.write(str_start_up);</script>
+                </option>
+              <option >
+                <script>document.write(str_close);</script>
+                </option>
+            </select><br>
+			<script>document.write(str_alarmrec);</script>
+					<select name="alarmrecselect" onChange="alarmrecchange()" disabled="true">
+					<option ><script>document.write(str_start_up);</script></option>
+					<option ><script>document.write(str_close);</script></option>
+					</select>                        	
+			  </form>			
+					</span>
+					</div></td>
+        </tr>
+        <tr>
+          <td align="center" background="images/easyn2_24.gif"><a href="setup.html"><img id="img_setup" name="img_setup" src="images/btn_shezhi_en.gif" width="189" height="34" border="0"></a></td>
+        </tr>
+    </table>
+    </div></td>
+  </tr>
+</table>
+<map name="Map7Map">
+  <area shape="rect" class="curspan" id="left" name="left" coords="6,33,22,73" alt="向左" onMouseDown="ptzcmdSubmit_left()" onMouseUp="ptzcmdSubmit_stop()" href="#">
+  <area shape="rect" class="curspan" id="down" name="down" coords="32,83,76,99" alt="向下" onMouseDown="ptzcmdSubmit_down()" onMouseUp="ptzcmdSubmit_stop()" href="#">
+  <area shape="rect" class="curspan" id="right" name="right" coords="85,32,100,73" alt="向右" onMouseDown="ptzcmdSubmit_right()" onMouseUp="ptzcmdSubmit_stop()" href="#">
+  <area shape="rect" class="curspan" id="up" name="up" coords="30,6,75,21" alt="向上" onMouseDown="ptzcmdSubmit_up()" onMouseUp="ptzcmdSubmit_stop()" href="#">
+  <area shape="circle" coords="54,52,28" class="curspan" id="stop" name="stop" alt="停止" onMouseDown="ptzcmdSubmit_stop()" href="#">
+</map>
+
+<map name="Map8Map">
+  <area shape="rect" class="curspan" id="zoomin" name="zoomin" coords="5,2,26,14" alt="缩小" onClick="SetShrink()"  href="#">
+  <area shape="rect" class="curspan" id="zoomout" name="zoomout" coords="33,2,54,14" alt="放大" onClick="SetEnlarge()" href="#">
+</map>
+
+  <map name="Map">
+    <area shape="rect" coords="2,1,29,15">
+    <area shape="rect" coords="30,1,56,14">
+  </map>
+  <map name="Map2">
+    <area shape="rect" coords="1,0,30,14">
+    <area shape="rect" coords="31,1,57,14">
+  </map>
+  <map name="Map3">
+    <area shape="rect" coords="2,1,30,15">
+    <area shape="rect" coords="32,1,57,14">
+</map>
+  <map name="Map4">
+    <area shape="rect" coords="1,-1,28,14">
+    <area shape="rect" coords="30,-1,58,14">
+  </map>
+  <map name="Map5">
+    <area shape="rect" coords="2,0,30,16">
+    <area shape="rect" coords="31,1,56,14">
+  </map>
+  <map name="Map6">
+    <area shape="rect" coords="0,0,31,14">
+    <area shape="rect" coords="33,1,56,15">
+  </map>
+  <map name="Map7">
+    <area shape="circle" coords="53,52,28">
+    <area shape="rect" coords="6,33,22,73">
+    <area shape="rect" coords="32,83,76,99">
+    <area shape="rect" coords="85,32,100,73">
+    <area shape="rect" coords="30,6,75,21">
+</map></div>
+<INPUT id="recFile" type="hidden" name= "RecordFilename" value= "">
+<INPUT id="brightness" type="hidden" name= "brightness" value= "">
+<INPUT id="contrast" type="hidden" name= "contrast" value= "">
+<INPUT id="saturation" type="hidden" name= "saturation" value= "">
+<script>
+  			document.getElementById('right').alt=str_right;
+			document.getElementById('up').alt=str_up;
+			document.getElementById('left').alt=str_left;
+			document.getElementById('down').alt=str_down;
+			document.getElementById('stop').alt=str_stop;
+  			document.getElementById('recImage_avi').alt=str_video;
+			document.getElementById('img_snapshot').alt=str_photograph;
+			document.getElementById('img_listen').alt=str_jianting;
+			document.getElementById('hpatrol').alt=str_hpatrol;
+			document.getElementById('vpatrol').alt=str_vpatrol;
+			document.getElementById('img_talk').alt=str_talk11;
+			document.getElementById('zoomin').alt=str_suoxiao;
+			document.getElementById('zoomout').alt=str_fangda;
+//			document.getElementById('suoxiao').alt=str_zoom2;
+//			document.getElementById('fangda').alt=str_zoom1;
+//			document.getElementById('jujiaojian').alt=str_jujiao2;
+//			document.getElementById('jujiaojia').alt=str_jujiao1;
+//			document.getElementById('guangquanjia').alt=str_guangquan1;
+//			document.getElementById('guangquanjian').alt=str_guangquan2;
+			document.getElementById('img_preset1').alt=str_use_yzw;
+			document.getElementById('img_preset2').alt=str_set_yzw;
+			document.getElementById('img_path').alt=str_path;
+		function dismisspic(){ 
+			if(navigator.appName.indexOf("Microsoft Internet Explorer") != -1) {
+			document.getElementById('lpj').style.display="";
+			document.getElementById('img_talk').style.display="";
+			}else{
+			document.getElementById('recImage_avi').style.display="none";
+			document.getElementById('img_snapshot').style.display="none";
+			document.getElementById('img_listen').style.display="none";
+			document.getElementById('img_talk').style.display="none";
+			document.getElementById('img_zoom').style.display="none";
+			}
+		}
+</script>
+</body>
+</html>

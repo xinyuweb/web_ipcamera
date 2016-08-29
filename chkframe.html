@@ -1,0 +1,44 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+<META http-equiv="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+<meta HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+<script src="public.js"></script>
+<script language="JavaScript1.2" src="/cgi-bin/hi3510/param.cgi?cmd=getchkwireless" type="text/javascript"></script>
+<script type="text/javascript">
+function check()
+{
+	var flag;
+	//alert(wifiresult);
+	//wifiresult = 0;
+	if (chkres == "0")
+	{
+		document.getElementById('fail').style.display="block";
+		document.getElementById('success').style.display="none";
+	}
+	else
+	{
+		document.getElementById('success').style.display="block";
+		document.getElementById('fail').style.display="none";
+	}
+}
+</script> 
+<title></title>
+</head>
+<body onLoad="check()" bgcolor="#FFFFFF">
+<div style="position: absolute; width: 256px; height: 19px; z-index: 2; left: 9px; top: 15px; DISPLAY: none" id="success">
+	<script>document.write(str_st27)</script><br>
+	<script>document.write(str_st28)</script></div>
+<div style="position: absolute; width: 210px; height: 18px; z-index: 3; left: 10px; top: 16px; DISPLAY: none" id="fail">
+	<font color="#808080"><script>document.write(str_st29)</script></font></div>
+<table border="0" width="24%" id="table1">
+	<tr>
+		<td>
+		　</td>
+	</tr>
+	</table>
+</body>
+</html>

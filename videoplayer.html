@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Adobe Flash Media Server</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script language="javascript"> AC_FL_RunContent = 0; </script>
+<script src="resources/AC_RunActiveContent.js" language="javascript"></script>
+
+<style type="text/css">
+td img {display: block;}body {
+	background-color: #191919;
+}
+a:link {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+a:visited {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+.style22 {
+	color: #666666;
+}
+.style23 {
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 12px;
+}
+.style31 {
+	font-family: "Arial";
+	color: #999999;
+	font-size: 12px;
+	font-weight: bold;
+}
+.style34 {
+	font-family: "Arial";
+}
+.style24 {	font-size: 11px;
+	color: #999999;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style62 {
+	font-size: 12px; color: #999999; 
+	font-family: "myriad Pro"; 
+}
+.style67 {
+	font-family: "myriad Pro";
+	color: #999999;
+	font-size: 12px;
+	font-weight: bold;
+}
+.style69 {
+	font-family: "Arial";
+	color: #999999;
+	font-weight: bold;
+}
+.style1 {	
+	font-family: Arial, Helvetica, sans-serif;
+	color: #999999;
+	font-size: 14px;
+	font-weight: bold;
+}
+.style3 {
+	font-family: "Arial";
+	font-size: 12px;
+	line-height: normal;
+	height: 10px;
+}
+.style71 {
+	font-family: "myriad Pro";
+}
+.style73 {
+	font-family: Arial; 
+	color: #999999; 
+	font-size: 12px; 
+	font-weight: bold; 
+}
+.style74 {
+	font-size: 12px; 
+	color: #999999; 
+	font-family: Arial; 
+}
+.style75 {
+	font-family: Arial; 
+	color: #999999; 
+	font-size: 10px; 
+	font-weight: bold; 
+}
+.style76 {
+	font-size: 12px; 
+	color: #F6122B; 
+	font-family: Arial; 
+}
+.style81 {
+	font-family: Arial;
+}
+.style82 {
+	color: #999999; 
+	font-size: 12px;
+}
+.style83 {
+	font-size: 12px; 
+	font-weight: bold; 
+	color: #999999;
+}
+</style>
+
+<!-- functionality -->
+
+    <script language="javascript">
+
+		var queryParameters = new Array();
+        var flashVars = "";
+		var tag = "";
+		var url = "";
+        
+
+        function initialise() 
+        {
+            
+
+			function getUrlParam( name )
+			{
+				  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+				  var regexS = "[\\?&]"+name+"=([^&#]*)";
+				  var regex = new RegExp( regexS );
+				  var results = regex.exec( window.location.href );
+				  if( results == null )
+						return "";
+				  else
+						return unescape( results[1] );
+			}
+
+			queryParameters['source'] = getUrlParam('source');
+			queryParameters['type'] = getUrlParam('type');
+			queryParameters['idx'] = getUrlParam('idx');
+
+			if( queryParameters['source'] == "" )
+				queryParameters['source'] = "";
+			
+			if( queryParameters['type'] == "" )
+				queryParameters['type'] = "recorded";
+				
+			if( queryParameters['idx'] == "" )
+				queryParameters['idx'] = "7";
+
+			flashVars += "&src=";
+            flashVars += queryParameters['source'];
+
+            flashVars += "&autoHideControlBar=";
+            flashVars += unescape("true");
+
+            flashVars += "&streamType=";
+            flashVars += queryParameters['type'];
+
+            flashVars += "&autoPlay=";
+            flashVars += unescape("true");
+
+ 			tag = "&lt;object width='640' height='377' id='StrobeMediaPlayback' name='StrobeMediaPlayback' type='application/x-shockwave-flash' classid='clsid:d27cdb6e-ae6d-11cf-96b8-444553540000' &gt;&lt;param name='movie' value='swfs/StrobeMediaPlayback.swf' /&gt; &lt;param name='quality' value='high' /&gt; &lt;param name='bgcolor' value='#000000' /&gt; &lt;param name='allowfullscreen' value='true' /&gt; &lt;param name='flashvars' value= '"+					
+			flashVars+"'/&gt;&lt;embed src='swfs/StrobeMediaPlayback.swf' width='640' height='377' id='StrobeMediaPlayback' quality='high' bgcolor='#000000' name='StrobeMediaPlayback' allowfullscreen='true' pluginspage='http://www.adobe.com/go/getflashplayer'   flashvars='"+ flashVars +"' type='application/x-shockwave-flash'&gt; &lt;/embed&gt;&lt;/object&gt;";
+
+			
+        } 
+
+		function on_load()
+		{
+			var url = "source=rtmp://192.168.1.171/flash/11:admin:admin";
+			var type;
+
+			type="live";
+
+			url += ("&type=" + type);
+
+			document.getElementById('playBtn').href="videoplayer.html?" + url;
+
+		}
+
+		initialise();
+
+    </script>
+
+
+</head>
+<body  onLoad="on_load()">
+ <table width="100" height="" border="0" align="left" cellpadding="0" cellspacing="0">
+
+  <tr valign="top">
+    <td rowspan="4" bgcolor="#191919">&nbsp;</td>
+    <td rowspan="4"></td>
+    <td height="327" colspan="3" bgcolor="#191919">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="61" colspan="4" bgcolor="#191919"><table width="100" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td width="93%"><table width="98%" border="0" cellpadding="0" cellspacing="0">
+                        
+                        <tr>
+                          <td colspan="4" align="left" bgcolor="#191919"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                              <td>&nbsp;</td>
+                            </tr>
+                          </table></td>
+                        </tr>
+                        
+                        <tr>
+                          <td colspan="4" align="left" bgcolor="#191919"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                              <td width="64%"><table width="65%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+								<!-- Here goes the StrobeMediaPlayback -->
+                                  <td valign="top" id="flashcontent">
+
+								  	<script language="javascript" type="text/javascript">
+										<!--
+											// Version check based upon the values defined in globals
+											var hasRequestedVersion = DetectFlashVer(10, 0, 0);
+
+											if(!hasRequestedVersion)
+											{
+												var div = document.getElementById("flashcontent");
+												div.innerHTML = '<a href="http://www.adobe.com/go/getflashplayer/" style="color:black"><img src="images/ERROR_getFlashPlayer.gif" width="641" height="377" /></a>';
+								
+											}
+											else{
+													AC_FL_RunContent(
+														"src", "swfs/StrobeMediaPlayback",
+														"width", "640",
+														"height", "377",
+														"id", "StrobeMediaPlayback",
+														"quality", "high",
+														"bgcolor", "#000000",
+														"name", "StrobeMediaPlayback",
+														"allowfullscreen","true",
+														"type", "application/x-shockwave-flash",
+														"pluginspage", "http://www.adobe.com/go/getflashplayer",
+														"flashvars", flashVars 
+													);
+												
+											}
+									  // -->    
+										</script>
+								
+								
+								  </td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                          </table></td>
+                        </tr>
+                    </table></td>
+                    <td width="7%">&nbsp;</td>
+                  </tr>
+                </table></td>
+              </tr>
+              
+          </table></td>
+        </tr>
+      </table></td>
+   </tr>
+  <tr>
+    <td colspan="2" valign="top" bgcolor="#191919"><table width="100" border="0" align="left" cellpadding="0" cellspacing="0">
+        <!-- fwtable fwsrc="080715_fms_splash_fireworks.png" fwbase="index.gif" fwstyle="Dreamweaver" fwdocid = "1526025482" fwnested="0" -->
+        <tr>
+          <td colspan="3" valign="top">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="3" valign="top"><table width="87%" border="0" cellspacing="0" cellpadding="0">
+            
+            
+            <tr>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td><table width="1000" border="0" align="left" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td width="8%"><table width="86" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td align="left">&nbsp;</td>
+                    </tr>
+                  </table></td>
+                  <td align="left"></td>
+                  <td align="left">&nbsp;</td>
+                  <td width="42%" align="left"><table width="100" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td width="27%" align="left">
+                     
+<a id="playBtn" ><img src="images/play_on.gif"/></a></td>
+                      <td align="left">&nbsp;</td>
+                    </tr>
+                  </table></td>
+                  </tr>
+                <tr>
+                  <td colspan="2">&nbsp;</td>
+                  <td align="left" class="style74">&nbsp;</td>
+                  <td>&nbsp;</td>
+                  </tr>
+                <tr>
+                  <td colspan="4">&nbsp;</td>
+                </tr>
+              </table></td>
+            </tr>
+          </table></td>
+        </tr>
+        
+        <tr>
+          <td width="1012" colspan="3" valign="top">&nbsp;</td>
+        </tr>
+        
+    </table></td>
+    <td rowspan="3" valign="top" bgcolor="#191919">&nbsp;</td>
+   </tr>
+</table>
+
+
+
+</body>
+</html>

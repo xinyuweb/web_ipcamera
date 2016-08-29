@@ -1,0 +1,2018 @@
+﻿<html>
+<head>
+<title>ipCAM</title>
+<meta content="text/html; charset=utf-8" http-equiv="content-type">
+<META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+<META http-equiv="Pragma" CONTENT="no-cache">
+
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+
+<meta HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"> 
+<!-- ImageReady Preload Script (ipCAM.psd) -->
+<script language="javascript"> AC_FL_RunContent = 0; </script>
+<script src="resources/AC_RunActiveContent.js" language="javascript"></script>
+<script src="public.js"></script>
+<SCRIPT language=JavaScript src="slider.js"></SCRIPT>
+<script src="lib/display.js"></script>
+<SCRIPT LANGUAGE="JavaScript1.2" SRC="cgi-bin/hi3510/param.cgi?cmd=getimageattr&cmd=getsetupflag&cmd=getimagemaxsize&cmd=getaudioflag&cmd=getserverinfo&cmd=getvideoattr&cmd=getircutattr&cmd=getinfrared&cmd=getrtmpattr" TYPE="text/javascript"></SCRIPT>
+<script type="text/javascript">
+<!--
+
+<!--
+
+function newImage(arg) {
+//-brightness=&-saturation=&-contrast=&-hue=&
+	if (document.images) {
+		rslt = new Image();
+		rslt.src = arg;
+		return rslt;
+	}
+}
+
+function changeImages() {
+	if (document.images && (preloadFlag == true)) {
+		for (var i=0; i<changeImages.arguments.length; i+=2) {
+			document[changeImages.arguments[i]].src = changeImages.arguments[i+1];
+		}
+	}
+}
+
+var preloadFlag = false;
+function preloadImages() {
+	if (document.images) {
+		index_08_Over = newImage("images/index_08-Over.gif");
+		index_09_Over = newImage("images/index_09-Over.gif");
+		index_11_Over = newImage("images/index_11-Over.gif");
+		index_12_Over = newImage("images/index_12-Over.gif");
+		index_13_Over = newImage("images/index_13-Over.gif");
+		index_39_Over = newImage("images/index_39-Over.gif");
+		index_39_Down = newImage("images/index_39-Down.gif");
+		preloadFlag = true;
+	}
+}
+
+// -->
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+ 
+var img2345 = new Image();
+var imgObj;
+
+function update()
+{		
+	imgObj = document.getElementById('rimg12');
+	
+	imgObj.src = img2345.src;
+	img2345.src = "/tmpfs/auto.jpg?" + (new Date()).getTime();
+}
+
+function takeError()
+{
+	img2345.src = "/tmpfs/auto.jpg?" + (new Date()).getTime();
+}
+
+function startonload()
+{
+	img2345.src = "/tmpfs/auto.jpg?" + (new Date()).getTime();
+	img2345.onerror=takeError;
+	img2345.onload=update;
+}
+
+
+var queryParameters = new Array();
+        var flashVars = "";
+		var tag = "";
+		var url1 = "";
+        
+
+        function initialise() 
+        {
+            
+
+			function getUrlParam( name )
+			{
+				  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+				  var regexS = "[\\?&]"+name+"=([^&#]*)";
+				  var regex = new RegExp( regexS );
+				  var results = regex.exec( window.location.href );
+				  if( results == null )
+						return "";
+				  else
+						return unescape( results[1] );
+			}
+var ip=document.location.hostname;
+var streamnum=11;
+var rturl = "rtmp://"+ip+":"+rtmpport+"/flash/"+streamnum+":"+name0+":"+password0;
+
+			queryParameters['source'] = getUrlParam('source');
+			queryParameters['type'] = getUrlParam('type');
+			queryParameters['idx'] = getUrlParam('idx');
+
+			if( queryParameters['source'] == "" )
+				queryParameters['source'] = rturl;
+			
+			if( queryParameters['type'] == "" )
+				queryParameters['type'] = "live";
+				
+			if( queryParameters['idx'] == "" )
+				queryParameters['idx'] = "7";
+
+			flashVars += "&src=";
+            flashVars += queryParameters['source'];
+
+            flashVars += "&autoHideControlBar=";
+            flashVars += unescape("true");
+
+            flashVars += "&streamType=";
+            flashVars += queryParameters['type'];
+
+            flashVars += "&autoPlay=";
+            flashVars += unescape("true");
+
+ 			tag = "&lt;object width='640' height='377' id='StrobeMediaPlayback' name='StrobeMediaPlayback' type='application/x-shockwave-flash' classid='clsid:d27cdb6e-ae6d-11cf-96b8-444553540000' &gt;&lt;param name='movie' value='swfs/StrobeMediaPlayback.swf' /&gt; &lt;param name='quality' value='high' /&gt; &lt;param name='bgcolor' value='#000000' /&gt; &lt;param name='allowfullscreen' value='true' /&gt; &lt;param name='flashvars' value= '"+					
+			flashVars+"'/&gt;&lt;embed src='swfs/StrobeMediaPlayback.swf' width='400' height='300' id='StrobeMediaPlayback' quality='high' bgcolor='#000000' name='StrobeMediaPlayback' allowfullscreen='true' pluginspage='http://www.adobe.com/go/getflashplayer'   flashvars='"+ flashVars +"' type='application/x-shockwave-flash'&gt; &lt;/embed&gt;&lt;/object&gt;";
+
+			
+        } 
+
+
+
+
+function on_load()
+{
+var ip=document.location.host;
+var url = "http://"+ip;
+var rtsp=url+"/"+"iphone/11"+"?"+name0+":"+password0+"&";
+var heightp=288;
+
+var strmode=model.charAt(5);
+	if(strmode=="h")
+	{
+	document.getElementById('kuaimen').style.display="";
+    document.getElementById('targetyname').style.display="none";	
+    }
+	else if(strmode=="k")
+	{
+	document.getElementById('wdrdisplay').style.display="none";
+	document.getElementById('kuaimen').style.display="none";
+	document.getElementById('sharpness').style.display="none";
+	document.getElementById('targetyname').style.display="none";
+	
+	document.getElementById('flipmirror').style.display="none";
+	document.getElementById('ircuttext').style.display="none";
+	document.getElementById('aemode').style.display="none";
+	document.getElementById('buttonnight').style.display="none";
+	document.getElementById('layer0').style.display="none";
+	document.getElementById('onmodetext').style.display="none";
+	
+	} 
+	else
+	{
+	document.getElementById('kuaimen').style.display="none";
+    document.getElementById('targetyname').style.display="";
+
+	}
+
+
+
+if (audioflag == 0)
+{
+	DHiMPlayer.EnableAudioTalk(0, 0);
+}
+
+
+
+if ((navigator.appVersion.indexOf("iPod")!=-1) || (navigator.appVersion.indexOf("iPhone")!=-1))
+{
+	data="<img src='/tmpfs/auto.jpg' id='rimg12'>";
+	document.getElementById('mydisplay').innerHTML=data;
+}
+else
+	{
+	
+}
+
+if ((navigator.appVersion.indexOf("iPod")!=-1) || (navigator.appVersion.indexOf("iPhone")!=-1))
+	{
+		startonload();
+	}
+	else
+	{
+	
+if (navigator.appName.indexOf("Microsoft Internet Explorer") != -1)	
+{
+	play();
+}
+else
+{
+}
+	
+	
+	}
+
+	var form=document.form1;
+	var flag = 0;
+	
+	form.brightnesstext.value=brightness;
+	form.saturationtext.value=saturation;
+	form.contrasttext.value=contrast;
+	form.shuttertext.value=shutter;
+	form.sharpnesstext.value=sharpness;
+	form.aetext.value=ae;
+	form.targetytext.value=targety;
+
+	form.humitext.value=gc;	
+	form.ircut.value=saradc_switch_value;
+		
+	var f = document.getElementById("form_aemode");
+    if (aemode == 0)
+    {
+		f.options[0].selected = true;
+	}	
+     else if(aemode == 1)
+	{
+		f.options[1].selected = true;
+	}
+	 else
+	{
+		f.options[2].selected = true;
+	}
+	
+	
+	
+	var s = document.getElementById("form_imgmode");
+    if (imgmode == 0)
+    {
+		s.options[0].selected = true;
+	}	
+     else
+	{
+		s.options[1].selected = true;
+	}
+	  
+	  
+	  
+		if(night=="on")
+		{
+		 form.nightbox.checked = true;
+	
+		}
+		else
+		{
+			form.nightbox.checked = false;
+		
+		}			
+	
+		if (noise=="off")
+	{
+		form.noiseradio[1].checked=true;		
+	}	
+	else
+	{
+		form.noiseradio[0].checked=true;		
+	}		
+
+     var e=document.getElementById("form_irled");
+  if(infraredstat=="auto")
+	{
+		e.options[0].selected = true;
+	}
+	else if(infraredstat=="open")
+	{
+		e.options[1].selected = true;
+	}
+	else
+	{
+	    e.options[2].selected = true;
+	}
+
+document.getElementById('black').style.display="none";
+document.getElementById('color').style.display="none";
+
+var cooknum;
+if (display_mode==0)
+	{
+        document.getElementById('black').style.display="";
+		document.getElementById('color').style.display="none"; 
+		setcookie('cookmun',"0",720);
+		
+	}	
+else
+	{
+        document.getElementById('black').style.display="none";
+		document.getElementById('color').style.display="";
+		setcookie('cookmun',"1",720);
+	}		
+	load_form_flip();
+	load_form_mirror();
+
+      if(night=="on")
+		{
+		 form.nightbox.checked = true;
+		 flag =1;
+		}
+		else
+		{
+			form.nightbox.checked = false;
+			flag = 0;
+		}	
+	if (wdr == "on")
+		form.wdrbox.checked = true;
+	
+}
+
+initialise();
+
+function do_submit()
+{
+
+		var form=document.form2;
+		var form1=document.form1;
+		var index=0;
+
+		form.bright.value=form1.brightnesstext.value;
+		form.contrast.value=form1.contrasttext.value;
+		form.saturation.value = form1.saturationtext.value;
+		form.sharpness.value=form1.sharpnesstext.value;
+		form.shutter.value = form1.shuttertext.value;
+		form.ae.value=form1.aetext.value;
+	    form.targety.value=form1.targetytext.value;
+		form.gc.value = form1.humitext.value;
+		
+		
+		var f = document.getElementById("form_aemode");
+	    var h = document.getElementById("form_imgmode");
+		var e = document.getElementById("form_irled");
+	    var s = document.getElementById("form_submit");
+	    s.aemode.value = f.value;
+	    s.imgmode.value = h.value;
+		
+		if(e.value==0)
+		{s.infraredstat.value = "auto";}
+		else if(e.value==1)
+		{s.infraredstat.value = "open";}
+		else if(e.value==2)
+		{s.infraredstat.value = "close";}
+		
+		
+		if(form1.nightbox.checked==true)
+		{
+			form.night.value="on";
+		}
+		else
+		{
+	   		form.night.value="off";
+		}
+		if(form1.wdrbox.checked==true)
+		{
+			form.wdr.value="on";
+		}
+		else
+		{
+	   		form.wdr.value="off";
+		}	
+				
+		if (form1.noiseradio[0].checked==true)
+		{
+			form.noise.value = "on";
+		}							
+		else
+		{
+			form.noise.value = "off";
+		}	
+		
+
+		
+
+	form.image_type.value=getcookie('cookmun');	
+			
+	form.saradc_switch_value.value=form1.ircut.value;	
+		
+		
+		submit_form_mirror();
+		submit_form_flip();
+		
+    	form.shutter.name="-shutter";
+    	form.night.name="-night";	
+		form.bright.name="-brightness";
+    	form.saturation.name="-saturation";
+    	form.contrast.name="-contrast";
+		form.sharpness.name="-sharpness";
+    	form.wdr.name="-wdr";
+		form.gc.name="-gc"; 
+		form.ae.name="-ae"; 
+		form.targety.name="-targety"; 
+		form.noise.name="-noise";
+	    form.aemode.name  = "-aemode";
+	    form.imgmode.name  = "-imgmode";
+		form.image_type.name="-image_type";
+		form.infraredstat.name="-infraredstat";
+		
+		form.saradc_switch_value.name = "-saradc_switch_value";
+		form.cururl.value=document.URL ;	
+		form.action="cgi-bin/hi3510/param.cgi";
+		form.submit();		
+	}
+	
+function defaultset()
+{
+	var form=document.form2;
+	var form1=document.form1; 
+	
+	form.bright.value = "80";
+	form.saturation.value = "50";
+	form.contrast.value = "0";
+	form.mirror.value="off";
+	form.flip.value="off";  
+	
+	form.bright.name="-brightness";
+	form.contrast.name="-contrast";
+	form.saturation.name="-saturation";
+	form.mirror.name="-mirror";
+	form.flip.name="-flip";  
+	
+	form.cururl.value=document.URL ;	
+	form.action="cgi-bin/hi3510/param.cgi";
+	form.submit();
+}
+
+function play()
+{
+	var ip=document.location.host;
+	var url = "http://"+ip;
+	var heightp;
+	 if((videomode=="51")||(videomode=="52")||(videomode=="53")||(videomode=="54")){heightp=300;}
+	  else if((videomode=="20")||(videomode=="17"))
+			 {if(vinorm=="P") {heightp=300;}
+			 else {heightp=225;}
+			 }
+	else {heightp=225;}
+	
+	DHiMPlayer.SetUrl(url,80,11,name0,password0);
+	DHiMPlayer.SetWndPos(0, 0, 400, heightp);
+	 
+	DHiMPlayer.play();
+}
+
+function flush()
+{
+	DHiMPlayer.InvalidateWnd();
+}
+function setcontent(casename)
+{
+	if(casename=="video")
+	{
+		if(document.formcontent.videobox.checked==true)
+		{
+			DHiMPlayer.PauseVideo(0);
+		}
+	else
+		{
+			DHiMPlayer.PauseVideo(1);
+		}
+	}
+if(casename=="audio")
+	{
+		if(document.formcontent.audiobox.checked==true)
+		{
+			DHiMPlayer.PauseAudio(0);
+		}
+	 else
+		{
+			DHiMPlayer.PauseAudio(1);
+		}
+	}
+	
+}
+
+var request = null;
+
+function CreateRequest(){  
+	request = null;
+    try {
+      request = new XMLHttpRequest();
+    } catch (trymicrosoft) {
+      try {
+        request = new ActiveXObject("Msxml2.XMLHTTP");
+      } catch (othermicrosoft) {
+        try {
+          request = new ActiveXObject("Microsoft.XMLHTTP");
+        } catch (failed) {
+          request = false;
+        }
+      }
+    }
+
+    if (!request)
+        alert("Error initializing XMLHttpRequest!");
+    return request;
+}
+
+function HttpRequest(method, cgistr, cb, async){ 
+    var tempstring = eval("'"+cgistr+"'");
+    request=CreateRequest();
+    if ( request == null) { // Sorry, no Ajax
+        alert("Ajax not available");
+        return null;
+    }
+    request.open(method, tempstring, async); //synchronous
+    if(async)
+    {
+        request.onreadystatechange = function(){  
+            if (request.readyState == 4)
+            {
+               if (request.status == 200){       
+                   response = request.responseText
+                   if(cb) cb();
+               }
+               else if (request.status == 404)
+                   alert("Request URL does not exist");
+            }
+        }
+    }
+    if(method=="POST")
+    {
+        request.send(cgistr);
+    }
+    else
+    {
+        request.setRequestHeader( "If-Modified-Since", "Sat, 1 Jan 2000 00:00:00 GMT" );
+        request.send(null);
+    }
+    if(async) return;
+    if (request.status != 200)
+    {
+        return error;
+    }
+    return request.responseText;
+}
+
+function SendCGICMD(cgistring){  
+    return HttpRequest("GET", cgistring, null, false);
+}
+
+function BrightnessChg(val){
+var cooktype=getcookie('cookmun');	
+var string = eval("'cgi-bin/hi3510/param.cgi?cmd=setimageattr&-image_type="+cooktype+"&-brightness="+val+"'");
+SendCGICMD(string);  
+}
+
+function ContrastChg(val){
+var cooktype=getcookie('cookmun');
+    var string = eval("'cgi-bin/hi3510/param.cgi?cmd=setimageattr&-image_type="+cooktype+"&-contrast="+val+"'");
+    SendCGICMD(string);
+}
+
+function SaturationChg(val){
+var cooktype=getcookie('cookmun');
+    var string = eval("'cgi-bin/hi3510/param.cgi?cmd=setimageattr&-image_type="+cooktype+"&-saturation="+val+"'");
+    SendCGICMD(string);
+}
+
+function SharpnessChg(val){
+var cooktype=getcookie('cookmun');
+    var string = eval("'cgi-bin/hi3510/param.cgi?cmd=setimageattr&-image_type="+cooktype+"&-sharpness="+val+"'");
+    SendCGICMD(string);
+}
+
+function AeChg(val){
+var cooktype=getcookie('cookmun');
+    var string = eval("'cgi-bin/hi3510/param.cgi?cmd=setimageattr&-image_type="+cooktype+"&-ae="+val+"'");
+    SendCGICMD(string);
+}
+
+function TargetyChg(val){
+var cooktype=getcookie('cookmun');
+    var string = eval("'cgi-bin/hi3510/param.cgi?cmd=setimageattr&-image_type="+cooktype+"&-targety="+val+"'");
+    SendCGICMD(string);
+}
+
+
+function HueChg(val){
+var cooktype=getcookie('cookmun');
+    var string = eval("'cgi-bin/hi3510/param.cgi?cmd=setimageattr&-image_type="+cooktype+"&-hue="+val+"'");
+    SendCGICMD(string);
+}
+
+function ShutterChg(val){
+var cooktype=getcookie('cookmun');
+    var string = eval("'cgi-bin/hi3510/param.cgi?cmd=setimageattr&-image_type="+cooktype+"&-shutter="+val+"'");
+    SendCGICMD(string);
+}
+
+function NbirghtChg(val){
+var cooktype=getcookie('cookmun');
+    var string = eval("'cgi-bin/hi3510/param.cgi?cmd=setimageattr&-image_type="+cooktype+"&-lumivalue="+val+"'");
+    SendCGICMD(string);
+}
+
+function DefaultChg(val){
+var cooktype=getcookie('cookmun');
+    var string = eval("'cgi-bin/hi3510/param.cgi?cmd=setimageattr&-image_type="+cooktype+"&-default=on'");
+    SendCGICMD(string);
+    location.reload(true);
+}
+
+</script>
+<!-- End Preload Script -->
+<style type="text/css">
+<!--
+.style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.style2 {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 24px;
+}
+.style5 {	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.STYLE6 {color: #810000;}
+.style7 {
+
+     background-color:#bbbbaa;
+     }
+-->
+</style></head>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="on_load();" onscroll="flush()">
+     <table width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5">
+         <tr>
+             <td colspan="3" style="font-size:24px" class="STYLE6"><strong><script>document.write(str_image_parameters)</script></strong></td>
+       </tr>
+			<tr>
+           <td bgcolor="#CCCCCC" colspan="2" class="STYLE6"><script>document.write(str_image_set)</script></td>
+            </tr>
+                <tr>
+              <td valign="top" width="350">
+                <form name="form1">   
+              	<table width="99%"  border="0" align="center"  cellpadding="0" cellspacing="10" class="style5">
+				<tr id="onmodetext">
+					<td colspan="3">
+					<div id="black"><script type="text/javascript">document.write(str_onmode  + str_black + str_mode);</script><br></div>
+	                <div id="color"><script type="text/javascript">document.write(str_onmode  + str_color + str_mode);</script></div>					</td>
+					</tr>	
+                  <tr align="left" id="brightness">                  	
+                    <td align="left" width="100%"><script>document.write(str_brightness1)</script></td>
+                    <td>       
+    <script language="JavaScript">		
+	var strmode=model.charAt(5);
+                    if(strmode=="e") 
+                    {		
+					var A_TPL = {
+					'b_vertical' : false,
+					'b_watch': true,
+					'n_controlWidth': 200,
+					'n_controlHeight': 22,
+					'n_sliderWidth': 13,
+					'n_sliderHeight': 9,
+					'n_pathLeft' : 0,
+					'n_pathTop' : 7,
+					'n_pathLength' : 187,
+					's_imgControl': 'images/guidao.jpg',
+					's_imgSlider': 'images/huadongtiao.jpg',
+					'n_zIndex': 1
+					}
+					var A_INIT = {
+					's_form' : 0,
+					's_name': 'brightnesstext',
+					'n_minValue' : 0,
+					'n_maxValue' : 100,
+					'n_value' : brightness,
+					'n_step' : 1
+					}
+					}
+					else  if(strmode=="f") 
+                    {		
+					var A_TPL = {
+					'b_vertical' : false,
+					'b_watch': true,
+					'n_controlWidth': 200,
+					'n_controlHeight': 22,
+					'n_sliderWidth': 13,
+					'n_sliderHeight': 9,
+					'n_pathLeft' : 0,
+					'n_pathTop' : 7,
+					'n_pathLength' : 187,
+					's_imgControl': 'images/guidao.jpg',
+					's_imgSlider': 'images/huadongtiao.jpg',
+					'n_zIndex': 1
+					}
+					var A_INIT = {
+					's_form' : 0,
+					's_name': 'brightnesstext',
+					'n_minValue' : 0,
+					'n_maxValue' : 100,
+					'n_value' : brightness,
+					'n_step' : 1
+					}
+					}
+					else  if((strmode=="g")||(strmode=="i")||(strmode=="j"))
+                    {		
+					var A_TPL = {
+					'b_vertical' : false,
+					'b_watch': true,
+					'n_controlWidth': 200,
+					'n_controlHeight': 22,
+					'n_sliderWidth': 13,
+					'n_sliderHeight': 9,
+					'n_pathLeft' : 0,
+					'n_pathTop' : 7,
+					'n_pathLength' : 187,
+					's_imgControl': 'images/guidao.jpg',
+					's_imgSlider': 'images/huadongtiao.jpg',
+					'n_zIndex': 1
+					}
+					var A_INIT = {
+					's_form' : 0,
+					's_name': 'brightnesstext',
+					'n_minValue' : 0,
+					'n_maxValue' : 100,
+					'n_value' : brightness,
+					'n_step' : 1
+					}
+					}
+					
+					else  if(strmode=="k") 
+                    {		
+					var A_TPL = {
+					'b_vertical' : false,
+					'b_watch': true,
+					'n_controlWidth': 200,
+					'n_controlHeight': 22,
+					'n_sliderWidth': 13,
+					'n_sliderHeight': 9,
+					'n_pathLeft' : 0,
+					'n_pathTop' : 7,
+					'n_pathLength' : 187,
+					's_imgControl': 'images/guidao.jpg',
+					's_imgSlider': 'images/huadongtiao.jpg',
+					'n_zIndex': 1
+					}
+					var A_INIT = {
+					's_form' : 0,
+					's_name': 'brightnesstext',
+					'n_minValue' : 0,
+					'n_maxValue' : 255,
+					'n_value' : brightness,
+					'n_step' : 1
+					}
+					}
+					else  if(strmode=="h") 
+                    {		
+					var A_TPL = {
+					'b_vertical' : false,
+					'b_watch': true,
+					'n_controlWidth': 200,
+					'n_controlHeight': 22,
+					'n_sliderWidth': 13,
+					'n_sliderHeight': 9,
+					'n_pathLeft' : 0,
+					'n_pathTop' : 7,
+					'n_pathLength' : 187,
+					's_imgControl': 'images/guidao.jpg',
+					's_imgSlider': 'images/huadongtiao.jpg',
+					'n_zIndex': 1
+					}
+					var A_INIT = {
+					's_form' : 0,
+					's_name': 'brightnesstext',
+					'n_minValue' : 0,
+					'n_maxValue' : 6,
+					'n_value' : brightness,
+					'n_step' : 1
+					}
+					}
+					
+					else
+					         {		
+					var A_TPL = {
+					'b_vertical' : false,
+					'b_watch': true,
+					'n_controlWidth': 200,
+					'n_controlHeight': 22,
+					'n_sliderWidth': 13,
+					'n_sliderHeight': 9,
+					'n_pathLeft' : 0,
+					'n_pathTop' : 7,
+					'n_pathLength' : 187,
+					's_imgControl': 'images/guidao.jpg',
+					's_imgSlider': 'images/huadongtiao.jpg',
+					'n_zIndex': 1
+					}
+					var A_INIT = {
+					's_form' : 0,
+					's_name': 'brightnesstext',
+					'n_minValue' : 0,
+					'n_maxValue' : 100,
+					'n_value' : brightness,
+					'n_step' : 1
+					}
+					}
+	new slider(A_INIT, A_TPL, BrightnessChg);
+</script></td>
+                  	
+                    <td > 
+					<input type="text" name="brightnesstext" size="3" value="0" maxlength="3" readOnly="readonly" class="style7"></td>
+  </tr>
+  
+			<tr align="left" id="saturation">                  	
+                    <td align="left" width="100%"><script>document.write(str_saturation)</script></td>
+                    <td>      
+			    
+			<script language="JavaScript">	
+			var strmode=model.charAt(5);
+			 if(strmode=="e") 
+                    {		
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'saturationtext',
+				'n_minValue' : 0,
+				'n_maxValue' : 255,
+				'n_value' : saturation,
+				'n_step' : 1
+				}
+				}
+				else  if(strmode=="f") 
+                    {		
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'saturationtext',
+				'n_minValue' : 0,
+				'n_maxValue' : 255,
+				'n_value' : saturation,
+				'n_step' : 1
+				}
+				}
+				else  if((strmode=="g")||(strmode=="i")||(strmode=="j")) 
+                    {		
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'saturationtext',
+				'n_minValue' : 0,
+				'n_maxValue' : 255,
+				'n_value' : saturation,
+				'n_step' : 1
+				}
+				}
+				else  if(strmode=="h") 
+                    {		
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'saturationtext',
+				'n_minValue' : 0,
+				'n_maxValue' : 6,
+				'n_value' : saturation,
+				'n_step' : 1
+				}
+				}
+				else  if(strmode=="k") 
+                    {		
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'saturationtext',
+				'n_minValue' : 0,
+				'n_maxValue' : 255,
+				'n_value' : saturation,
+				'n_step' : 1
+				}
+				}
+				else
+				 {		
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'saturationtext',
+				'n_minValue' : 0,
+				'n_maxValue' : 255,
+				'n_value' : saturation,
+				'n_step' : 1
+				}
+				}
+				
+				new slider(A_INIT, A_TPL, SaturationChg);
+			</script>			</td>
+
+
+                  	
+                    <td> 
+					<input type="text" name="saturationtext" size="3" value="0" maxlength="3" readOnly="readonly" class="style7"></td>
+  </tr>
+ 
+  
+  
+			<tr align="left" id="contrast">                  	
+                    <td align="left" width="100%"><script>document.write(str_contrast)</script></td>
+                    <td>      
+			<script language="JavaScript">	
+			var strmode=model.charAt(5);
+			if(strmode=="e") 
+                    {		
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'contrasttext',
+				'n_minValue' : 0,
+				'n_maxValue' : 100,
+				'n_value' : contrast,
+				'n_step' : 1
+				}
+				}
+				else if(strmode=="f") 
+                    {		
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'contrasttext',
+				'n_minValue' : 0,
+				'n_maxValue' : 100,
+				'n_value' : contrast,
+				'n_step' : 1
+				}
+				}
+				else if((strmode=="g")||(strmode=="i")||(strmode=="j")) 
+                    {		
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'contrasttext',
+				'n_minValue' : 0,
+				'n_maxValue' : 100,
+				'n_value' : contrast,
+				'n_step' : 1
+				}
+				}
+				else if(strmode=="h") 
+                    {		
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'contrasttext',
+				'n_minValue' : 0,
+				'n_maxValue' : 8,
+				'n_value' : contrast,
+				'n_step' : 1
+				}
+				}
+				else if(strmode=="k") 
+                    {		
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'contrasttext',
+				'n_minValue' : 0,
+				'n_maxValue' : 255,
+				'n_value' : contrast,
+				'n_step' : 1
+				}
+				}
+				else
+				{		
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'contrasttext',
+				'n_minValue' : 0,
+				'n_maxValue' : 100,
+				'n_value' : contrast,
+				'n_step' : 1
+				}
+				}
+				
+				new slider(A_INIT, A_TPL, ContrastChg);
+			</script>			</td>
+                  	
+                    <td><input type="text" name="contrasttext" size="3" value="0" maxlength="3" readOnly="readonly" class="style7"></td>
+  </tr>
+  
+			<tr align="left" id="sharpness">                  	
+                    <td align="left" width="100%"><script>document.write(str_sharpness)</script></td>
+                    <td>      
+			<script language="JavaScript">	
+			var strmode=model.charAt(5);
+			 if(strmode=="e") 
+                    {		
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'sharpnesstext',
+				'n_minValue' : 0,
+				'n_maxValue' : 100,
+				'n_value' : sharpness,
+				'n_step' : 1
+				}
+				}
+				else  if(strmode=="f") 
+                    {		
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'sharpnesstext',
+				'n_minValue' : 0,
+				'n_maxValue' : 100,
+				'n_value' : sharpness,
+				'n_step' : 1
+				}
+				}
+				else  if((strmode=="g")||(strmode=="i")||(strmode=="j")) 
+                    {		
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'sharpnesstext',
+				'n_minValue' : 0,
+				'n_maxValue' : 100,
+				'n_value' : sharpness,
+				'n_step' : 1
+				}
+				}
+				else  if(strmode=="h") 
+                    {		
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'sharpnesstext',
+				'n_minValue' : 0,
+				'n_maxValue' : 4,
+				'n_value' : sharpness,
+				'n_step' : 1
+				}
+				}
+				else  if(strmode=="k") 
+                    {		
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'sharpnesstext',
+				'n_minValue' : 0,
+				'n_maxValue' : 255,
+				'n_value' : sharpness,
+				'n_step' : 1
+				}
+				}
+				else
+				 {		
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'sharpnesstext',
+				'n_minValue' : 0,
+				'n_maxValue' : 100,
+				'n_value' : sharpness,
+				'n_step' : 1
+				}
+				}
+				
+				new slider(A_INIT, A_TPL, SharpnessChg);
+			</script>			</td>
+
+
+                  	
+                    <td > 
+					<input type="text" name="sharpnesstext" size="3" value="0" maxlength="3" readOnly="readonly" class="style7"></td>
+  </tr>
+    
+					<tr align="left" id="kuaimen">                  	
+                    <td align="left" width="100%"><script>document.write(str_km)</script></td>
+                    <td>    	
+					<script language="JavaScript">	
+			var strmode=model.charAt(5);
+			if(strmode=="e") 
+                    {
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'shuttertext',
+				'n_minValue' : 0,
+				'n_maxValue' : 65535,
+				'n_value' : shutter,
+				'n_step' : 1
+				}
+				}
+				else if(strmode=="f") 
+                    {
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'shuttertext',
+				'n_minValue' : 0,
+				'n_maxValue' : 65535,
+				'n_value' : shutter,
+				'n_step' : 1
+				}
+				}
+				else if((strmode=="g")||(strmode=="i")||(strmode=="j")) 
+                    {
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'shuttertext',
+				'n_minValue' : 0,
+				'n_maxValue' : 65535,
+				'n_value' : shutter,
+				'n_step' : 1
+				}
+				}
+				else if(strmode=="h") 
+                    {
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'shuttertext',
+				'n_minValue' : 0,
+				'n_maxValue' : 3,
+				'n_value' : shutter,
+				'n_step' : 1
+				}
+				}
+				else if(strmode=="k") 
+                    {
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'shuttertext',
+				'n_minValue' : 0,
+				'n_maxValue' : 255,
+				'n_value' : shutter,
+				'n_step' : 1
+				}
+				}
+				else
+				  {
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'shuttertext',
+				'n_minValue' : 0,
+				'n_maxValue' : 65535,
+				'n_value' : shutter,
+				'n_step' : 1
+				}
+				}
+				
+				new slider(A_INIT, A_TPL, ShutterChg);
+			</script></td>
+                  	
+                    <td> 
+					<input type="text" name="shuttertext" size="3" value="0" maxlength="3" readOnly="readonly" class="style7"></td>
+					</tr>
+											
+			<tr align="left" id="baoguang" style="display:none">                  	
+                    <td align="left" width="100%"><script>document.write(str_ae)</script></td>
+                    <td>    
+			<script language="JavaScript">
+			var strmode=model.charAt(5);
+			if(strmode=="e") 
+                    {
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'aetext',
+				'n_minValue' : 0,
+				'n_maxValue' : 65535,
+				'n_value' : ae,
+				'n_step' : 1
+				}
+				}
+				else if(strmode=="f") 
+                    {
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'aetext',
+				'n_minValue' : 0,
+				'n_maxValue' : 65535,
+				'n_value' : ae,
+				'n_step' : 1
+				}
+				}
+				else if((strmode=="g")||(strmode=="i")||(strmode=="j")) 
+                    {
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'aetext',
+				'n_minValue' : 0,
+				'n_maxValue' : 65535,
+				'n_value' : ae,
+				'n_step' : 1
+				}
+				}
+				else if(strmode=="h") 
+                    {
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'aetext',
+				'n_minValue' : 0,
+				'n_maxValue' : 65535,
+				'n_value' : ae,
+				'n_step' : 1
+				}
+				}
+				else if(strmode=="k") 
+                    {
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'aetext',
+				'n_minValue' : 0,
+				'n_maxValue' : 255,
+				'n_value' : ae,
+				'n_step' : 1
+				}
+				}
+				else
+				  {
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'aetext',
+				'n_minValue' : 0,
+				'n_maxValue' : 65535,
+				'n_value' : ae,
+				'n_step' : 1
+				}
+				}
+				
+				new slider(A_INIT, A_TPL, AeChg);
+			</script></td>
+                  	
+                    <td> 
+					<input type="text" name="aetext" size="3" value="0" maxlength="3" readOnly="readonly" class="style7"></td>
+					</tr>
+					
+			<tr align="left" id="targetyname">                  	
+                    <td align="left" width="100%"><script>document.write(str_targety)</script></td>
+                    <td>    
+			<script language="JavaScript">
+			var strmode=model.charAt(5);
+			if(strmode=="e") 
+                    {
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'targetytext',
+				'n_minValue' : 0,
+				'n_maxValue' : 255,
+				'n_value' : targety,
+				'n_step' : 1
+				}
+				}
+				else if(strmode=="f") 
+                    {
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'targetytext',
+				'n_minValue' : 0,
+				'n_maxValue' : 255,
+				'n_value' : targety,
+				'n_step' : 1
+				}
+				}
+	            else if((strmode=="g")||(strmode=="i")||(strmode=="j")) 
+                    {
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'targetytext',
+				'n_minValue' : 0,
+				'n_maxValue' : 255,
+				'n_value' : targety,
+				'n_step' : 1
+				}
+				}
+				else if(strmode=="h") 
+                    {
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'targetytext',
+				'n_minValue' : 0,
+				'n_maxValue' : 255,
+				'n_value' : targety,
+				'n_step' : 1
+				}
+				}
+				else if(strmode=="k") 
+                    {
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'targetytext',
+				'n_minValue' : 0,
+				'n_maxValue' : 255,
+				'n_value' : targety,
+				'n_step' : 1
+				}
+				}
+				else
+				  {
+				var A_TPL = {
+				'b_vertical' : false,
+				'b_watch': true,
+				'n_controlWidth': 200,
+				'n_controlHeight': 22,
+				'n_sliderWidth': 13,
+				'n_sliderHeight': 9,
+				'n_pathLeft' : 0,
+				'n_pathTop' : 7,
+				'n_pathLength' : 187,
+				's_imgControl': 'images/guidao.jpg',
+				's_imgSlider': 'images/huadongtiao.jpg',
+				'n_zIndex': 1
+				}
+				var A_INIT = {
+				's_form' : 0,
+				's_name': 'targetytext',
+				'n_minValue' : 0,
+				'n_maxValue' : 255,
+				'n_value' : targety,
+				'n_step' : 1
+				}
+				}
+				
+				new slider(A_INIT, A_TPL, TargetyChg);
+			</script></td>
+                  	
+                    <td> 
+					<input type="text" name="targetytext" size="3" value="0" maxlength="3" readOnly="readonly" class="style7"></td>
+					</tr>
+  
+                    
+                    <td colspan="3"> <input type="checkbox" id="form_flip" name="flipbox" value="checkbox">
+					<script>document.write(str_up_down_trun)</script>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<input type="checkbox" id="form_mirror" name="mirrorbox" value="checkbox">
+<script>document.write(str_left_right_trun)</script></td>
+				
+              <tr style="display:none;" id="wdrdisplay">
+                    <td colspan="3"> 
+					<input type="checkbox" id="form_wdr" name="wdrbox" value="checkbox">
+					<script language="JavaScript" type="text/javascript">document.write(str_wdrmode);</script></td>
+  				</tr>	
+				
+              	<tr id="noise" style="display:none">
+    <td colspan="3"><script type="text/javascript">document.write(str_noise);</script>
+	  <input type="radio" id="form_noise0_on" name="noiseradio" value="radiobutton" checked >
+	  <script type="text/javascript">document.write(str_start_up);</script>
+	  <input type="radio" id="form_noise0_off" name="noiseradio" value="radiobutton">
+	  <script type="text/javascript">document.write(str_close);</script></td>
+    </tr>	
+
+              	<tr id="aemode">
+    <td colspan="3"><script type="text/javascript">document.write(str_aemode);</script>
+	  <select name="aemode" size="1" id="form_aemode">
+      <option value="0"><script type="text/javascript">document.write(str_auto);</script></option>
+	  <option value="1"><script type="text/javascript">document.write(str_indoor);</script></option>	  
+      <option value="2"><script type="text/javascript">document.write(str_outdoor);</script></option>
+    </select></td>
+    </tr>
+	
+	 <tr id="hwctrl" >
+    <td colspan="3"><script type="text/javascript">document.write(str_hwctrl);</script>
+	  <select name="irled" size="1" id="form_irled">
+      <option value="0"><script type="text/javascript">document.write(str_auto);</script></option>
+	  <option value="1"><script type="text/javascript">document.write(str_start_up);</script></option>
+	  <option value="2"><script type="text/javascript">document.write(str_close);</script></option>
+    </select>	  </td>
+    </tr>
+	
+	 <tr id="imgmode0">
+    <td colspan="3"><script type="text/javascript">document.write(str_imgmode);</script>
+	  <select name="imgmode" size="1" id="form_imgmode">
+      <option value="0"><script type="text/javascript">document.write(str_framerate1);</script></option>
+	  <option value="1"><script type="text/javascript">document.write(str_inance);</script></option>
+    </select>	  </td>
+    </tr>
+	
+		        <tr id="nlight0" style="display:none">              	
+                    <td colspan="3" height="22">  
+<script language="JavaScript" type="text/javascript">document.write(str_nlight);</script>&nbsp;
+<input type="text" id="form_humitext" name="humitext" size="12" maxlength="12">
+    &nbsp;&nbsp; (0-4294967295)</td>
+  				</tr>
+				
+				
+				
+				
+				
+				<tr id="ircuttext" style="display:none">              	
+                    <td colspan="3" height="22">  
+<script language="JavaScript" type="text/javascript">document.write(str_ircut);</script>&nbsp;
+<input type="text" id="form_ircut" name="ircut" size="6" maxlength="6">
+    &nbsp;<script type="text/javascript">document.write(str_ircutye);</script></td>
+  				</tr>
+				
+				
+				<tr id="buttonnight" style="display:none">	
+                    <td colspan="3">  
+<button type="button" name="B1" >
+<script type="text/javascript">document.write(str_gj);</script>
+</button>
+
+<script language="JavaScript" type="text/javascript">document.write(str_ysxgtj);</script></td>
+  				</tr>
+              	<tr id="layer0" style="display:none">
+                  	
+                    <td colspan="3">  
+<input type="checkbox" name="nightbox" value="checkbox" >
+<script language="JavaScript" type="text/javascript">document.write(str_ysms);</script></td>
+  				</tr>
+					
+				
+              </table>
+               </form></td>
+              <td align="left" id="mydisplay" width="350" height="330" valign="top">
+                <SCRIPT type=text/JavaScript>			  			  			  
+			   if (navigator.appName.indexOf("Microsoft Internet Explorer") != -1)
+			{
+              document.open();
+              document.write('<object classid="clsid:42B182F9-3F08-484E-9913-07193A5D36A6" codebase="ENWebClientPlus.ocx#version=3,0,2,0" id="DHiMPlayer" align="absbottom" width="350" height="330">');
+			  document.write('<param name="_Version" value="65536"> <param name="_ExtentX" value="8890"> <param name="_ExtentY" value="7461">');
+			  document.write('<param name="_StockProps" value="0">');
+	 		  document.write('<embed src="65536"  align="middle" _version="65536" width="0" height="0" _extentx="10954" _extenty="6826" _stockprops="0"> </object>');
+			  document.close();
+			  }
+			  else
+			{
+
+var hasRequestedVersion = DetectFlashVer(10, 0, 0);
+
+											if(!hasRequestedVersion)
+											{
+												var div = document.getElementById("ipcam_display");
+												div.innerHTML = '<a href="http://www.adobe.com/go/getflashplayer/" style="color:black"><img src="ERROR_getFlashPlayer.gif" width="641" height="377" /></a>';
+								
+											}
+											else{
+			  if((videomode=="51")||(videomode=="52")||(videomode=="53")||(videomode=="54")){w=400;h=300;}
+			else if((videomode=="20")||(videomode=="17"))
+			 {if(vinorm=="P") {w=400;h=300;}
+			 else {w=400;h=260;}
+			 }	
+	         else {w=400;h=260;}
+										
+													AC_FL_RunContent(
+														"src", "swfs/StrobeMediaPlayback",
+														"width", w,
+														"height", h,
+														"id", "StrobeMediaPlayback",
+														"quality", "high",
+														"bgcolor", "#000000",
+														"name", "StrobeMediaPlayback",
+														"allowfullscreen","true",
+														"type", "application/x-shockwave-flash",
+														"pluginspage", "http://www.adobe.com/go/getflashplayer",
+														"flashvars", flashVars 
+													);
+												
+											}
+								  
+			
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			  
+			  
+				</SCRIPT>
+              </td>
+			  <td>&nbsp;</td>
+            </tr>
+</table>
+    <form id="form_submit" name="form2" method="post">
+	<input name="cmd" type="hidden" value="setinfrared">
+	<input name="cururl" type="hidden">
+	<input name="infraredstat" type="hidden">
+	<input name="cmd" type="hidden" value="setircutattr">
+	<input name="saradc_switch_value" type="hidden">
+	<input name="cmd" type="hidden" value="setimageattr">
+	<input name="bright" type="hidden">
+	<input name="contrast" type="hidden">
+	<input name="saturation" type="hidden">
+	<input name="sharpness" type="hidden">
+    <input name="mirror" type="hidden">
+	<input name="flip" type="hidden">	
+	<input name="shutter" type="hidden">
+	<input name="night" type="hidden">
+	<input name="wdr" type="hidden">
+	<input name="noise" type="hidden">
+	<input name="gc" type="hidden">	
+	<input name="ae" type="hidden">	
+	<input name="targety" type="hidden">	
+	<input name="aemode" type="hidden">
+	<input name="image_type" type="hidden">	
+	<input name="imgmode" type="hidden">
+	<table align="center" border="0" cellpadding="0" cellspacing="3" width="95%">
+      <tr>
+	  	<td width="220"></td>
+        <td width="80" height="26"><button onClick="do_submit()"><script>document.write(str_sure)</script></button></td>
+        <td width="80"><button onClick="javascript:location.reload(true)"><script>document.write(str_refresh)</script></button></td>
+        <td align="left"><button onClick="DefaultChg()"><script>document.write(str_default1)</script></button></td>
+      </tr>
+    </table>
+</form> 
+         
+</body>
+</html>

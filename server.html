@@ -1,0 +1,154 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>ipCAM</title>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-Control" content="no-cache">
+  <meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT">
+<!-- ImageReady Preload Script (ipCAM.psd) --> 
+<script src="public.js"></script>
+  <script language="JavaScript1.2" src="cgi-bin/hi3510/param.cgi?cmd=getalarmserverattr" type="text/javascript"></script>
+  <script type="text/javascript">
+function on_load()
+{
+	var form=document.form1;
+	form.address.value = as_server;
+	form.port.value = as_port;
+	form.username.value = as_username;
+	form.password.value = as_password;
+}
+
+function do_submit()
+{
+	var form1=document.form1;
+	var form=document.form2;
+	
+	form.username.value=form1.username.value;
+	form.password.value=form1.password.value;
+    form.server.value = form1.address.value;
+    form.port.value = form1.port.value;
+	
+	if(checkProhibitedCharacter(form1.address,form1.address.value)==false)return false;
+	if(checkProhibitedCharacter(form1.port,form1.port.value)==false)return false;
+	
+	form.username.name="-as_username";
+	form.password.name="-as_password";
+    form.server.name= "-as_server";
+    form.port.name= "-as_port";
+
+    form.cururl.value = document.URL;
+	form.action="cgi-bin/hi3510/param.cgi";
+	form.submit();	
+}
+  </script>
+
+  <style type="text/css">
+<!--
+.style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.style2 {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 24px;
+}
+.style5 {	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style6 {color: #990000}
+-->
+  </style>
+</head>
+
+<body leftmargin="0" topmargin="0" onLoad="on_load();" marginheight="0" marginwidth="0">
+      	
+                  <form name="form1">
+            	
+                    <table width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5">
+
+         		 
+                <tbody>
+
+   		  <tr>
+              <td align="left" colspan="2"><span class="style6" style="font-size:24px"> <strong>
+            <script>document.write(str_police_server_set)</script></strong> </span>             </td>
+            </tr>
+			            <tr>
+              <td align="left"></td>
+              <td align="left"></td>
+            </tr>
+ <!--                  
+               <tr align="left">
+               	
+                  <td colspan="2">
+                  	<input type="radio" name="ddnsradio" value="ddnsradiobutton" onClick="do_filename()">
+On
+<input type="radio" name="ddnsradio" value="ddnsradiobutton" onClick="do_filename()">
+Off </td>
+                  </tr>
+                 -->
+
+                <tr id="layer0">
+
+                  <td align="left" width="220"><script>document.write(str_server_address2)</script> </td>
+
+                  <td align="left"><input name="address" maxlength="64" size="22" type="text"> </td>
+                  </tr>
+
+                  <tr id="layer1" align="left">
+
+                  <td><script>document.write(str_server_port)</script></td>
+
+                  <td><input name="port" maxlength="6" size="22" type="text"></td>
+                </tr>
+                  <tr  align="left" style="display:none">
+                    <td><script>document.write(str_username)</script></td>
+
+                  <td><input name="username" maxlength="6" size="22" type="text"></td>
+                  </tr>
+                  <tr align="left" style="display:none">
+                    <td><script>document.write(str_password)</script></td>
+
+                  <td><input name="password" maxlength="6" size="22" type="password"></td>
+                  </tr>
+                      </tbody>
+                    </table>
+            </form>
+<table align="center" border="0" cellpadding="0" cellspacing="3" width="95%">
+              <tr>
+			  	<td width="220"></td>
+                <td width="80"><button onClick="do_submit()"><script>document.write(str_sure)</script></button></td>
+                <td align="left"><button onClick="javascript:location.reload(true)"><script>document.write(str_refresh)</script></button></td>
+              </tr>
+</table>
+                  </table>
+                  </td>
+          </tr>
+              </tbody>
+            </table>
+
+        
+            <form name="form2" method="post">
+				<input name="cmd" type="hidden" value="setalarmserverattr">
+            	<input name="cururl" type="hidden">
+	            <input name="server" type="hidden">
+	            <input name="port" type="hidden">
+				<input name="username" type="hidden">
+	            <input name="password" type="hidden">
+</form>
+
+        	<!--
+	<input name="cmd" type="hidden" value="setddnsattr">
+	-->
+
+<!-- ImageReady Slices (ipCAM.psd - Slices: 02, 05, 06, 08, 09, 11, 12, 13, 15, 21, 22, 28, 30, 35, 36, 39, 42, 46, 50, 53) -->
+<!-- End ImageReady Slices -->
+</body>
+</html>

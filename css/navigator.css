@@ -1,0 +1,19 @@
+﻿.global_navigator_level1 {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 13px;
+	color: #ffffff;
+	font-weight: normal;
+	background-color: #000000;
+	border-top: 2px solid #810000;
+	border-right: 2px solid #336699;
+	border-bottom: 2px solid #810000;
+	border-left: 2px solid #810000;
+}
+.global_navigator_level2 {  font-family: "Arial", "Helvetica", "sans-serif"; font-size: 10px; background-color:  #AAAAAA; border-style: ridge; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; color: #000000}
+.global_navigator_level1_selected { font-family: "Arial", "Helvetica", "sans-serif"; font-size: 12px; color: #FFFF00; font-weight: bold}
+.global_navigator_level1_p2 { font-family: "Arial", "Helvetica", "sans-serif"; font-size: 12px; color: #FF6600; font-weight: bold ; background-color: #4D88BE; border: 1px #CCCCCC ridge}
+.global_navigator_level3 { font-family: "Arial", "Helvetica", "sans-serif"; font-size:12px; background-color: #EEEEAA; border-style: none}
+.global_navigator_level2_p2 { font-family: "Arial", "Helvetica", "sans-serif"; font-size: 12px; background-color: #CCCCEE; color: #CC3366; border-style: ridge; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px}
+.global_navigator_level3_p2 { font-family: "Arial", "Helvetica", "sans-serif"; font-size: 12px; background-color: #DDDDFF; color: #CC3366}
+.global_navigator_level4 { font-family: "Arial", "Helvetica", "sans-serif"; font-size: 12px; background-color: #FFFFCC; border-style: none }
+.text {  font-family: "Arial", "Helvetica", "sans-serif"; font-size: 12px; color: #FFCC00}

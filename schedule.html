@@ -1,0 +1,589 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="content-type">
+	<META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+<META http-equiv="Pragma" CONTENT="no-cache">
+
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+
+<meta HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"> 
+<title>ipCAM</title>
+
+<!-- ImageReady Preload Script (ipCAM.psd) -->
+<script src="public.js"></script>
+<script language="JavaScript1.2" src="cgi-bin/hi3510/param.cgi?cmd=getscheduleex&-ename=md" type="text/javascript"></script>
+<script type="text/javascript" src="lib/schedule.js"></script>
+<script type="text/javascript">
+function on_load()
+{
+ load_form_timearea();
+}
+
+function do_submit()
+{
+	var s = document.getElementById("form_submit");
+	submit_form_timearea();
+
+	
+	s.cururl.value = document.URL;
+	s.action = "cgi-bin/hi3510/param.cgi";
+	s.submit();
+	
+}
+
+function showtimeitme()
+{
+	var f = document.getElementById("form_recplan");
+	
+	var i, j, classna;
+	
+	if (f.selectedIndex == 0)
+	{
+		classna = "newbg";
+	}
+	else
+	if (f.selectedIndex == 1)
+	{
+		classna = "common";
+	}
+	else
+		return;
+		
+		for (i=1;i<8;i++)
+		{
+			for (j=1;j<49;j++)
+			{
+				table1.rows[i].cells[j].className=classna;
+			}
+		}  	
+}
+
+function all_area()
+{
+	
+	var i, j, classna;
+
+		classna = "newbg";
+		
+		for (i=1;i<8;i++)
+		{
+			for (j=1;j<49;j++)
+			{
+				table1.rows[i].cells[j].className=classna;
+			}
+		}  	
+  	
+}
+
+function no_area()
+{
+	
+	var i, j, classna;
+
+		classna = "common";
+		for (i=1;i<8;i++)
+		{
+			for (j=1;j<49;j++)
+			{
+				table1.rows[i].cells[j].className=classna;
+			}
+		}  	
+  	
+}
+
+function on_tableclk(evt)
+{
+	var td = evt.srcElement||evt.target;//event.srcElement? event.srcElement: event.target;
+
+	var row, col;
+	
+	if(td.tagName!="TD") 
+   		return;
+	
+	//row = td.parentElement.rowIndex;
+//	col = td.cellIndex;
+	//alert("down 行号："+row+"列号："+col);
+	//document.title = "down 行号："+row+"列号："+col;
+	
+	if (row == 0)
+		return;
+	
+	if (col == 0)
+		return;
+
+	td.className=td.className=="newbg"?"common":"newbg";	
+	/*alert(table1.rows[row].cells[col].className);
+	if (table1.rows[row].cells[col].className == "newbg")
+		table1.rows[row].cells[col].className = "common";
+	else
+		table1.rows[row].cells[col].className = "newbg";	*/
+}
+
+</script>
+<!-- End Preload Script -->
+<style type="text/css">
+<!--
+.style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.style2 {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style5 {font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style6 {color: #810000}
+.newbg{
+background-color:#00CC00;
+}
+.light {
+      cursor: default;
+	  }
+-->
+</style>
+</head>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="on_load();">
+    	
+           <table width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5" >		
+                    <tr>
+                  <td colspan="3" style="font-size:24px" class="style6"><strong><script>document.write(str_alarm_time)</script></strong></td>
+                </tr>
+                <tr>
+                  <td align="left" colspan="3" bgcolor="#CCCCCC"><span class="style6"><strong><script>document.write(str_alarmplan_set)</script></strong></span></td>
+                </tr>
+				
+
+				<tr style="display:none">
+                  <td width="226"><script>document.write(str_alarmplan)</script></td>
+                  <td width="931" colspan="2">
+			 <select size="1" id="form_recplan" onchange=showtimeitme()>
+	        <option value="0"><script type="text/javascript">document.write(str_alarmday);</script></option>
+	        <option value="1"><script type="text/javascript">document.write(str_alarmclear);</script></option>
+	       <option value="2" selected><script type="text/javascript">document.write(str_alermarea);</script></option>
+	       </select></td>
+                </tr>
+				
+				
+				<tr >
+                  <td colspan="3"><table border="1" width="930" id="table1" cellspacing="1" bordercolor="#808080" class="light" onClick="on_tableclk(event)" >
+                    <tr class="common">
+                      <td width="93">&nbsp;</td>
+                      <td colspan="2" align="center">&nbsp;&nbsp;0</td>
+                      <td colspan="2" align="center">&nbsp;&nbsp;1</td>
+                      <td colspan="2" align="center">&nbsp;&nbsp;2</td>
+                      <td colspan="2" align="center">&nbsp;&nbsp;3</td>
+                      <td colspan="2" align="center">&nbsp;&nbsp;4</td>
+                      <td colspan="2" align="center">&nbsp;&nbsp;5</td>
+                      <td colspan="2" align="center">&nbsp;&nbsp;6</td>
+                      <td colspan="2" align="center">&nbsp;&nbsp;7</td>
+                      <td colspan="2" align="center">&nbsp;&nbsp;8</td>
+                      <td colspan="2" align="center">&nbsp;&nbsp;9</td>
+                      <td colspan="2" align="center">10</td>
+                      <td colspan="2" align="center">11</td>
+                      <td colspan="2" align="center">12</td>
+                      <td colspan="2" align="center">13</td>
+                      <td colspan="2" align="center">14</td>
+                      <td colspan="2" align="center">15</td>
+                      <td colspan="2" align="center">16</td>
+                      <td colspan="2" align="center">17</td>
+                      <td colspan="2" align="center">18</td>
+                      <td colspan="2" align="center">19</td>
+                      <td colspan="2" align="center">20</td>
+                      <td colspan="2" align="center">21</td>
+                      <td colspan="2" align="center">22</td>
+                      <td colspan="2" align="center">23</td>
+                    </tr>
+                    <tr class="common">
+                      <td width="93" class="style5"><script type="text/javascript">document.write(str_sunday);</script></td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                      <td width="12">&nbsp;</td>
+                    </tr>
+                    <tr class="common">
+                      <td width="93" class="style5"><script type="text/javascript">document.write(str_monday);</script></td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                    </tr>
+                    <tr class="common">
+                      <td width="93" class="style5"><script type="text/javascript">document.write(str_tuesday);</script></td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                    </tr>
+                    <tr class="common">
+                      <td width="93" class="style5"><script type="text/javascript">document.write(str_wednesday);</script></td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                    </tr>
+                    <tr class="common">
+                      <td width="93" class="style5"><script type="text/javascript">document.write(str_thursday);</script></td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                    </tr>
+                    <tr class="common">
+                      <td width="93" class="style5"><script type="text/javascript">document.write(str_friday);</script></td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                    </tr>
+                    <tr class="common">
+                      <td width="93" class="style5"><script type="text/javascript">document.write(str_saturday);</script></td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                    </tr>
+                  </table></td>
+                </tr>
+			</table>			  
+				
+
+<table align="center" border="0" cellpadding="0" cellspacing="3" width="95%">
+      <tr>
+				  	<td width="25%"></td>
+        <td width="7%" align="right"><button onClick="do_submit()">&nbsp;<script>document.write(str_sure)</script>&nbsp;</button></td>
+        <td width="13%" align="center"><button onClick="all_area()"><script>document.write(str_all_area)</script></button></td>
+        <td width="55%" align="left"><button onClick="no_area()"><script>document.write(str_no_area)</script></button></td>
+  </tr>
+</table>
+
+
+				
+<form id="form_submit" method="post">
+	<input name="cmd" type="hidden" value="setscheduleex">
+	<input name="cururl" type="hidden">
+	<input name="ename" type="hidden">
+	<input name="week0" type="hidden">
+	<input name="week1" type="hidden">
+	<input name="week2" type="hidden">
+	<input name="week3" type="hidden">
+	<input name="week4" type="hidden">
+	<input name="week5" type="hidden">
+	<input name="week6" type="hidden">
+</form>
+
+
+<!-- ImageReady Slices (ipCAM.psd - Slices: 02, 05, 06, 08, 09, 11, 12, 13, 15, 21, 22, 28, 30, 35, 36, 39, 42, 46, 50, 53) -->
+<!-- End ImageReady Slices -->
+</body>
+</html>

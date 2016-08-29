@@ -1,0 +1,131 @@
+﻿<html>
+<head>
+<title>ipCAM</title>
+<meta content="text/html; charset=utf-8" http-equiv="content-type">
+<META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+<META http-equiv="Pragma" CONTENT="no-cache">
+
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+
+<meta HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"> 
+<!-- ImageReady Preload Script (ipCAM.psd) -->
+<script language="JavaScript1.2" src="cgi-bin/hi3510/logsync.cgi" type="text/javascript"></script>
+<script type="text/javascript">
+<!--
+
+<!--
+var accesslogpath="/ini/accesslog.txt";
+
+function newImage(arg) {
+	if (document.images) {
+		rslt = new Image();
+		rslt.src = arg;
+		return rslt;
+	}
+}
+
+function changeImages() {
+	if (document.images && (preloadFlag == true)) {
+		for (var i=0; i<changeImages.arguments.length; i+=2) {
+			document[changeImages.arguments[i]].src = changeImages.arguments[i+1];
+		}
+	}
+}
+
+var preloadFlag = false;
+function preloadImages() {
+	if (document.images) {
+		index_08_Over = newImage("images/index_08-Over.gif");
+		index_09_Over = newImage("images/index_09-Over.gif");
+		index_11_Over = newImage("images/index_11-Over.gif");
+		index_12_Over = newImage("images/index_12-Over.gif");
+		index_13_Over = newImage("images/index_13-Over.gif");
+		index_39_Over = newImage("images/index_39-Over.gif");
+		index_39_Down = newImage("images/index_39-Down.gif");
+		preloadFlag = true;
+	}
+}
+
+
+// -->
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+
+
+function on_load()
+{
+	frame1.location.reload();
+}
+function cleanlog()
+{
+	var form = document.form2;
+	form.name.name = "-name";
+	form.cururl.value = document.URL ;	
+  form.submit();
+}
+//-->
+</script>
+<!-- End Preload Script -->
+<style type="text/css">
+<!--
+.style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.style2 {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style5 {font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style6 {color: #810000}
+-->
+</style>
+</head>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="on_load();">
+<table width="872" height="465" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="694" valign="top"> 
+    	<TABLE BORDER=0 CELLPADDING=5 CELLSPACING=0>
+    	
+    		<tr>
+    			<td > 
+    	<iframe name=frame1 src="/log/syslog.txt" hspace="0" marginwidth="0" width="676" height="480" scrolling="auto" frameborder="0"></iframe>
+	</td>
+	</tr>
+		<tr >
+		   <td  ALIGN="right" valign="bottom">
+<button onClick="cleanlog()"><script>document.write(str_sure)</script></button>
+		   <!--	<input type=button value="Clean Log" onClick="cleanlog()">-->
+		   <!--	Clean log-->
+		  </td>
+	</tr></table>
+  <form name="form2" method="get" action="cgi-bin/hi3510/cleanlog.cgi">
+	<input name="cururl" type="hidden"  >
+	<input name="name" type="hidden" value="sys">
+</form>
+
+</body>
+</html>

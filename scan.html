@@ -1,0 +1,107 @@
+﻿<html>
+<head>
+<title>Wifi Scanner</title>
+
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+<meta NAME="AUTHOR" CONTENT="mike@yoics">
+<META http-equiv="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+<script src="public.js"></script>
+<!-- Do a wifi scan -->
+<script language="JavaScript1.2" src="cgi-bin/hi3510/param.cgi?cmd=searchwireless" type="text/javascript"></script>
+
+<script type="text/javascript"> 
+<!--
+//
+// Talk back to the parent and tell it the wifi network we wish to attach to.
+function do_select(index)
+{
+  self.opener.from_child(wessid[index],wauth[index],wenc[index]);
+  window.close();                                                        
+  return false;                                                                
+}
+
+//
+// Load the scan information into a table and display
+//
+function load()
+{
+  var i=0;
+  var data="";
+
+  ie_header='<table width="200" height="100" border="1" cellpadding="6" cellspacing="1" id="list" >';
+
+  data="<TR class=\"style7\"><td>"+str_add1+"</td><td>RSSI</td><td>SSID</td><td>"+str_encryption+"</td>";
+  data=data+"<td>"+str_rz+"</td><td>"+str_ljms+"</td><td>"+str_td+"</td></tr>";
+  for(i=0;i<waccess_points;i++)
+  {
+    data=data+"<TR class=\"style5\">";
+    data=data+"<td onClick=\"do_select("+i+");\"><button type=\"button\">"+str_qd+"</button></td>";
+    data=data+"<td>"+wrssi[i]+"</td>";
+    data=data+"<td>"+wessid[i]+"</td><td>"+wenc[i]+"</td>";
+    data=data+"<td>"+wauth[i]+"</td><td>"+wnet[i]+"</td>";
+    data=data+"<td>"+wchannel[i]+"</td></tr>";
+  }
+  //document.getElementById('list').innerHTML=""+data+"";
+
+  // IE doesn't support innerHTML, so we work around here
+  if (document.getElementById('list').outerHTML) 
+  {
+     document.getElementById('list').outerHTML=ie_header+data+"</table>";
+  } 
+  else 
+  {
+     // All other browsers support innterHTML so use it
+     document.getElementById('list').innerHTML = data;
+  }
+
+}
+//-->
+</script>
+
+<style type="text/css">
+<!--
+.style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.style2 {
+	color: #999999;
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style5 {font-size: 12px;
+	color:#000000;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style6 {color: #CC3333}
+.style7 {
+
+     background-color:#bbbbaa;
+     }
+-->
+</style>
+</head>
+
+<body onLoad="load();">
+<table width="100%" height="532"  border="0" cellpadding="0" cellspacing="0">
+ <tr>
+ <td valign="top">
+
+<table width="100" height="100" border="1" cellpadding="1" cellspacing="1" id="list">
+</table>
+
+<table>
+<tr><td>
+<button type="submit" onClick="location.reload(true);"><script>document.write(str_refresh)</script></button>
+<!--	do_select();"-->
+</td>
+</tr>
+</table>
+<br></td>
+</tr>
+</table>
+</body>
+</html>
+

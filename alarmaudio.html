@@ -1,0 +1,98 @@
+﻿<html>
+<head>
+  <meta http-equiv="Content-Language" content="zh-cn">
+  <title>ipCAM</title>
+
+
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
+
+  <meta http-equiv="Pragma" content="no-cache">
+
+  <meta http-equiv="Cache-Control" content="no-cache">
+
+  <meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT">
+<script src="public.js"></script>
+<script type="text/javascript" src="lib/alarmaudio.js"></script>
+<script src="cgi-bin/hi3510/param.cgi?cmd=getaudioalarmattr" type="text/javascript"></script>
+
+  <script type="text/javascript">
+  function on_load()
+{   	
+	load_form_aaenable();
+	load_form_aavalue();
+	change_form_witch();
+}
+
+function do_submit()
+{
+	var s = document.getElementById("form_submit");
+	s.cururl.value=document.URL;
+	if (!check_form_aavalue())
+		return false;	
+
+	submit_form_aaenable();
+	submit_form_aavalue();
+	
+	s.action="cgi-bin/hi3510/param.cgi";
+	s.submit();
+}
+  </script>
+  <style type="text/css">
+<!--
+.style1 {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 12px;
+}
+.style2 {
+font-size: 12px;
+font-family: Arial, Helvetica, sans-serif;
+}
+.style5 {font-size: 12px;
+font-family: Arial, Helvetica, sans-serif;
+}
+.style6 {color: #810000}
+-->
+  </style>
+</head>
+<body leftmargin="0" topmargin="0" onLoad="on_load();" marginheight="0" marginwidth="0">
+            <table width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5">
+              <tbody>
+			  	<tr><td colspan="2" style="font-size:24px" class="style6"><strong><script>document.write(str_alarmaudio)</script></strong></td></tr>
+                <tr>
+                  <td align="left" width="220"><font class="style2"><script>document.write(str_alarmaudio1)</script></font></td><td>
+                    <font class="style2"><input type="radio" id="form_aaenable0" name="aa_enable" onClick="change_form_witch()" checked>
+	<script type="text/javascript">document.write(str_start_up);</script>
+	<input type="radio" id="form_aaenable1" name="aa_enable" onClick="change_form_witch()">
+	<script type="text/javascript">document.write(str_close);</script></font></td>
+                </tr>
+				
+				<tr id="audiorange">
+                  <td align="left" width="220"><font class="style2"><script>document.write(str_alarmsen)</script></font></td><td>
+                    <font class="style2"><input type="text" id="form_aavalue" size="4" maxlength="4">
+    &nbsp;&nbsp;<script type="text/javascript">document.write(str_alarmscope);</script></font></td>
+                </tr>
+				
+              </tbody>
+            </table>
+        
+         <table align="center" border="0" cellpadding="0" cellspacing="3" width="95%">
+                    <tbody>
+                      <tr>
+					  <td width="220"></td>
+                        <td width="80"><button onClick="do_submit()"><script>document.write(str_sure)</script></button></td>
+                        <td align="left"><button onClick="javascript:location.reload(true)"><script>document.write(str_refresh)</script></button></td>
+                      </tr>
+                    </tbody>
+</table>
+<form id="form_submit" name="form2" method="post">
+	<input name="cmd" type="hidden" value="setaudioalarmattr">
+	<input name="cururl" type="hidden">
+	<input name="aa_enable" type="hidden">
+	<input name="aa_value" type="hidden">	
+</form>
+<!-- ImageReady Slices (ipCAM.psd - Slices: 02, 05, 06, 08, 09, 11, 12, 13, 15, 21, 22, 28, 30, 35, 36, 39, 42, 46, 50, 53) -->
+<!-- End ImageReady Slices -->
+</body>
+</html>

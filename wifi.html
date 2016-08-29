@@ -1,0 +1,686 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<title>ipCAM</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<script src="cgi-bin/hi3510/param.cgi?cmd=getwirelessattr&cmd=getnetattr" type="text/javascript"></script>
+<script src="public.js"></script>
+
+<script type="text/javascript">
+function from_child(c_essid, c_auth, c_enc)
+{
+  var form=document.form1;   
+
+  form.ssid.value=c_essid;
+
+
+  switch(c_enc)
+  {
+  default:
+  case "NONE":
+    form.security[0].selected = true; 
+    break;
+  case "TKIP":
+    form.encryption[0].selected = true;
+    break;
+  case "AES":
+    form.encryption[1].selected = true; 
+    break;
+  case "WEP":
+    form.security[1].selected = true; 
+    break;
+  case "TKIP, AES":
+    form.encryption[0].selected = true;
+    break; 
+  }
+
+  switch(c_auth)
+  {
+  default:
+  case "NONE":
+   form.security[0].selected = true;
+   break;
+  case "OPEN":
+   // Open types are wep as set above
+   break;
+  case "WPA-PSK":
+   form.security[2].selected = true;                                            
+   break;      
+  case "WPA2-PSK":
+   form.security[3].selected = true;                                            
+   break;
+  case "WPA(2)-PSK":
+   form.security[3].selected = true;                                            
+   break;  	  
+  }  
+  do_changemode();
+}
+
+
+function checkIsHex(value) 
+{
+  for (var i = 0; i < value.length; ++i) 
+  {
+     var c = value.charAt(i);
+     //Do not use Hankaku
+     if( false == ( ((c >= 0)&&(c <= 9 ))||((c >= "a")&&(c <= "f")) ||((c >= "A")&&(c <= "F"))) )
+     {
+     	 return false;
+     }
+   }
+    return true;
+}
+function checkIsAsc(value)
+{
+	for (var i = 0; i < value.length; ++i) 
+  {
+     var c = value.charCodeAt(i);
+     //Do not use Hankaku
+     if (c > 255 ) 
+     {
+        return false;
+     }
+   }
+    return true;
+}
+
+function checkwepkey(str)
+{
+	if((str.length == 5)||(str.length == 13))
+	{
+		if(checkIsAsc(str)==false)
+		{
+			alert(str_st2);
+			return false;
+		}
+	else
+		{
+			return true;
+		}
+	}
+else if( (str.length == 10)||(str.length == 26) )
+	{
+		if(checkIsHex(str)==false)
+		{
+			alert(str_st3);
+			return false;
+		}
+	else
+		{
+			return true;
+		}
+	}
+else
+	{
+
+		alert(str_st4);
+		return false;
+	}
+}
+
+function checkwpakey(str)
+{
+	if ((str.length < 8) || (str.length > 63))
+	{
+		alert(str_st5);
+		return false;
+	}
+	
+	return true;
+}
+
+
+
+function checkProhibitedCharacter (obj, string )
+{
+//if( string.search(/[^a-zA-Z0-9_\!\"\#\$\%\&\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\\\]\^\`\{\|\}\~\s]/) != -1 )
+if( string.search(/[^a-zA-Z0-9_\!\"\#\$\%\&\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\\\]\^\`\{\|\}\~\s]/) != -1 )
+//if(( string.search("\/") != -1 )||( string.search(/\\/) != -1 )||( string.search(":") != -1 )||( string.search("&") != -1 )||( string.search("=") != -1 ))
+{
+	obj.select();
+  alert(str_alert4);
+  return false;
+}
+else if(( string.search("\/") != -1 )||( string.search(/\\/) != -1 )||( string.search(":") != -1 )||( string.search("&") != -1 )||( string.search("=") != -1 )||( string.search("\"") != -1 ))
+{
+	obj.select();
+   alert(str_alert4+"(:,&,=,\"\,\\\,\/)");
+  return false;
+}
+else
+{
+return true;
+}
+}
+function checkProhibitedCharacter2 (obj, string )
+{
+//if( string.search(/[^a-zA-Z0-9_\!\"\#\$\%\&\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\\\]\^\`\{\|\}\~\s]/) != -1 )
+if( string.search(/[^a-zA-Z0-9_\!\"\#\$\%\&\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\\\]\^\`\{\|\}\~\s]/) != -1 )
+//if(( string.search("\/") != -1 )||( string.search(/\\/) != -1 )||( string.search(":") != -1 )||( string.search("&") != -1 )||( string.search("=") != -1 ))
+{
+	obj.select();
+  alert(str_alert4);
+  return false;
+}
+else if(( string.search("\/") != -1 )||( string.search(/\\/) != -1 )||( string.search(":") != -1 )||( string.search("&") != -1 )||( string.search("=") != -1 )||( string.search("\"") != -1 ))
+{
+	obj.select();
+  alert(str_alert4+"(:,&,=,\"\,\\\,\/)");
+  return false;
+}
+
+else
+{
+return true;
+}
+}
+function hasZenKaku(str){
+var code;
+for (var i = 0; i < str.length; ++i) {
+code = str.charCodeAt(i);
+if (code > 256 && (code < 0xff61 || code > 0xff9f)) {
+return true;
+}
+}
+return false;
+}
+
+function hasHankakuKana(str)
+{
+	var code;
+	for (var i = 0; i < str.length; ++i) 
+	{
+		code = str.charCodeAt(i);
+		if (code >= 0xff61 && code <= 0xff9f)
+ 		{
+			return true;
+		}
+	}
+	return false;
+}
+
+function checkHankakuNoKana(str,cObj,strMsg)
+{
+		var tmp;
+    if (hasZenKaku(str) == true || hasHankakuKana(str) == true)
+    {
+			if (strMsg==null || strMsg=='' ) alert(str_st6);
+  		else alert(strMsg);
+			cObj.select();
+			return false;
+		}
+		return true;
+}
+var errfound;
+function error(elem,itemcname,text)  
+ {
+  if (errfound) return;
+  window.alert(itemcname+str_alert55+"\n\n"+text);
+  elem.select();
+  elem.focus();
+  errfound = true;
+  }
+
+function do_FimeName1()
+{
+var form=document.form1;
+if(form.ipselect.selectedIndex == 0){
+for(i=0;i<=2;i++){
+document.getElementById('layer'+i).style.visibility="visible";
+}
+
+}
+else{
+for(i=0;i<=2;i++){
+document.getElementById('layer'+i).style.visibility="hidden";
+}
+}
+do_FimeName2();
+}
+function do_FimeName2()
+{
+var form=document.form1;
+if(form.ipselect.selectedIndex==0)
+{ 
+	form.dnsselect.selectedIndex=0;
+}
+if(form.dnsselect.selectedIndex == 0){
+for(i=3;i<=4;i++){
+document.getElementById('layer'+i).style.visibility="visible";
+}
+}
+
+else{
+for(i=3;i<=4;i++){
+document.getElementById('layer'+i).style.visibility="hidden";
+}
+}
+}
+function do_FimeName3()
+{
+	var form=document.form1;
+	var i;
+	if(form.wireless[0].checked == true)
+	{
+		for(i=0;i<=8;i++)
+		{
+			if (i == 5 || i == 6)
+				continue;
+			document.getElementById('layer'+i).style.visibility="visible";
+    	}
+    	if (networktype == "LAN")
+    		document.getElementById('layer9').style.visibility="visible";
+    	do_changemode();
+	}
+	else
+	{
+		for(i=0;i<=9;i++)
+		{
+			if (i == 5 || i == 6)
+					continue;
+			document.getElementById('layer'+i).style.visibility="hidden";
+    	}
+	}
+}
+
+var errfound;
+function error(elem,itemcname,text)  
+ {
+  if (errfound) return;
+  window.alert(itemcname+str_alert55+"\n\n"+text);
+  elem.select();
+  elem.focus();
+  errfound = true;
+  }
+
+function do_changemode()
+{
+	var form=document.form1;
+	var i;
+		
+	if(form.security[0].selected==true)
+	{
+	    for(i=4;i<=8;i++)
+		{
+			if (i == 5 || i == 6)
+				continue;
+			document.getElementById('layer'+i).style.visibility="hidden";
+        }
+	}
+	else if((form.security[1].selected==true)||((form.security[1].selected==true)))
+	{
+		for(i=4;i<=8;i++)
+		{
+			if (i == 5 || i == 6)
+				continue;
+			document.getElementById('layer'+i).style.visibility="visible";
+        }
+		document.getElementById('layer'+4).style.visibility="hidden";
+	}
+	else
+	{
+		for(i=4;i<=8;i++)
+		{
+			if (i == 5 || i == 6)
+				continue;
+			document.getElementById('layer'+i).style.visibility="visible";
+        }
+	}
+}
+  
+  
+function openSearchPage()
+{
+window.open("scan.html","search","height=450,width=600,top=200,left=300,toolbar=no,menubar=no,scrollbars=yes,location=no,status=no");
+
+}  
+
+function openTestPage()
+{
+	if (networktype == "WiFi")
+		return false;
+
+	/*if(form1.ssid.value == "")
+	{
+		alert(str_st7);
+		form1.ssid.select();
+		return false;
+	}*/
+	if(checkProhibitedCharacter(form1.ssid,form1.ssid.value)==false)return false;
+	if(checkHankakuNoKana(form1.ssid.value,form1.ssid,str_st8)==false)return false;		
+	
+if (document.form1.security.value != '0')
+{
+	if (form1.key.value == "")
+	{
+		alert(str_st9);
+		form1.key.focus();
+		return false;
+	}
+	if (form1.rekey.value == "")
+	{
+		alert(str_st10);
+		form1.rekey.focus();		
+		return false;
+	}
+	if (form1.key.value != form1.rekey.value)
+	{
+		alert(str_st11);
+		form1.rekey.focus();
+		return false;
+	}
+
+    if(checkProhibitedCharacter(form1.key,form1.key.value)==false)return false;
+	if(checkHankakuNoKana(form1.key.value,form1.key,str_st8)==false)return false;	
+
+	if ((document.form1.security.value == '1') || (document.form1.security.value == '1'))
+	{
+		if(checkProhibitedCharacter2(form1.key,form1.key.value)==false)return false;
+		if(checkProhibitedCharacter2(form1.rekey,form1.rekey.value)==false)return false;
+		if(checkwepkey(form1.key.value)==false)return false;
+		if(checkwepkey(form1.rekey.value)==false)return false;
+	}
+
+	if ((document.form1.security.value == '2') || (document.form1.security.value == '3'))
+	{
+		/*if (form1.wifi_mode[1].selected == true)
+		{
+			alert(str_st12);
+			return false;
+		}*/
+	
+		if (checkwpakey(form1.key.value) == false) {
+			form1.key.focus();
+			return false;
+		}
+	}
+}
+
+	form3.encryption.value = document.form1.encryption.value;
+	form3.ssid.value = document.form1.ssid.value;
+	form3.wifimode.value = document.form1.wifi_mode.value;
+	form3.wifistatus.value = document.form1.security.value;
+	form3.key.value = form1.key.value;
+	
+	window.open("check.html","check","height=150,width=400,top=200,left=300,toolbar=no,menubar=no,scrollbar=no,location=no,status=no");
+	form3.ssid.name="-wf_ssid";
+	form3.wifimode.name="-wf_mode";
+	form3.key.name="-wf_key";
+	form3.wifistatus.name="-wf_auth";
+	form3.encryption.name="-wf_enc";
+	form3.action="cgi-bin/hi3510/param.cgi";
+	form3.submit();
+}
+  
+function on_load()
+{
+	var i=0;
+	form=document.form1;
+	if(wf_enable == '1')
+	{
+		form.wireless[0].checked=true;
+		
+	}
+  	else
+	{
+		form.wireless[1].checked=true;
+	}
+	
+	form.ssid.value=wf_ssid;
+	if (wf_mode == "0")
+	{
+		form.wifi_mode[0].selected = true;
+	}
+	else
+	{
+		form.wifi_mode[0].selected = true;
+	}
+	
+	form.security[wf_auth].selected = true;
+	
+	form.key.value = wf_key;
+	form.rekey.value = form.key.value;
+
+	if (wf_enc == "0")
+		form.encryption[0].selected = true;
+	else form.encryption[1].selected = true;
+	
+	do_changemode();
+	if (networktype == "LAN")
+	     document.getElementById('layer9').style.visibility="visible";
+	else 
+    	document.getElementById('layer9').style.visibility="hidden";
+	do_FimeName3();
+}
+
+function do_submit()
+{
+	var i;
+	errfound=false;
+	var form = document.form2;
+	var form1 = document.form1;
+	
+	form.cururl.value = document.URL;
+		
+	if (form1.wireless[0].checked)
+/*	if(form1.ssid.value == "")
+	{
+		alert(str_st7);
+		form1.ssid.select();
+		return false;
+	}*/
+	
+	if(checkProhibitedCharacter(form1.ssid,form1.ssid.value)==false)return false;
+	if(checkHankakuNoKana(form1.ssid.value,form1.ssid,str_st13)==false)return false;
+	
+if (document.form1.security.value != '0')
+{
+	if (form1.key.value == "")
+	{
+		alert(str_st9);
+		form1.key.focus();
+		return false;
+	}
+	if (form1.rekey.value == "")
+	{
+		alert(str_st10);
+		form1.rekey.focus();		
+		return false;
+	}
+	if (form1.key.value != form1.rekey.value)
+	{
+		alert(str_st11);
+		form1.rekey.focus();
+		return false;
+	}
+    if(checkProhibitedCharacter(form1.key,form1.key.value)==false)return false;
+	if(checkHankakuNoKana(form1.key.value,form1.key,str_st8)==false)return false;	
+	if ((document.form1.security.value == '1') || (document.form1.security.value == '1'))
+	{
+		if(checkProhibitedCharacter2(form1.key,form1.key.value)==false)return false;
+		if(checkProhibitedCharacter2(form1.rekey,form1.rekey.value)==false)return false;
+		if(checkwepkey(form1.key.value)==false)return false;
+		if(checkwepkey(form1.rekey.value)==false)return false;
+	}
+	
+	if ((document.form1.security.value == '2') || (document.form1.security.value == '3'))
+	{
+		/*if (form1.wifi_mode[1].selected == true)
+		{
+			alert(str_st14);
+			return false;
+		}*/
+	
+		if (checkwpakey(form1.key.value) == false) {
+			form1.key.focus();
+			return false;
+		}
+	}
+}
+
+	form.encryption.value = document.form1.encryption.value;
+	form.ssid.value = document.form1.ssid.value;
+	form.wifimode.value = document.form1.wifi_mode.value;
+	form.wifistatus.value = document.form1.security.value;
+		
+	if (document.form1.wireless[0].checked==true)
+		form.enable.value = 1;
+	else form.enable.value = 0;
+	
+	form.key.value=form1.key.value;
+
+	form.key.name="-wf_key"
+	form.ssid.name="-wf_ssid";
+	form.wifimode.name="-wf_mode";
+	form.wifistatus.name="-wf_auth";
+	form.encryption.name="-wf_enc";
+	form.enable.name="-wf_enable";
+
+	form.action="cgi-bin/hi3510/param.cgi";
+	form.submit();	
+}
+
+
+
+</script>
+
+<style type="text/css">
+<!--
+.style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.style2 {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style5 {font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style6 {color: #810000}
+.style7 {
+     background-color:#bbbbaa;
+     }
+-->
+</style>
+</head>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="on_load();">
+<div id="page">
+<table width="100%" height="465" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td valign="top"><table width="99%" height="445" border="0" align="right" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="79%" valign="top"><table width="90%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td>
+        <form name="form1">          	
+           <table width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5" id="table1">		
+                <tbody>
+                    <tr>
+                  <td colspan="3" style="font-size:24px" class="style6"><strong><script>document.write(str_st15)</script></strong></td>
+                </tr>
+                <tr>
+                  <td align="left" colspan="3" bgcolor="#CCCCCC"><span class="style6"><strong><script>document.write(str_wireless_setting)</script></strong></span></td>
+                </tr>
+                  <tr>
+                  <td width="220" height="22"><script>document.write(str_st16)</script></td>
+                  <td colspan="2">
+					<input type="radio" value="V3" checked name="wireless" id="wireless" onClick="do_FimeName3()"><script>document.write(str_start_up)</script>&nbsp;&nbsp;&nbsp; 
+			<input type="radio" name="wireless" id="wireless" value="V4" onClick="do_FimeName3()"> 
+			<script>document.write(str_close1)</script></td>
+                <tr id="layer0">
+                  <td width="220" align="left"><script>document.write(str_ssid)</script></td>
+                  <td align="left"><input  type="text" id="ssid" size="25" maxlength="30">&nbsp;&nbsp;&nbsp;&nbsp;
+                  <button type="button" onClick="openSearchPage();"><script>document.write(str_search1)</script></button></td>
+                  </tr>
+                <tr id="layer1" style="display:none">
+                  <td width="220" align="left"><script>document.write(str_st17)</script></td>
+                  <td align="left" colspan="2">
+					<select size="1" name="wifi_mode">
+			<option value="managed"><script>document.write(str_routing)</script></option>
+			<option value="Ad-Hoc"><script>document.write(str_p_p)</script></option>
+			</select></td>
+                </tr>
+                <tr id="layer2" style="display:none">
+                  <td align="left" colspan="3">  <font color="#CC3333"><strong><script>document.write(str_st18)</script></strong></font></td>
+                </tr>
+                <tr id="layer3">
+                  <td width="220" align="left"><script>document.write(str_safe_type)</script></td>
+                  <td align="left" colspan="2">
+					<select size="1" id="security" onChange="do_changemode();" name="D1">
+			<option value="0"><script>document.write(str_noany)</script></option>
+			<option value="1">WEP</option>
+			<option value="2">WPA-PSK</option>
+			<option value="3">WPA2-PSK</option>
+			</select></td>
+                </tr>
+                <tr id="layer4">
+                  <td width="220" align="left"><script>document.write(str_encryption_method)</script></td>
+                  <td align="left" colspan="2">
+					<select size="1" id="encryption" name="D2">
+			<option value="0">TKIP</option>
+			<option value="1">AES</option>
+			</select></td>
+                </tr>
+                <tr id="layer7">
+                  <td width="220" align="left"><script>document.write(str_st23)</script></td>
+                  <td align="left" colspan="2">
+					<input name="key" type="password" class="style1" id="key" size="30"></td>
+                </tr>
+                <tr id="layer8">
+                  <td width="220" align="left"><script>document.write(str_st24)</script></td>
+                  <td align="left" colspan="2">
+					<input name="rekey" type="password" class="style1" id="rekey" size="30"></td>
+                </tr>
+                <tr id="layer9">
+                   <td width="220" align="left"><script>document.write(str_st25)</script></td>
+                  <td align="left" colspan="2"><button onClick="openTestPage()" type="button"><script>document.write(str_check2)</script></button></td>
+                </tr>
+                      </tbody>
+				 </table>
+          
+				
+</form> 
+  
+<table align="center" border="0" cellpadding="0" cellspacing="3" width="95%">
+      <tr>
+				  	<td width="220"></td>
+        <td width="80"><button onClick="do_submit()"><script>document.write(str_sure)</script></button></td>
+        <td align="left"><button onClick="javascript:location.reload(true)"><script>document.write(str_refresh)</script></button></td>
+  </tr>
+                </table>
+				
+				
+				
+				</td>
+          </tr>
+        </table></td>
+        </tr>
+    </table></td>
+  </tr>
+</table>
+<form name="form2" method="post">
+	<input name="cmd" type="hidden" value="setwirelessattr">
+	<input name="cururl" type="hidden">
+	<input name="ssid" type="hidden">
+	<input name="wifistatus" type="hidden">
+	<input name="wifimode" type="hidden">
+	<input name="encryption" type="hidden">
+	<input name="enable" type="hidden">
+	<input name="key" type="hidden">
+</form>
+
+<form name="form3" method="post" target="tst">
+	<input name="cmd" type="hidden" value="chkwirelessattr">
+	<input name="key" type="hidden">
+	<input name="ssid" type="hidden">
+	<input name="wifistatus" type="hidden">
+	<input name="wifimode" type="hidden">
+	<input name="encryption" type="hidden">
+</form>	
+<!-- ImageReady Slices (ipCAM.psd - Slices: 02, 05, 06, 08, 09, 11, 12, 13, 15, 21, 22, 28, 30, 35, 36, 39, 42, 46, 50, 53) -->
+<!-- End ImageReady Slices --></div>
+<iframe name="tst" style="none" width="0" height="0"></iframe>
+</body>
+</html>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0"?>
+<root xmlns="urn:schemas-upnp-org:device-1-0">
+<specVersion>
+	<major>1</major>
+	<minor>0</minor>
+</specVersion>
+<device>
+	<deviceType>urn:schemas-upnp-org:device:%s:1</deviceType>
+	<friendlyName>%s[%d.%d.%d.%d]</friendlyName>
+	<manufacturer>%s</manufacturer>
+	<modelDescription>%s</modelDescription>
+	<modelName>%s</modelName>
+	<modelNumber>%s</modelNumber>
+	<serialNumber>%s</serialNumber>
+	<serviceList>
+		<service>
+			<serviceType>urn:schemas-upnp-org:service:%s:1</serviceType>
+			<serviceId>urn:upnp-org:serviceId:%s</serviceId>
+			<SCPDURL>../upnp/desc_service.xml</SCPDURL>
+			<controlURL>../upnp/control</controlURL>
+			<eventSubURL>../upnp/eventing</eventSubURL>
+		</service>
+	</serviceList>
+	<UDN>uuid:%s</UDN>
+	<presentationURL>%s</presentationURL>
+</device>
+</root>

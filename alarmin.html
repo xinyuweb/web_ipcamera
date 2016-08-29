@@ -1,0 +1,170 @@
+﻿<html>
+<head>
+  <meta http-equiv="Content-Language" content="zh-cn">
+  <title>ipCAM</title>
+
+
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
+
+  <meta http-equiv="Pragma" content="no-cache">
+
+  <meta http-equiv="Cache-Control" content="no-cache">
+
+  <meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT">
+<script src="public.js"></script>
+<!-- ImageReady Preload Script (ipCAM.psd) -->
+<script language="JavaScript1.2" src="cgi-bin/hi3510/param.cgi?cmd=getioattr" type="text/javascript"></script>
+  <!--<script language="javascript" src="validate.js"></script> -->
+  <script type="text/javascript">
+<!--
+/*
+var schedule="1010101-080010-200040";
+var interval="30";
+var enable="1";
+var qval="60";
+var snap="1";
+*/
+<!--
+function newImage(arg) {
+if (document.images) {
+rslt = new Image();
+rslt.src = arg;
+return rslt;
+}
+}
+function changeImages() {
+if (document.images && (preloadFlag == true)) {
+for (var i=0; i<changeImages.arguments.length; i+=2) {
+document[changeImages.arguments[i]].src = changeImages.arguments[i+1];
+}
+}
+}
+var preloadFlag = false;
+function preloadImages() {
+if(document.images)
+{
+index_08_Over = newImage("images/index_08-Over.gif");
+index_09_Over = newImage("images/index_09-Over.gif");
+index_11_Over = newImage("images/index_11-Over.gif");
+index_12_Over = newImage("images/index_12-Over.gif");
+index_13_Over = newImage("images/index_13-Over.gif");
+index_39_Over = newImage("images/index_39-Over.gif");
+index_39_Down = newImage("images/index_39-Down.gif");
+preloadFlag = true;
+}
+else
+{
+preloadFlag=false;
+}
+}
+// -->
+function MM_preloadImages() { //v3.0
+var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+function MM_swapImgRestore() { //v3.0
+var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_findObj(n, d) { //v4.01
+var p,i,x; if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+function MM_swapImage() { //v3.0
+var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+
+function on_load()
+{
+   	if (io_enable == "1")
+   		form1.ext.checked = true;
+   	
+   	if (io_flag == "1")
+   		form1.moderadio[0].checked=true;
+   	else
+   		form1.moderadio[1].checked=true;
+}
+function do_submit()
+{
+var form2=document.form2;
+var form1=document.form1;
+
+form2.cururl.value=document.URL;
+
+	if (form1.ext.checked)
+		form2.extenable.value="1";
+	else
+		form2.extenable.value="0";
+	
+	if (form1.moderadio[0].checked == true)
+		form2.extflag.value = "1";
+	else
+		form2.extflag.value = "0";
+	form2.extenable.name = "-io_enable";
+	form2.extflag.name = "-io_flag";
+
+form2.action="cgi-bin/hi3510/param.cgi";
+form2.submit();
+}
+  </script><!-- End Preload Script -->
+  <style type="text/css">
+<!--
+.style1 {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 12px;
+}
+.style2 {
+font-size: 12px;
+font-family: Arial, Helvetica, sans-serif;
+}
+.style5 {font-size: 12px;
+font-family: Arial, Helvetica, sans-serif;
+}
+.style6 {color: #810000}
+-->
+  </style>
+</head>
+<body leftmargin="0" topmargin="0" onLoad="on_load();" marginheight="0" marginwidth="0">
+          <form name="form1">
+            <table width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5">
+              <tbody>
+			  	<tr><td colspan="2" style="font-size:24px" class="style6"><strong><script>document.write(str_external_alarm)</script></strong></td></tr>
+                <tr>
+                  <td bgcolor="#CCCCCC" colspan="2"><input name="ext" value="checkbox" type="checkbox"><script>document.write(str_external_alarm_input)</script></td>
+                </tr>
+                <tr>
+                  <td align="left" width="220"><font class="style2"><script>document.write(str_external_alarm_mode)</script></font></td><td>
+                    <font class="style2"><input type="radio" value="V1" checked name="moderadio">
+                    <script>document.write(str_normally_open)</script>
+                    <input type="radio" name="moderadio" value="V2">
+                    <script>document.write(str_normally_close)</script></font></td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+         <table align="center" border="0" cellpadding="0" cellspacing="3" width="95%">
+                    <tbody>
+                      <tr>
+					  <td width="220"></td>
+                        <td width="80"><button onClick="do_submit()"><script>document.write(str_sure)</script></button></td>
+                        <td align="left"><button onClick="javascript:location.reload(true)"><script>document.write(str_refresh)</script></button></td>
+                      </tr>
+                    </tbody>
+</table>
+  <form name="form2" method="post">
+  <input name="cmd" type="hidden" value="setioattr">
+  <input name="cururl" type="hidden">
+  <input name="extenable" type="hidden">
+  <input name="extflag" type="hidden">	
+</form>
+<!-- ImageReady Slices (ipCAM.psd - Slices: 02, 05, 06, 08, 09, 11, 12, 13, 15, 21, 22, 28, 30, 35, 36, 39, 42, 46, 50, 53) -->
+<!-- End ImageReady Slices -->
+</body>
+</html>

@@ -1,0 +1,56 @@
+﻿
+.bg_color1       {background-color: #fff}
+.bg_color2       {background-color: #f5f5f5}
+ 
+ 
+.normal_text     {color: #030; font-family: verdana, arial, helvetica, san-serif; font-size: 10px; font-weight: normal }
+.footnote        {color: #030; font-family: verdana, arial, helvetica, san-serif; font-size: 9px; font-weight: normal }
+.fixed_text      {color: #030; font-family: courier new, courier, fixed; font-size: 12px; font-weight: normal }
+.fixedTitle      {color: #000; font-family: courier new, courier, fixed; font-size: 12px; font-weight: normal }
+
+.gray            {color: #ccc}
+.dark_gray       {color: #999}
+
+h2               {color: #3366cc; font-family: verdana, arial, helvetica, san-serif; font-size: 18px; font-weight: bold }
+
+p                {color: #000000; font-family: verdana, arial, helvetica, san-serif; font-size: 9px; font-weight: normal }
+tr               {color: #000000; font-family: verdana, arial, helvetica, san-serif; font-size: 9px; font-weight: normal }
+td               {color: #000000; font-family: verdana, arial, helvetica, san-serif; font-size: 9px; font-weight: normal }
+pre              {color: #000000; font-family: verdana, arial, helvetica, san-serif; font-size: 9px; font-weight: normal }
+a                {color: #3366cc; font-family: verdana, arial, helvetica, sans-serif, font-size. 9px; font-weight: bold }
+pre              {color: #000000; font-family: verdana, arial, helvetica, san-serif; font-size: 9px; font-weight: normal }
+
+.bodyBg          {background-color: #ffffff }
+.toneBg          {background-color: #eeeeee }
+.lineBg          {background-color: #cccccc }
+.funcText        {color: #666666; font-family: verdana, arial, helvetica, sans-serif; font-size: 10px; font-weight: normal }
+.linkActive      {color: #666666; font-family: verdana, arial, helvetica, sans-serif; font-size: 13px; font-weight: bold; text-decoration: none; }
+.linkInActive    {color: #3366cc; font-family: verdana, arial, helvetica, sans-serif; font-size: 13px; font-weight: bold; text-decoration: none; }
+.menuActive      {color: #3366cc; font-family: verdana, arial, helvetica, sans-serif; font-size: 13px; font-weight: bold; text-decoration: none }
+.menuInActive    {color: #666666; font-family: verdana, arial, helvetica, sans-serif; font-size; 13px; font-weight: bold; text-decoration: none; font-size }
+.subMenuActive   {color: #3366cc; font-family: verdana, arial, helvetica, sans-serif; font-size: 13px; font-weight: normal; text-decoration: none }
+.subMenuInActive {color: #666666; font-family: verdana, arial, helvetica, sans-serif; font-size: 13px; font-weight: bold; text-decoration: none; background-color: #daecff }
+.oddItem         {color: #000000; font-family: verdana, arial, helvetica, sans-serif; font-size: 12px; font-weight: normal; background-color: #ffffff }
+.evenItem        {color: #000000; font-family: verdana, arial, helvetica, sans-serif; font-size: 12px; font-weight: normal; background-color: #eeeeee }
+.topTitle        {color: #810000; font-family: verdana, arial, helvetica, san-serif; font-size: 18px; font-weight: bold }
+.subTitle        {color: #000000; font-family: verdana, arial, helvetica, san-serif; font-size: 11px; font-weight: bold; background-color: #cccccc }
+.button          {color: #000000; font-family: verdana, arial, helvetica, sans-serif; font-size: 11px; font-weight: normal; background-color: #ffffff} 
+
+input            {color: #000; font-family: verdana, arial, helvetica, san-serif; font-size: 10px; font-weight: normal }
+
+input.fieldInt   {width: 40px}
+input.fieldName  {width: 100px}
+input.fieldIP    {width: 120px}
+input.fieldNetAddr {width: 200px}
+
+input.btnNormal  {width: 75 }
+input.btnLonger  {width: 110 }
+
+select           {color: #000; font-family: verdana, arial, helvetica, san-serif; font-size: 10px; font-weight: normal }
+select.fixed     {color: #000; font-family: courier new, courier, fixed; font-size: 12px; font-weight: normal }
+
+textarea         {color: #000; font-family: verdana, arial, helvetica, san-serif; font-size: 10px; font-weight: normal }
+
+.collapsed       {display: none; }
+.shownItems      {display: block; }
+

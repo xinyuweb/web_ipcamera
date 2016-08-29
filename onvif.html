@@ -1,0 +1,131 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<title>ipCAM</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+<META http-equiv="Pragma" CONTENT="no-cache">
+
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+
+<meta HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"> 
+<!-- ImageReady Preload Script (ipCAM.psd) -->
+<script src="public.js"></script>
+<script src="cgi-bin/hi3510/param.cgi?cmd=getonvifattr" type="text/javascript"></script>
+<script src="lib/onvif.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+function on_load()
+{
+	load_form_enable();
+	load_form_port();
+	load_form_authflag();
+	change_form_enable();	
+}
+
+	
+function do_submit()
+{
+	var s = document.getElementById("form_submit");
+	
+	s.cururl.value=document.URL;
+	submit_form_enable();
+	submit_form_port();
+	submit_form_authflag();
+	if(!check_form_port())
+	return false;
+	
+   if((s.enable.value != ov_enable)||(s.authflag.value != ov_authflag)||(s.port.value != ov_port))
+   {	
+	alert(str_note_needreset1);		
+   }
+
+	s.enable.name = "-ov_enable";
+	s.port.name  = "-ov_port";
+	s.authflag.name = "-ov_authflag";
+	
+	
+	s.action="cgi-bin/hi3510/param.cgi";
+	s.submit();
+}
+
+</script>
+<!-- End Preload Script -->
+<style type="text/css">
+<!--
+.style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.style2 {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style5 {font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style6 {color: #810000}
+.style7 {
+     background-color:#bbbbaa;
+     }
+-->
+</style>
+</head>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="on_load();">
+        	
+           <table width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5" id="table1">		
+                    <tr>
+                  <td colspan="3" style="font-size:24px" class="style6"><strong><script>document.write(str_onvif_set)</script></strong></td>
+                </tr>
+                <tr>
+                  <td align="left" colspan="3" bgcolor="#CCCCCC"><span class="style6"><strong><script>document.write(str_onvif)</script></strong></span></td>
+                </tr>
+                  <tr>
+                  <td width="220"><script>document.write(str_onvif_name)</script></td>
+                  <td colspan="2">
+			<input type="radio" id="form_enable1" name="radio" onClick="change_form_enable()"><script>document.write(str_start_up)</script>&nbsp;&nbsp;&nbsp; 
+			<input type="radio" id="form_enable0" name="radio" onClick="change_form_enable()">
+			<script>document.write(str_close1)</script></td>
+                </tr>
+				
+				
+				<tr id="layer0">
+                  <td width="220"><script>document.write(str_onvif_port)</script></td>
+                  <td colspan="2">
+			<input type="text" id="form_port" size="15">
+			</td>
+                </tr>
+				
+				
+				<tr id="layer1">
+                  <td width="220"><script>document.write(str_onvif_qx)</script></td>
+                  <td colspan="2">
+			 <input type="radio" id="form_authflag1" name="radio1" ><script>document.write(str_onvif_check)</script>&nbsp;&nbsp;&nbsp; 
+			<input type="radio" id="form_authflag0" name="radio1" >
+			<script>document.write(str_onvif_nocheck)</script></td>
+                </tr>
+				
+			</table>			  
+				
+
+<table align="center" border="0" cellpadding="0" cellspacing="3" width="95%">
+      <tr>
+				  	<td width="220"></td>
+        <td width="80"><button onClick="do_submit()"><script>document.write(str_sure)</script></button></td>
+        <td align="left"><button onClick="javascript:location.reload(true)"><script>document.write(str_refresh)</script></button></td>
+  </tr>
+                </table>
+				
+	<form id="form_submit" method="post">
+	<input name="cmd" type="hidden" value="setonvifattr">
+	<input name="cururl" type="hidden">
+	<input name="enable" type="hidden">
+	<input name="port" type="hidden">
+	<input name="authflag" type="hidden">				
+    </form>
+   
+<!-- ImageReady Slices (ipCAM.psd - Slices: 02, 05, 06, 08, 09, 11, 12, 13, 15, 21, 22, 28, 30, 35, 36, 39, 42, 46, 50, 53) -->
+<!-- End ImageReady Slices -->
+<iframe name="tst" style="none" width="0" height="0"></iframe>
+</body>
+</html>

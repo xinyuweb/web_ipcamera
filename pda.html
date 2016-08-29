@@ -1,0 +1,98 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<script src="public.js"></script>
+<script language="javascript"> 
+var img = new Image();
+var imgObj;
+ 
+function preload()
+{
+	img.src='/tmpfs/auto.jpg?'+new Date;
+}
+ 
+function changesrc()
+{
+	img1.src=img.src;
+	preload();
+	setTimeout(changesrc,3500);
+}
+ 
+function update()
+{
+	imgObj = document.getElementById('img1');
+	
+	imgObj.src = img.src;
+	img.src = "/tmpfs/auto.jpg?" + (new Date()).getTime();
+}
+ 
+function takeError()
+{
+	img.src = "/tmpfs/auto.jpg?" + (new Date()).getTime();
+}
+ 
+function startonload()
+{
+	img.src = "/tmpfs/auto.jpg?" + (new Date()).getTime();
+	img.onerror=takeError;
+	img.onload=update;
+}
+ 
+function load()
+{
+	if (navigator.appName.indexOf("Microsoft IE Mobile") != -1)
+	{
+		preload();
+		changesrc();
+		return;
+	}
+	startonload();
+}
+ 
+function ptzUpSubmit()
+{
+	form1.action="cgi-bin/hi3510/ytup.cgi";
+	form1.submit();
+}
+ 
+function ptzDownSubmit()
+{
+	form1.action="cgi-bin/hi3510/ytdown.cgi";
+	form1.submit();
+}
+ 
+function ptzLeftSubmit()
+{
+	form1.action="cgi-bin/hi3510/ytleft.cgi";
+	form1.submit();
+}
+ 
+function ptzRightSubmit()
+{
+	form1.action="cgi-bin/hi3510/ytright.cgi";
+	form1.submit();
+}
+</script>
+<body onLoad="load()">
+<script src="public.js"></script>
+<form name="form1" method="get" target="test">
+</form>
+<p align="center"><img id="img1" border="0" src="/tmpfs/auto.jpg"></p>
+<p align="center"><input type="button" value="Up" name="B3" id="B3" onClick="ptzUpSubmit()"> 
+<input type="button" value="Down" name="B2" id="B2" onClick="ptzDownSubmit()"> 
+<input type="button" value="Left" name="B1" id="B1" onClick="ptzLeftSubmit()"> 
+<input type="button" value="Right" name="B0" id="B0" onClick="ptzRightSubmit()"> 
+<input type="button" value="Refresh" name="B4" id="B4" onClick="location.reload()">
+</p>
+<script>
+	B0.value = str_right;
+	B1.value = str_left;
+	B2.value = str_down;
+	B3.value = str_up;
+	B4.value = str_refresh;
+</script>
+<iframe name="test" width="0" height="0" style="display:none"></iframe>
+</body>
+</html>

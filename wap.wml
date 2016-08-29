@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.2//EN"
+"http://www.wapforum.org/DTD/wml12.dtd">
+<wml>
+<head>
+<meta http-equiv="Content-Type" content="text/vnd.wap.wml; charset=utf-8"/>
+<meta http-equiv="Pragma" content="no-cache"/>
+<meta http-equiv="Cache-Control" content="no-cache,must-revalidate"/> 
+</head>
+<card id="main" title="View">
+<p>
+<img src="/tmpfs/auto.jpg" alt=" "/>
+<br/>
+</p>
+</card>
+</wml>

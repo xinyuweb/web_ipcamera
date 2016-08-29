@@ -1,0 +1,384 @@
+﻿<html>
+<head>
+  <title>ipCAM</title>
+
+
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
+
+  <meta http-equiv="Pragma" content="no-cache">
+
+  <meta http-equiv="Cache-Control" content="no-cache">
+
+  <meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<!-- ImageReady Preload Script (ipCAM.psd) -->
+<script src="public.js"></script>
+   <script language="JavaScript1.2" src="cgi-bin/hi3510/param.cgi?cmd=getmdalarm&-aname=email&cmd=getmdalarm&-aname=emailsnap&cmd=getmdalarm&-aname=ftpsnap&cmd=getmdalarm&-aname=snap&cmd=getmdalarm&-aname=emailrec&cmd=getmdalarm&-aname=record&cmd=getmdalarm&-aname=ftprec&cmd=getmdalarm&-aname=relay&cmd=getmdalarm&-aname=server" type="text/javascript"></script>
+  <SCRIPT LANGUAGE="JavaScript1.2" SRC="cgi-bin/hi3510/param.cgi?cmd=getrelayattr&cmd=getmotorattr&cmd=getmdalarm&-aname=preset&cmd=getalarmsnapattr" TYPE="text/javascript"></SCRIPT>
+  <script type="text/javascript">
+function on_load()
+{
+var form = document.form1;
+form.emailbox.checked = false;
+form.relaybox.checked = false;
+form.serverbox.checked = false;
+form.savepbox.checked = false;
+form.savevbox.checked = false;
+form.ftppbox.checked = false;
+form.ftpbox.checked = false;
+form.alarmpresetbox.checked = false;
+form.alarmpresetindex.options[alarmpresetindex-1].selected=true;
+form.snapnum.options[snap_count-1].selected=true;
+
+	if(time=="5")
+	{
+	   form.relaytime.options[0].selected=true;
+  }
+else if(time=="10")
+	{
+	   form.relaytime.options[1].selected=true;
+  }
+else if (time == "20")
+	{
+		form.relaytime.options[2].selected=true;
+	}
+else
+	{
+		form.relaytime.options[3].selected=true;
+	}
+
+if( md_email_switch == "on")
+{
+	form.emailbox.checked = true;
+}
+
+if(md_relay_switch == "on")
+{
+	form.relaybox.checked = true;
+}
+else
+	{
+		form.relaybox.checked = false;
+	}
+if(md_server_switch == "on")
+{
+	form.serverbox.checked = true;
+}
+else
+	{
+		form.serverbox.checked = false;
+	}
+if(md_ftprec_switch == "on")
+{
+	form.ftpbox.checked = true;
+}
+else
+	{
+		form.ftpbox.checked = false;
+	}
+if(md_ftpsnap_switch == "on")
+{
+	form.ftppbox.checked = true;
+}
+else
+	{
+		form.ftppbox.checked = false;
+	}
+
+if(md_snap_switch == "on")
+{
+	form.savepbox.checked = true;
+}
+else
+	{
+		form.savepbox.checked = false;
+	}
+if(md_record_switch == "on")
+{
+	form.savevbox.checked = true;
+
+}
+else
+	{
+		form.savevbox.checked = false;
+
+	}
+	
+	if(md_preset_switch == "on")
+{
+	form.alarmpresetbox.checked = true;
+
+}
+else
+	{
+		form.alarmpresetbox.checked = false;
+
+	}
+}
+function do_submit()
+{
+var form=document.form2;
+var form1=document.form1;
+var tname;
+
+form.cururl.value=document.URL;
+
+form.ids0.value = "email";
+form.ids2.value = "ftpsnap";
+form.ids3.value = "ftprec";
+form.ids4.value = "snap";
+form.ids5.value = "record";
+form.ids6.value = "relay";
+form.ids7.value = "server";
+form.ids8.value = "preset";
+
+form.turn0.value = "off";
+
+form.turn2.value = "off";
+form.turn3.value = "off";
+form.turn4.value = "off";
+form.turn5.value = "off";
+form.turn6.value = "off";
+form.turn7.value = "off";
+form.turn8.value = "off";
+
+
+if(form1.emailbox.checked == true)
+{
+	form.turn0.value = "on";
+}
+if(form1.ftppbox.checked == true)
+{
+	form.turn2.value = "on";
+}
+if(form1.ftpbox.checked == true)
+{
+	form.turn3.value = "on";
+	
+}
+if(form1.savepbox.checked == true)
+{
+	form.turn4.value = "on";
+}
+if(form1.savevbox.checked == true)
+{
+	form.turn5.value = "on";
+}
+
+if(form1.relaybox.checked == true)
+{
+	form.turn6.value = "on";
+}
+
+if(form1.serverbox.checked == true)
+{
+	form.turn7.value = "on";
+}
+if(form1.alarmpresetbox.checked == true)
+{
+	form.turn8.value = "on";
+}
+
+
+form.time.value = form1.relaytime[form1.relaytime.selectedIndex].value;
+form.index.value = form1.alarmpresetindex.selectedIndex+1;
+form.snapnum.value = form1.snapnum.selectedIndex+1;
+
+
+form.time.name = "-time";
+form.index.name = "-alarmpresetindex";
+form.snapnum.name = "-snap_count";
+
+form.ids0.name = "-aname";
+form.ids2.name = "-aname";
+form.ids3.name = "-aname";
+form.ids4.name = "-aname";
+form.ids5.name = "-aname";
+form.ids6.name = "-aname";
+form.ids7.name = "-aname";
+form.ids8.name = "-aname";
+
+form.turn0.name = "-switch";
+form.turn2.name = "-switch";
+form.turn3.name = "-switch";
+form.turn4.name = "-switch";
+form.turn5.name = "-switch";
+form.turn6.name = "-switch";
+form.turn7.name = "-switch";
+form.turn8.name = "-switch";
+
+form.action="cgi-bin/hi3510/param.cgi";
+form.submit();
+}
+  </script>
+  <style type="text/css">
+<!--
+.style1 {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 12px;
+}
+.style2 {
+font-size: 12px;
+font-family: Arial, Helvetica, sans-serif;
+}
+.style5 {font-size: 12px;
+font-family: Arial, Helvetica, sans-serif;
+}
+.style6 {color: #810000}
+-->
+  </style>
+</head>
+<body leftmargin="0" topmargin="0" onLoad="on_load();" marginheight="0" marginwidth="0">
+                  <form name="form1">
+                    <table width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5">
+                      <tbody>
+                        <tr>
+                          <td style="font-size:24px" class="style6" colspan="2"><strong><script>document.write(str_linkage_alarm)</script></strong></td>
+                        </tr>
+						<tr>
+                          <td colspan="2" align="left" bgcolor="#CCCCCC"><b><font class="style6"><script>document.write(str_linkage_alarm)</script></font></b>
+                        </td>
+						</tr>
+                        <tr>
+                          <td width="220" style="text-align: left;"><input name="emailbox" value="checkbox" type="checkbox"><script>document.write(str_email_alarm)</script></td>
+                          <td>
+							<a class="style5" href="email.html">
+						  <script>document.write(str_email_set)</script></a></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                 <div id="ly" style="display:none"> <table width="95%" border="0" align="center" cellpadding="0" cellspacing="5" class="style5">
+                        <tr id="layer2" align="left">
+							<td width="220"></td>
+                          <td align="left"><input name="emailpbox" value="checkbox" type="checkbox"><script>document.write(str_send_pic)</script>
+                          </td>
+                        </tr>
+                    </table></div>
+
+                    <table width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5">
+                      <tbody>
+					  <tr>
+                          <td width="220"><input name="ftppbox" value="checkbox" type="checkbox"><script>document.write(str_save_pic_ftp)</script></td>
+                          <td>
+							<a class="style5" href="ftp.html">
+						  <script>document.write(str_ftp_ser_set)</script></a></td>
+                        </tr>
+                        <tr>
+                          <td width="220"><input name="ftpbox" value="checkbox" type="checkbox"><script>document.write(str_save_video_server)</script></td>
+                          <td>&nbsp;</td>
+                        </tr>
+                        <tr style="display:none;">
+                          <td style="text-align: left;">
+							<input name="relaybox" value="checkbox" type="checkbox"><script>document.write(str_relay_output)</script></td>
+                          <td></td>
+                        </tr></tbody></table>
+						<div id="duration" style="display:none"><table width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5">
+						<tr><td width="220"></td><td align="left"><script>document.write(str_duration)</script><select size="1" name="relaytime">
+							<option value="5">5 <script>document.write(str_second)</script></option>
+							<option value="10">10 <script>document.write(str_second)</script></option>
+							<option value="20">20 <script>document.write(str_second)</script></option>
+							<option value="30">30 <script>document.write(str_second)</script></option>
+							</select>　</td></tr></table></div>
+						<table width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5">
+						</tbody>
+                        <tr>
+                          <td align="left" width="220"><input name="savepbox" value="checkbox" type="checkbox"><script>document.write(str_save_pic_sd)</script>&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td align="left"><input name="savevbox" value="checkbox" type="checkbox"><script>document.write(str_save_video_sd)</script>&nbsp;</td>
+                        </tr>
+						  <tr style="display:none;">
+
+<td style="text-align: left;"><input name="serverbox" value="checkbox" type="checkbox"><script>document.write(str_police_server)</script>&nbsp;</td>
+
+                          <td>
+							<a href="server.html">
+							<script>document.write(str_police_server_set)</script></a></td>
+
+                        </tr>
+						
+						<tr>
+<td style="text-align: left;"><input name="alarmpresetbox" value="checkbox" type="checkbox"><script>document.write(alarmpreset);</script>&nbsp;</td>
+                          <td>
+							<select size="1" name="alarmpresetindex">
+              <option value="0">1</option>
+              <option value="1">2</option>
+              <option value="2">3</option>
+              <option value="3">4</option>
+			  <option value="4">5</option>
+              <option value="5">6</option>
+              <option value="6">7</option>
+              <option value="7">8</option>
+            </select></td>
+
+                        </tr>
+						
+						<tr>
+                          <td colspan="2" align="left" bgcolor="#CCCCCC"><b><font class="style6"><script>document.write(str_snapset)</script></font></b>
+                        </td>
+						</tr>
+						
+						<tr>
+                        <td style="text-align: left;"><script>document.write(str_snapnum);</script>&nbsp;</td>
+                          <td>
+							<select size="1" id="form_snapnum" name="snapnum" >
+	<option value="0">1 </option>
+	<option value="1">2 </option>
+	<option value="2">3 </option>
+	</select></td>
+
+                        </tr>
+                      </tbody>
+                    </table>
+                  </form>
+                  <table align="center" border="0" cellpadding="0" cellspacing="3" width="95%">
+                    <tbody>
+                      <tr>
+					  	<td width="220"></td>
+                        <td width="80"><button onClick="do_submit()"><script>document.write(str_sure)</script></button></td>
+                        <td align="left"><button onClick="javascript:location.reload(true)"><script>document.write(str_refresh)</script></button></td>
+                      </tr>
+                    </tbody>
+</table>
+<form name="form2" method="post">
+	<input name="cmd" type="hidden" value="setmdalarm">
+	<input name="cururl" type="hidden">
+	<input id="ids0" name="aname" type="hidden">
+	<input name="turn0" type="hidden">
+	<input name="cmd" type="hidden" value="setmdalarm">
+	<input id="ids2" name="aname" type="hidden">
+	<input name="turn2" type="hidden">
+	<input name="cmd" type="hidden" value="setmdalarm">
+	<input id="ids3" name="aname" type="hidden">
+	<input name="turn3" type="hidden">
+	<input name="cmd" type="hidden" value="setmdalarm">
+	<input id="ids4" name="aname" type="hidden">
+	<input name="turn4" type="hidden">
+	<input name="cmd" type="hidden" value="setmdalarm">
+	<input id="ids5" name="aname" type="hidden">
+	<input name="turn5" type="hidden">
+	<input name="cmd" type="hidden" value="setmdalarm">
+	<input id="ids6" name="aname" type="hidden">
+	<input name="turn6" type="hidden">
+	<input name="cmd" type="hidden" value="setmdalarm">
+	<input id="ids7" name="aname" type="hidden">
+	<input name="turn7" type="hidden">
+	<input name="cmd" type="hidden" value="setmdalarm">
+	<input id="ids8" name="aname" type="hidden">
+	<input name="turn8" type="hidden">
+	
+	<input name="cmd" type="hidden" value="setrelayattr">
+	<input name="time" type="hidden">	
+	
+	<input name="cmd" type="hidden" value="setmotorattr">
+	<input name="index" type="hidden">	
+	
+	<input name="cmd" type="hidden" value="setalarmsnapattr">
+	<input name="snapnum" type="hidden">
+</form>
+<!-- ImageReady Slices (ipCAM.psd - Slices: 02, 05, 06, 08, 09, 11, 12, 13, 15, 21, 22, 28, 30, 35, 36, 39, 42, 46, 50, 53) -->
+<!-- End ImageReady Slices -->
+</body>
+</html>

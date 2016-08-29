@@ -1,0 +1,1274 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<title>ipCAM</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+<META http-equiv="Pragma" CONTENT="no-cache">
+
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+
+<meta HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"> 
+
+<script src="public.js"></script>
+<script src="cgi-bin/hi3510/param.cgi?cmd=getdevices" type="text/javascript"></script>
+<script type="text/javascript">
+var alias_list=new Array();
+var host_list=new Array();
+var port_list=new Array();
+var same_subnet_list=new Array();
+var dev1_clear="off";    /*当d_clear值为on时，删除*/
+var dev2_clear = "off";
+var dev3_clear = "off";
+var dev4_clear = "off";
+var dev5_clear = "off";
+var dev6_clear = "off";
+var dev7_clear = "off";
+var dev8_clear = "off";
+var current_device=0;
+
+function do_submit()
+{
+var form1=document.form1;
+var form=document.form2;
+form.cururl.value = document.URL;
+
+form.dev1_host.value=form1.dev1_host.value;
+form.dev1_alias.value=form1.dev1_alias.value;
+form.dev1_port.value=form1.dev1_port.value;
+form.dev1_user.value=form1.dev1_user.value;
+form.dev1_pwd.value = form1.dev1_pwd.value;	
+
+form.dev2_host.value=form1.dev2_host.value;
+form.dev2_alias.value=form1.dev2_alias.value;
+form.dev2_port.value=form1.dev2_port.value;
+form.dev2_user.value=form1.dev2_user.value;
+form.dev2_pwd.value = form1.dev2_pwd.value;
+
+form.dev3_host.value = form1.dev3_host.value;
+form.dev3_alias.value = form1.dev3_alias.value;
+form.dev3_port.value = form1.dev3_port.value;
+form.dev3_user.value = form1.dev3_user.value;
+form.dev3_pwd.value = form1.dev3_pwd.value;
+
+form.dev4_host.value = form1.dev4_host.value;
+form.dev4_alias.value = form1.dev4_alias.value;
+form.dev4_port.value = form1.dev4_port.value;
+form.dev4_user.value = form1.dev4_user.value;
+form.dev4_pwd.value = form1.dev4_pwd.value;
+
+form.dev5_host.value = form1.dev5_host.value;
+form.dev5_alias.value = form1.dev5_alias.value;
+form.dev5_port.value = form1.dev5_port.value;
+form.dev5_user.value = form1.dev5_user.value;
+form.dev5_pwd.value = form1.dev5_pwd.value;
+
+form.dev6_host.value = form1.dev6_host.value;
+form.dev6_alias.value = form1.dev6_alias.value;
+form.dev6_port.value = form1.dev6_port.value;
+form.dev6_user.value = form1.dev6_user.value;
+form.dev6_pwd.value = form1.dev6_pwd.value;
+
+form.dev7_host.value = form1.dev7_host.value;
+form.dev7_alias.value = form1.dev7_alias.value;
+form.dev7_port.value = form1.dev7_port.value;
+form.dev7_user.value = form1.dev7_user.value;
+form.dev7_pwd.value = form1.dev7_pwd.value;
+
+form.dev8_host.value = form1.dev8_host.value;
+form.dev8_alias.value = form1.dev8_alias.value;
+form.dev8_port.value = form1.dev8_port.value;
+form.dev8_user.value = form1.dev8_user.value;
+form.dev8_pwd.value = form1.dev8_pwd.value;
+
+//if(checkProhibitedCharacter(form1.dev1_alias,form1.dev1_alias.value)==false)return false;
+    if(checkProhibitedCharacter(form1.dev1_host,form1.dev1_host.value)==false)return false;
+    if(checkProhibitedCharacter(form1.dev1_port,form1.dev1_port.value)==false)return false;
+    if(checkProhibitedCharacter(form1.dev1_user,form1.dev1_user.value)==false)return false;
+    if(checkProhibitedCharacter(form1.dev1_pwd,form1.dev1_pwd.value)==false)return false;
+//if(checkProhibitedCharacter(form1.dev2_alias,form1.dev2_alias.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev2_host,form1.dev2_host.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev2_port,form1.dev2_port.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev2_user,form1.dev2_user.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev2_pwd,form1.dev2_pwd.value)==false)return false;
+//if(checkProhibitedCharacter(form1.dev3_alias,form1.dev3_alias.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev3_host,form1.dev3_host.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev3_port,form1.dev3_port.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev3_user,form1.dev3_user.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev3_pwd,form1.dev3_pwd.value)==false)return false;
+//if(checkProhibitedCharacter(form1.dev4_alias,form1.dev4_alias.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev4_host,form1.dev4_host.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev4_port,form1.dev4_port.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev4_user,form1.dev4_user.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev4_pwd,form1.dev4_pwd.value)==false)return false;
+//if(checkProhibitedCharacter(form1.dev5_alias,form1.dev5_alias.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev5_host,form1.dev5_host.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev5_port,form1.dev5_port.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev5_user,form1.dev5_user.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev5_pwd,form1.dev5_pwd.value)==false)return false;
+//if(checkProhibitedCharacter(form1.dev6_alias,form1.dev6_alias.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev6_host,form1.dev6_host.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev6_port,form1.dev6_port.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev6_user,form1.dev6_user.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev6_pwd,form1.dev6_pwd.value)==false)return false;
+//if(checkProhibitedCharacter(form1.dev7_alias,form1.dev7_alias.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev7_host,form1.dev7_host.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev7_port,form1.dev7_port.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev7_user,form1.dev7_user.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev7_pwd,form1.dev7_pwd.value)==false)return false;
+//if(checkProhibitedCharacter(form1.dev8_alias,form1.dev8_alias.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev8_host,form1.dev8_host.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev8_port,form1.dev8_port.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev8_user,form1.dev8_user.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev8_pwd,form1.dev8_pwd.value)==false)return false;
+
+form.dev1_clear.value=dev1_clear;
+form.dev2_clear.value = dev2_clear;
+form.dev3_clear.value = dev3_clear;
+form.dev4_clear.value = dev4_clear;
+form.dev5_clear.value = dev5_clear;
+form.dev6_clear.value = dev6_clear;
+form.dev7_clear.value = dev7_clear;
+form.dev8_clear.value = dev8_clear;
+
+form.dev1_number.value=0;
+form.dev1_number.name="-d_number";
+form.dev1_clear.name="-d_clear";
+form.dev1_host.name="-d_host";
+form.dev1_alias.name="-d_alias";
+form.dev1_port.name="-d_port";
+form.dev1_user.name="-d_username";
+form.dev1_pwd.name="-d_password";
+
+
+form.dev2_number.value=1;
+form.dev2_number.name="-d_number";
+form.dev2_clear.name="-d_clear";
+form.dev2_host.name="-d_host";
+form.dev2_alias.name="-d_alias";
+form.dev2_port.name="-d_port";
+form.dev2_user.name="-d_username";
+form.dev2_pwd.name = "-d_password";
+
+form.dev3_number.value = 2;
+form.dev3_number.name = "-d_number";
+form.dev3_clear.name = "-d_clear";
+form.dev3_host.name = "-d_host";
+form.dev3_alias.name = "-d_alias";
+form.dev3_port.name = "-d_port";
+form.dev3_user.name = "-d_username";
+form.dev3_pwd.name = "-d_password";
+
+form.dev4_number.value = 3;
+form.dev4_number.name = "-d_number";
+form.dev4_clear.name = "-d_clear";
+form.dev4_host.name = "-d_host";
+form.dev4_alias.name = "-d_alias";
+form.dev4_port.name = "-d_port";
+form.dev4_user.name = "-d_username";
+form.dev4_pwd.name = "-d_password";
+
+form.dev5_number.value = 4;
+form.dev5_number.name = "-d_number";
+form.dev5_clear.name = "-d_clear";
+form.dev5_host.name = "-d_host";
+form.dev5_alias.name = "-d_alias";
+form.dev5_port.name = "-d_port";
+form.dev5_user.name = "-d_username";
+form.dev5_pwd.name = "-d_password";
+
+form.dev6_number.value = 5;
+form.dev6_number.name = "-d_number";
+form.dev6_clear.name = "-d_clear";
+form.dev6_host.name = "-d_host";
+form.dev6_alias.name = "-d_alias";
+form.dev6_port.name = "-d_port";
+form.dev6_user.name = "-d_username";
+form.dev6_pwd.name = "-d_password";
+
+form.dev7_number.value = 6;
+form.dev7_number.name = "-d_number";
+form.dev7_clear.name = "-d_clear";
+form.dev7_host.name = "-d_host";
+form.dev7_alias.name = "-d_alias";
+form.dev7_port.name = "-d_port";
+form.dev7_user.name = "-d_username";
+form.dev7_pwd.name = "-d_password";
+
+form.dev8_number.value = 7;
+form.dev8_number.name = "-d_number";
+form.dev8_clear.name = "-d_clear";
+form.dev8_host.name = "-d_host";
+form.dev8_alias.name = "-d_alias";
+form.dev8_port.name = "-d_port";
+form.dev8_user.name = "-d_username";
+form.dev8_pwd.name = "-d_password";
+
+form.action="cgi-bin/hi3510/param.cgi";
+form.submit();
+}
+
+
+function device_list_onclick()
+{
+	var form=document.form1;
+	if (device_list.options.length>0)
+	{
+		if (current_device==1)
+		{
+			form.dev1_alias.value=alias_list[device_list.selectedIndex];
+			form.dev1_host.value=host_list[device_list.selectedIndex];
+			form.dev1_port.value=port_list[device_list.selectedIndex];
+		}
+		else if (current_device==2)
+		{
+			form.dev2_alias.value=alias_list[device_list.selectedIndex];
+			form.dev2_host.value=host_list[device_list.selectedIndex];
+			form.dev2_port.value=port_list[device_list.selectedIndex];
+		}
+		else if (current_device == 3) {
+		    form.dev3_alias.value = alias_list[device_list.selectedIndex];
+		    form.dev3_host.value = host_list[device_list.selectedIndex];
+		    form.dev3_port.value = port_list[device_list.selectedIndex];
+		}
+		else if (current_device == 4) {
+		    form.dev4_alias.value = alias_list[device_list.selectedIndex];
+		    form.dev4_host.value = host_list[device_list.selectedIndex];
+		    form.dev4_port.value = port_list[device_list.selectedIndex];
+		}
+		else if (current_device == 5) {
+		    form.dev5_alias.value = alias_list[device_list.selectedIndex];
+		    form.dev5_host.value = host_list[device_list.selectedIndex];
+		    form.dev5_port.value = port_list[device_list.selectedIndex];
+		}
+		else if (current_device == 6) {
+		    form.dev6_alias.value = alias_list[device_list.selectedIndex];
+		    form.dev6_host.value = host_list[device_list.selectedIndex];
+		    form.dev6_port.value = port_list[device_list.selectedIndex];
+		}
+		else if (current_device == 7) {
+		    form.dev7_alias.value = alias_list[device_list.selectedIndex];
+		    form.dev7_host.value = host_list[device_list.selectedIndex];
+		    form.dev7_port.value = port_list[device_list.selectedIndex];
+		}
+		else if (current_device == 8) {
+		    form.dev8_alias.value = alias_list[device_list.selectedIndex];
+		    form.dev8_host.value = host_list[device_list.selectedIndex];
+		    form.dev8_port.value = port_list[device_list.selectedIndex];
+		}
+	}
+}
+
+
+function hide_alldevice_options()
+{
+	tr_device1_alias.style.display='none';
+	tr_device1_host.style.display='none';
+	tr_device1_port.style.display='none';
+	tr_device1_user.style.display='none';
+	tr_device1_pwd.style.display='none';
+	tr_device1_set.style.display = 'none';
+	
+	tr_device2_alias.style.display='none';
+	tr_device2_host.style.display='none';
+	tr_device2_port.style.display='none';
+	tr_device2_user.style.display='none';
+	tr_device2_pwd.style.display='none';
+	tr_device2_set.style.display = 'none';
+
+	tr_device3_alias.style.display = 'none';
+	tr_device3_host.style.display = 'none';
+	tr_device3_port.style.display = 'none';
+	tr_device3_user.style.display = 'none';
+	tr_device3_pwd.style.display = 'none';
+	tr_device3_set.style.display = 'none';
+
+	tr_device4_alias.style.display = 'none';
+	tr_device4_host.style.display = 'none';
+	tr_device4_port.style.display = 'none';
+	tr_device4_user.style.display = 'none';
+	tr_device4_pwd.style.display = 'none';
+	tr_device4_set.style.display = 'none';
+
+	tr_device5_alias.style.display = 'none';
+	tr_device5_host.style.display = 'none';
+	tr_device5_port.style.display = 'none';
+	tr_device5_user.style.display = 'none';
+	tr_device5_pwd.style.display = 'none';
+	tr_device5_set.style.display = 'none';
+
+	tr_device6_alias.style.display = 'none';
+	tr_device6_host.style.display = 'none';
+	tr_device6_port.style.display = 'none';
+	tr_device6_user.style.display = 'none';
+	tr_device6_pwd.style.display = 'none';
+	tr_device6_set.style.display = 'none';
+
+	tr_device7_alias.style.display = 'none';
+	tr_device7_host.style.display = 'none';
+	tr_device7_port.style.display = 'none';
+	tr_device7_user.style.display = 'none';
+	tr_device7_pwd.style.display = 'none';
+	tr_device7_set.style.display = 'none';
+
+	tr_device8_alias.style.display = 'none';
+	tr_device8_host.style.display = 'none';
+	tr_device8_port.style.display = 'none';
+	tr_device8_user.style.display = 'none';
+	tr_device8_pwd.style.display = 'none';
+	tr_device8_set.style.display = 'none';
+}
+function set_2nd_device()
+{
+	hide_alldevice_options();
+	tr_device1_alias.style.display='';
+	tr_device1_host.style.display='';
+	tr_device1_port.style.display='';
+	tr_device1_user.style.display='';
+	tr_device1_pwd.style.display='';
+	tr_device1_set.style.display='';
+	current_device=1;
+}
+function set_3rd_device()
+{
+	hide_alldevice_options();
+	tr_device2_alias.style.display='';
+	tr_device2_host.style.display='';
+	tr_device2_port.style.display='';
+	tr_device2_user.style.display='';
+	tr_device2_pwd.style.display='';
+	tr_device2_set.style.display='';
+	current_device=2;
+}
+function set_4rd_device() {
+    hide_alldevice_options();
+    tr_device3_alias.style.display = '';
+    tr_device3_host.style.display = '';
+    tr_device3_port.style.display = '';
+    tr_device3_user.style.display = '';
+    tr_device3_pwd.style.display = '';
+    tr_device3_set.style.display = '';
+    current_device = 3;
+}
+function set_5rd_device() {
+    hide_alldevice_options();
+    tr_device4_alias.style.display = '';
+    tr_device4_host.style.display = '';
+    tr_device4_port.style.display = '';
+    tr_device4_user.style.display = '';
+    tr_device4_pwd.style.display = '';
+    tr_device4_set.style.display = '';
+    current_device = 4;
+}
+function set_6rd_device() {
+    hide_alldevice_options();
+    tr_device5_alias.style.display = '';
+    tr_device5_host.style.display = '';
+    tr_device5_port.style.display = '';
+    tr_device5_user.style.display = '';
+    tr_device5_pwd.style.display = '';
+    tr_device5_set.style.display = '';
+    current_device = 5;
+}
+function set_7rd_device() {
+    hide_alldevice_options();
+    tr_device6_alias.style.display = '';
+    tr_device6_host.style.display = '';
+    tr_device6_port.style.display = '';
+    tr_device6_user.style.display = '';
+    tr_device6_pwd.style.display = '';
+    tr_device6_set.style.display = '';
+    current_device = 6;
+}
+function set_8rd_device() {
+    hide_alldevice_options();
+    tr_device7_alias.style.display = '';
+    tr_device7_host.style.display = '';
+    tr_device7_port.style.display = '';
+    tr_device7_user.style.display = '';
+    tr_device7_pwd.style.display = '';
+    tr_device7_set.style.display = '';
+    current_device = 7;
+}
+function set_9rd_device() {
+    hide_alldevice_options();
+    tr_device8_alias.style.display = '';
+    tr_device8_host.style.display = '';
+    tr_device8_port.style.display = '';
+    tr_device8_user.style.display = '';
+    tr_device8_pwd.style.display = '';
+    tr_device8_set.style.display = '';
+    current_device = 8;
+}
+function del_device1()
+{   
+    var form=document.form1;
+	form.dev1_host.value='';
+	form.dev1_alias.value='';
+	form.dev1_port.value='80';
+	form.dev1_user.value='';
+	form.dev1_pwd.value='';
+	dev1_clear="on";
+	
+	td_2nd_device.innerHTML='&nbsp;&nbsp;'+str_none; 
+	hide_alldevice_options();
+}
+function del_device2() {
+    var form = document.form1;
+    form.dev2_host.value = '';
+    form.dev2_alias.value = '';
+    form.dev2_port.value = '80';
+    form.dev2_user.value = '';
+    form.dev2_pwd.value = '';
+    dev2_clear = "on";
+
+    td_3rd_device.innerHTML = '&nbsp;&nbsp;' + str_none;
+    hide_alldevice_options();
+}
+function del_device3() {
+    var form = document.form1;
+    form.dev3_host.value = '';
+    form.dev3_alias.value = '';
+    form.dev3_port.value = '80';
+    form.dev3_user.value = '';
+    form.dev3_pwd.value = '';
+    dev3_clear = "on";
+
+    td_4rd_device.innerHTML = '&nbsp;&nbsp;' + str_none;
+    hide_alldevice_options();
+}
+function del_device4() {
+    var form = document.form1;
+    form.dev4_host.value = '';
+    form.dev4_alias.value = '';
+    form.dev4_port.value = '80';
+    form.dev4_user.value = '';
+    form.dev4_pwd.value = '';
+    dev4_clear = "on";
+
+    td_5rd_device.innerHTML = '&nbsp;&nbsp;' + str_none;
+    hide_alldevice_options();
+}
+function del_device5() {
+    var form = document.form1;
+    form.dev5_host.value = '';
+    form.dev5_alias.value = '';
+    form.dev5_port.value = '80';
+    form.dev5_user.value = '';
+    form.dev5_pwd.value = '';
+    dev5_clear = "on";
+
+    td_6rd_device.innerHTML = '&nbsp;&nbsp;' + str_none;
+    hide_alldevice_options();
+}
+function del_device6() {
+    var form = document.form1;
+    form.dev6_host.value = '';
+    form.dev6_alias.value = '';
+    form.dev6_port.value = '80';
+    form.dev6_user.value = '';
+    form.dev6_pwd.value = '';
+    dev6_clear = "on";
+
+    td_7rd_device.innerHTML = '&nbsp;&nbsp;' + str_none;
+    hide_alldevice_options();
+}
+function del_device7() {
+    var form = document.form1;
+    form.dev7_host.value = '';
+    form.dev7_alias.value = '';
+    form.dev7_port.value = '80';
+    form.dev7_user.value = '';
+    form.dev7_pwd.value = '';
+    dev7_clear = "on";
+
+    td_8rd_device.innerHTML = '&nbsp;&nbsp;' + str_none;
+    hide_alldevice_options();
+}
+function del_device8() {
+    var form = document.form1;
+    form.dev8_host.value = '';
+    form.dev8_alias.value = '';
+    form.dev8_port.value = '80';
+    form.dev8_user.value = '';
+    form.dev8_pwd.value = '';
+    dev8_clear = "on";
+
+    td_9rd_device.innerHTML = '&nbsp;&nbsp;' + str_none;
+    hide_alldevice_options();
+}
+function set_device1()
+{
+    var form=document.form1;
+	if ((form.dev1_port.value=='')||(form.dev1_port.value=='0'))
+	{
+		alert(str_alert66);
+		return;
+	}	
+	//if(checkProhibitedCharacter(form1.dev1_alias,form1.dev1_alias.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev1_host,form1.dev1_host.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev1_port,form1.dev1_port.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev1_user,form1.dev1_user.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev1_pwd,form1.dev1_pwd.value)==false)return false;
+	if (form.dev1_alias.value=='')	
+    form.dev1_alias.value=str_anonymous;	
+	td_2nd_device.innerHTML='&nbsp;&nbsp;'+form.dev1_alias.value+'('+form.dev1_host.value+')'; 
+	hide_alldevice_options();
+}
+function set_device2()
+{
+	var form=document.form1;
+	if ((form.dev2_port.value=='')||(form.dev2_port.value=='0'))
+	{
+		alert(str_alert66);
+		form.dev2_port.select();
+		return;
+	}	
+	//if(checkProhibitedCharacter(form1.dev2_alias,form1.dev2_alias.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev2_host,form1.dev2_host.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev2_port,form1.dev2_port.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev2_user,form1.dev2_user.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev2_pwd,form1.dev2_pwd.value)==false)return false;
+	if (form.dev2_alias.value=='')	
+    form.dev2_alias.value=str_anonymous;	
+	td_3rd_device.innerHTML='&nbsp;&nbsp;'+form.dev2_alias.value+'('+form.dev2_host.value+')'; 
+	hide_alldevice_options();
+}
+function set_device3() {
+    var form = document.form1;
+    if ((form.dev3_port.value == '') || (form.dev3_port.value == '0')) {
+        alert(str_alert66);
+		form.dev3_port.select();
+        return;
+    }
+	//if(checkProhibitedCharacter(form1.dev3_alias,form1.dev3_alias.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev3_host,form1.dev3_host.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev3_port,form1.dev3_port.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev3_user,form1.dev3_user.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev3_pwd,form1.dev3_pwd.value)==false)return false;
+    if (form.dev3_alias.value == '')
+        form.dev3_alias.value = str_anonymous;
+    td_4rd_device.innerHTML = '&nbsp;&nbsp;' + form.dev3_alias.value + '(' + form.dev3_host.value + ')';
+    hide_alldevice_options();
+}
+function set_device4() {
+    var form = document.form1;
+    if ((form.dev4_port.value == '') || (form.dev4_port.value == '0')) {
+        alert(str_alert66);
+        return;
+    }
+	//if(checkProhibitedCharacter(form1.dev4_alias,form1.dev4_alias.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev4_host,form1.dev4_host.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev4_port,form1.dev4_port.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev4_user,form1.dev4_user.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev4_pwd,form1.dev4_pwd.value)==false)return false;
+    if (form.dev4_alias.value == '')
+        form.dev4_alias.value = str_anonymous;
+    td_5rd_device.innerHTML = '&nbsp;&nbsp;' + form.dev4_alias.value + '(' + form.dev4_host.value + ')';
+    hide_alldevice_options();
+}
+function set_device5() {
+    var form = document.form1;
+    if ((form.dev5_port.value == '') || (form.dev5_port.value == '0')) {
+        alert(str_alert66);
+        return;
+    }
+	//if(checkProhibitedCharacter(form1.dev5_alias,form1.dev5_alias.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev5_host,form1.dev5_host.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev5_port,form1.dev5_port.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev5_user,form1.dev5_user.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev5_pwd,form1.dev5_pwd.value)==false)return false;
+    if (form.dev5_alias.value == '')
+        form.dev5_alias.value = str_anonymous;
+    td_6rd_device.innerHTML = '&nbsp;&nbsp;' + form.dev5_alias.value + '(' + form.dev5_host.value + ')';
+    hide_alldevice_options();
+}
+function set_device6() {
+    var form = document.form1;
+    if ((form.dev6_port.value == '') || (form.dev6_port.value == '0')) {
+        alert(str_alert66);
+        return;
+    }
+	//if(checkProhibitedCharacter(form1.dev6_alias,form1.dev6_alias.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev6_host,form1.dev6_host.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev6_port,form1.dev6_port.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev6_user,form1.dev6_user.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev6_pwd,form1.dev6_pwd.value)==false)return false;
+    if (form.dev6_alias.value == '')
+        form.dev6_alias.value = str_anonymous;
+    td_7rd_device.innerHTML = '&nbsp;&nbsp;' + form.dev6_alias.value + '(' + form.dev6_host.value + ')';
+    hide_alldevice_options();
+}
+function set_device7() {
+    var form = document.form1;
+    if ((form.dev7_port.value == '') || (form.dev7_port.value == '0')) {
+        alert(str_alert66);
+        return;
+    }
+	//if(checkProhibitedCharacter(form1.dev7_alias,form1.dev7_alias.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev7_host,form1.dev7_host.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev7_port,form1.dev7_port.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev7_user,form1.dev7_user.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev7_pwd,form1.dev7_pwd.value)==false)return false;
+    if (form.dev7_alias.value == '')
+        form.dev7_alias.value = str_anonymous;
+    td_8rd_device.innerHTML = '&nbsp;&nbsp;' + form.dev7_alias.value + '(' + form.dev7_host.value + ')';
+    hide_alldevice_options();
+}
+function set_device8() {
+    var form = document.form1;
+    if ((form.dev8_port.value == '') || (form.dev8_port.value == '0')) {
+        alert(str_alert66);
+        return;
+    }
+	//if(checkProhibitedCharacter(form1.dev8_alias,form1.dev8_alias.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev8_host,form1.dev8_host.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev8_port,form1.dev8_port.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev8_user,form1.dev8_user.value)==false)return false;
+	if(checkProhibitedCharacter(form1.dev8_pwd,form1.dev8_pwd.value)==false)return false;
+    if (form.dev8_alias.value == '')
+        form.dev8_alias.value = str_anonymous;
+    td_9rd_device.innerHTML = '&nbsp;&nbsp;' + form.dev8_alias.value + '(' + form.dev8_host.value + ')';
+    hide_alldevice_options();
+}
+
+
+function on_load()
+{
+if (navigator.appName.indexOf("Microsoft Internet Explorer") != -1)
+{on_IE();}
+else
+{
+on_noIE();
+}
+}
+
+
+function on_noIE() {
+	var form=document.form1;
+	form.dev1_host.value=d_host[0];
+    form.dev1_alias.value=d_alias[0];
+    form.dev1_port.value=d_port[0];
+    form.dev1_user.value=d_username[0];
+    form.dev1_pwd.value=d_password[0];
+	if (form.dev1_host.value=='')
+		td_2nd_device.innerHTML='&nbsp;&nbsp;'+str_none;
+	else
+		td_2nd_device.innerHTML='&nbsp;&nbsp;'+form.dev1_alias.value+'('+form.dev1_host.value+')';
+		
+	form.dev2_host.value=d_host[1];
+    form.dev2_alias.value=d_alias[1];
+    form.dev2_port.value=d_port[1];
+    form.dev2_user.value=d_username[1];
+    form.dev2_pwd.value=d_password[1];
+	if (form.dev2_host.value=='')
+		td_3rd_device.innerHTML='&nbsp;&nbsp;'+str_none;
+	else
+		td_3rd_device.innerHTML='&nbsp;&nbsp;'+form.dev2_alias.value+'('+form.dev2_host.value+')';
+	form.dev3_host.value=d_host[2];
+    form.dev3_alias.value=d_alias[2];
+    form.dev3_port.value=d_port[2];
+    form.dev3_user.value=d_username[2];
+    form.dev3_pwd.value=d_password[2];
+	if (form.dev3_host.value=='')
+		td_4rd_device.innerHTML='&nbsp;&nbsp;'+str_none;
+	else
+		td_4rd_device.innerHTML='&nbsp;&nbsp;'+form.dev3_alias.value+'('+form.dev3_host.value+')';
+
+
+	form.dev4_host.value=d_host[3];
+    form.dev4_alias.value=d_alias[3];
+    form.dev4_port.value=d_port[3];
+    form.dev4_user.value=d_username[3];
+    form.dev4_pwd.value=d_password[3];
+	if (form.dev4_host.value=='')
+		td_5rd_device.innerHTML='&nbsp;&nbsp;'+str_none;
+	else
+		td_5rd_device.innerHTML='&nbsp;&nbsp;'+form.dev4_alias.value+'('+form.dev4_host.value+')';
+
+
+	form.dev5_host.value=d_host[4];
+    form.dev5_alias.value=d_alias[4];
+    form.dev5_port.value=d_port[4];
+    form.dev5_user.value=d_username[4];
+    form.dev5_pwd.value=d_password[4];
+	if (form.dev5_host.value=='')
+		td_6rd_device.innerHTML='&nbsp;&nbsp;'+str_none;
+	else
+		td_6rd_device.innerHTML='&nbsp;&nbsp;'+form.dev5_alias.value+'('+form.dev5_host.value+')';
+		
+		
+	form.dev6_host.value=d_host[5];
+    form.dev6_alias.value=d_alias[5];
+    form.dev6_port.value=d_port[5];
+    form.dev6_user.value=d_username[5];
+    form.dev6_pwd.value=d_password[5];
+	if (form.dev6_host.value=='')
+		td_7rd_device.innerHTML='&nbsp;&nbsp;'+str_none;
+	else
+		td_7rd_device.innerHTML='&nbsp;&nbsp;'+form.dev6_alias.value+'('+form.dev6_host.value+')';
+		
+	form.dev7_host.value=d_host[6];
+    form.dev7_alias.value=d_alias[6];
+    form.dev7_port.value=d_port[6];
+    form.dev7_user.value=d_username[6];
+    form.dev7_pwd.value=d_password[6];
+	if (form.dev7_host.value=='')
+		td_8rd_device.innerHTML='&nbsp;&nbsp;'+str_none;
+	else
+		td_8rd_device.innerHTML='&nbsp;&nbsp;'+form.dev7_alias.value+'('+form.dev7_host.value+')';
+
+	form.dev8_host.value=d_host[7];
+    form.dev8_alias.value=d_alias[7];
+    form.dev8_port.value=d_port[7];
+    form.dev8_user.value=d_username[7];
+    form.dev8_pwd.value=d_password[7];
+	if (form.dev8_host.value=='')
+		td_9rd_device.innerHTML='&nbsp;&nbsp;'+str_none;
+	else
+		td_9rd_device.innerHTML='&nbsp;&nbsp;'+form.dev8_alias.value+'('+form.dev8_host.value+')';
+	
+}
+
+
+
+function on_IE() {
+   
+	var form=document.form1;
+	form.dev1_host.value=d_host[0];
+    form.dev1_alias.value=d_alias[0];
+    form.dev1_port.value=d_port[0];
+    form.dev1_user.value=d_username[0];
+    form.dev1_pwd.value=d_password[0];
+	if (form.dev1_host.value=='')
+		td_2nd_device.innerHTML='&nbsp;&nbsp;'+str_none;
+	else
+		td_2nd_device.innerHTML='&nbsp;&nbsp;'+form.dev1_alias.value+'('+form.dev1_host.value+')';
+		
+	form.dev2_host.value=d_host[1];
+    form.dev2_alias.value=d_alias[1];
+    form.dev2_port.value=d_port[1];
+    form.dev2_user.value=d_username[1];
+    form.dev2_pwd.value=d_password[1];
+	if (form.dev2_host.value=='')
+		td_3rd_device.innerHTML='&nbsp;&nbsp;'+str_none;
+	else
+		td_3rd_device.innerHTML='&nbsp;&nbsp;'+form.dev2_alias.value+'('+form.dev2_host.value+')';
+	form.dev3_host.value=d_host[2];
+    form.dev3_alias.value=d_alias[2];
+    form.dev3_port.value=d_port[2];
+    form.dev3_user.value=d_username[2];
+    form.dev3_pwd.value=d_password[2];
+	if (form.dev3_host.value=='')
+		td_4rd_device.innerHTML='&nbsp;&nbsp;'+str_none;
+	else
+		td_4rd_device.innerHTML='&nbsp;&nbsp;'+form.dev3_alias.value+'('+form.dev3_host.value+')';
+
+
+	form.dev4_host.value=d_host[3];
+    form.dev4_alias.value=d_alias[3];
+    form.dev4_port.value=d_port[3];
+    form.dev4_user.value=d_username[3];
+    form.dev4_pwd.value=d_password[3];
+	if (form.dev4_host.value=='')
+		td_5rd_device.innerHTML='&nbsp;&nbsp;'+str_none;
+	else
+		td_5rd_device.innerHTML='&nbsp;&nbsp;'+form.dev4_alias.value+'('+form.dev4_host.value+')';
+
+
+	form.dev5_host.value=d_host[4];
+    form.dev5_alias.value=d_alias[4];
+    form.dev5_port.value=d_port[4];
+    form.dev5_user.value=d_username[4];
+    form.dev5_pwd.value=d_password[4];
+	if (form.dev5_host.value=='')
+		td_6rd_device.innerHTML='&nbsp;&nbsp;'+str_none;
+	else
+		td_6rd_device.innerHTML='&nbsp;&nbsp;'+form.dev5_alias.value+'('+form.dev5_host.value+')';
+		
+		
+	form.dev6_host.value=d_host[5];
+    form.dev6_alias.value=d_alias[5];
+    form.dev6_port.value=d_port[5];
+    form.dev6_user.value=d_username[5];
+    form.dev6_pwd.value=d_password[5];
+	if (form.dev6_host.value=='')
+		td_7rd_device.innerHTML='&nbsp;&nbsp;'+str_none;
+	else
+		td_7rd_device.innerHTML='&nbsp;&nbsp;'+form.dev6_alias.value+'('+form.dev6_host.value+')';
+		
+	form.dev7_host.value=d_host[6];
+    form.dev7_alias.value=d_alias[6];
+    form.dev7_port.value=d_port[6];
+    form.dev7_user.value=d_username[6];
+    form.dev7_pwd.value=d_password[6];
+	if (form.dev7_host.value=='')
+		td_8rd_device.innerHTML='&nbsp;&nbsp;'+str_none;
+	else
+		td_8rd_device.innerHTML='&nbsp;&nbsp;'+form.dev7_alias.value+'('+form.dev7_host.value+')';
+
+	form.dev8_host.value=d_host[7];
+    form.dev8_alias.value=d_alias[7];
+    form.dev8_port.value=d_port[7];
+    form.dev8_user.value=d_username[7];
+    form.dev8_pwd.value=d_password[7];
+	if (form.dev8_host.value=='')
+		td_9rd_device.innerHTML='&nbsp;&nbsp;'+str_none;
+	else
+		td_9rd_device.innerHTML='&nbsp;&nbsp;'+form.dev8_alias.value+'('+form.dev8_host.value+')';
+	 for (i=device_list.options.length-1;i>=0;--i) device_list.options.remove(i);
+	ipcam.SearchCameras();
+}
+
+
+
+
+
+function ipcam_OnCameraSearched(status,alias,host,port,same_subnet) 
+{
+	if (status!=0)
+		return;
+	index=device_list.options.length;
+	if (alias!='')
+		alias_list[index]=alias;
+	else
+		alias_list[index]=str_anonymous;	
+	host_list[index]=host;
+	port_list[index]=port;
+	same_subnet_list[index]=same_subnet;
+	oOption=document.createElement("OPTION");
+	device_list.options.add(oOption);
+	if (same_subnet)
+	{
+		oOption.innerText=alias_list[index]+'('+host_list[index]+')';
+	}
+	else
+	{
+		oOption.style.color='gray';
+		oOption.innerText=alias_list[index]+'('+str_subnet_nomatch+')';
+	}
+}
+
+function ipcam_OnLBClick(index)
+{
+	oOption=document.createElement("OPTION");
+	device_list.options.add(oOption);
+	if(index == 1)
+		oOption.innerText = '111111111111';
+	else
+		oOption.innerText = '000000000000';
+}
+</script>
+<SCRIPT FOR="ipcam" EVENT="OnCameraSearched(status,alias,host,port,same_subnet)">ipcam_OnCameraSearched(status,alias,host,port,same_subnet)</SCRIPT>
+<style type="text/css">
+<!--
+.style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.style2 {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.STYLE4 {font-size: 24px}
+.style5 {font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style6 {color: #810000}
+.style7 {
+     background-color:#bbbbaa;
+     }
+.s5{width:250px}
+-->
+</style>
+</head>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="on_load();">
+        	
+           <table width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5" id="table1">		
+                    <tr>
+                  <td colspan="3" style="font-size:24px" class="style6"><strong><script>document.write(str_addport_set)</script></strong></td>
+                </tr>
+                <tr>
+                  <td height="20" colspan="3" align="left" bgcolor="#CCCCCC"><span class="style6"><strong><script>document.write(str_addportset)</script></strong></span></td>
+                </tr>
+				
+		
+			</table>			  
+		
+		
+		
+		<table width="95%" border="0" align="center" cellspacing="0">
+<tr>
+    <td width="29%"  ><div align="center" ><span class="STYLE4">
+      <script>document.write(str_local_network);</script>
+      </span></div></td>
+    <td width="71%" ><select name="select" size="9" class="s5" id="device_list" onclick="device_list_onclick()">
+        </select>&nbsp;&nbsp;
+        <button onClick="for (i=device_list.options.length-1;i>=0;--i) device_list.options.remove(i);ipcam.SearchCameras();" type="button"><script>document.write(str_refresh);</script></button></td>
+  </tr>
+  </table>
+  </td>
+  </tr>
+
+
+
+<tr>
+<td>
+
+<form name="form1">
+<table width="95%" border="0" align="center">
+
+  <tr >
+    <td width="29%" bgcolor="#E6E6E6"><script>document.write(str_first_dev);</script></td>
+    <td width="71%">&nbsp;&nbsp;<script>document.write(str_local_host);</script></td>
+  </tr>
+  <tr >
+    <td width="29%" bgcolor="#E6E6E6"><a href="javascript:set_2nd_device()">
+      <script>document.write(str_second_dev);</script></a></td>
+    <td id="td_2nd_device">&nbsp;&nbsp;<script>document.write(str_none);</script></td>
+  </tr>
+  <tr id="tr_device1_alias" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_overlay_name);</script></div></td>
+    <td><input id="device1_alias" name="dev1_alias" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device1_host" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_ip_address);</script></div></td>
+    <td><input id="device1_host" name="dev1_host" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device1_port" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_http_port);</script></div></td>
+    <td><input id="device1_port" name="dev1_port" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device1_user" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_user_name);</script></div></td>
+    <td><input id="device1_user" name="dev1_user" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device1_pwd" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_password);</script></div></td>
+    <td><input name="dev1_pwd" type="password" id="device1_pwd" maxlength="12"></td>
+  </tr>
+  <tr id="tr_device1_set" height="20" style="display:none">
+    <td>&nbsp;</td>
+    <td><button onClick="set_device1()" type="button"><script>                                            document.write(str_add);</script></button>
+        <button onClick="del_device1()" type="button"><script>                                            document.write(str_remove);</script></button></td>
+  </tr>
+  <tr>
+    <td width="29%" bgcolor="#E6E6E6"><a href="javascript:set_3rd_device()">
+      <script>document.write(str_third_dev);</script></a></td>
+	<td id="td_3rd_device">&nbsp;&nbsp;<script>document.write(str_none);</script></td>
+  </tr>
+  <tr id="tr_device2_alias" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_overlay_name);</script></div></td>
+    <td><input id="device2_alias" name="dev2_alias" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device2_host" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_ip_address);</script></div></td>
+    <td><input id="device2_host" name="dev2_host" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device2_port" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_http_port);</script></div></td>
+    <td><input id="device2_port" name="dev2_port" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device2_user" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_user_name);</script></div></td>
+    <td><input id="device2_user" name="dev2_user" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device2_pwd" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_password);</script></div></td>
+    <td><input name="dev2_pwd" type="password" id="device2_pwd" maxlength="12"></td>
+  </tr>
+  <tr id="tr_device2_set" height="20" style="display:none">
+    <td>&nbsp;</td>
+    <td><button onClick="set_device2()" type="button"><script>                                            document.write(str_add);</script></button>
+        <button onClick="del_device2()" type="button"><script>                                            document.write(str_remove);</script></button></td>
+  </tr>
+  
+  
+  
+  <tr>
+    <td width="29%" bgcolor="#E6E6E6"><a href="javascript:set_4rd_device()">
+      <script>                                                                                document.write(str_fourth_dev);</script></a></td>
+	<td id="td_4rd_device">&nbsp;&nbsp;<script>	                                       document.write(str_none);</script></td>
+  </tr>
+  <tr id="tr_device3_alias" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_overlay_name);</script></div></td>
+    <td><input id="device3_alias" name="dev3_alias" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device3_host" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_ip_address);</script></div></td>
+    <td><input id="device3_host" name="dev3_host" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device3_port" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_http_port);</script></div></td>
+    <td><input id="device3_port" name="dev3_port" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device3_user" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_user_name);</script></div></td>
+    <td><input id="device3_user" name="dev3_user" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device3_pwd" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_password);</script></div></td>
+    <td><input name="dev3_pwd" type="password" id="device3_pwd" maxlength="12"></td>
+  </tr>
+  <tr id="tr_device3_set" height="20" style="display:none">
+    <td>&nbsp;</td>
+    <td><button onClick="set_device3()" type="button"><script>                                            document.write(str_add);</script></button>
+        <button onClick="del_device3()" type="button"><script>                                            document.write(str_remove);</script></button></td>
+  </tr>
+
+<tr>
+    <td width="29%" bgcolor="#E6E6E6"><a href="javascript:set_5rd_device()">
+      <script>                                                                                document.write(str_fifth_dev);</script></a></td>
+	<td id="td_5rd_device">&nbsp;&nbsp;<script>	                                       document.write(str_none);</script></td>
+  </tr>
+  <tr id="tr_device4_alias" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_overlay_name);</script></div></td>
+    <td><input id="device4_alias" name="dev4_alias" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device4_host" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_ip_address);</script></div></td>
+    <td><input id="device4_host" name="dev4_host" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device4_port" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_http_port);</script></div></td>
+    <td><input id="device4_port" name="dev4_port" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device4_user" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_user_name);</script></div></td>
+    <td><input id="device4_user" name="dev4_user" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device4_pwd" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_password);</script></div></td>
+    <td><input name="dev4_pwd" type="password" id="device4_pwd" maxlength="12"></td>
+  </tr>
+  <tr id="tr_device4_set" height="20" style="display:none">
+    <td>&nbsp;</td>
+    <td><button onClick="set_device4()" type="button"><script>                                            document.write(str_add);</script></button>
+        <button onClick="del_device4()" type="button"><script>                                            document.write(str_remove);</script></button></td>
+  </tr>
+
+<tr>
+    <td width="29%" bgcolor="#E6E6E6"><a href="javascript:set_6rd_device()">
+      <script>                                                                                document.write(str_sixth_dev);</script></a></td>
+	<td id="td_6rd_device">&nbsp;&nbsp;<script>	                                       document.write(str_none);</script></td>
+  </tr>
+  <tr id="tr_device5_alias" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_overlay_name);</script></div></td>
+    <td><input id="device5_alias" name="dev5_alias" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device5_host" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_ip_address);</script></div></td>
+    <td><input id="device5_host" name="dev5_host" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device5_port" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_http_port);</script></div></td>
+    <td><input id="device5_port" name="dev5_port" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device5_user" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_user_name);</script></div></td>
+    <td><input id="device5_user" name="dev5_user" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device5_pwd" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_password);</script></div></td>
+    <td><input name="dev5_pwd" type="password" id="device5_pwd" maxlength="12"></td>
+  </tr>
+  <tr id="tr_device5_set" height="20" style="display:none">
+    <td>&nbsp;</td>
+    <td><button onClick="set_device5()" type="button"><script>                                            document.write(str_add);</script></button>
+        <button onClick="del_device5()" type="button"><script>                                            document.write(str_remove);</script></button></td>
+  </tr>
+
+<tr>
+    <td width="29%" bgcolor="#E6E6E6"><a href="javascript:set_7rd_device()">
+      <script>                                                                                document.write(str_seventh_dev);</script></a></td>
+	<td id="td_7rd_device">&nbsp;&nbsp;<script>	                                       document.write(str_none);</script></td>
+  </tr>
+  <tr id="tr_device6_alias" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_overlay_name);</script></div></td>
+    <td><input id="device6_alias" name="dev6_alias" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device6_host" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_ip_address);</script></div></td>
+    <td><input id="device6_host" name="dev6_host" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device6_port" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_http_port);</script></div></td>
+    <td><input id="device6_port" name="dev6_port" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device6_user" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_user_name);</script></div></td>
+    <td><input id="device6_user" name="dev6_user" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device6_pwd" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_password);</script></div></td>
+    <td><input name="dev6_pwd" type="password" id="device6_pwd" maxlength="12"></td>
+  </tr>
+  <tr id="tr_device6_set" height="20" style="display:none">
+    <td>&nbsp;</td>
+    <td><button onClick="set_device6()" type="button"><script>                                            document.write(str_add);</script></button>
+        <button onClick="del_device6()" type="button"><script>                                            document.write(str_remove);</script></button></td>
+  </tr>
+
+<tr>
+    <td width="29%" bgcolor="#E6E6E6"><a href="javascript:set_8rd_device()">
+      <script>                                                                                document.write(str_eighth_dev);</script></a></td>
+	<td id="td_8rd_device">&nbsp;&nbsp;<script>	                                       document.write(str_none);</script></td>
+  </tr>
+  <tr id="tr_device7_alias" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_overlay_name);</script></div></td>
+    <td><input id="device7_alias" name="dev7_alias" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device7_host" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_ip_address);</script></div></td>
+    <td><input id="device7_host" name="dev7_host" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device7_port" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_http_port);</script></div></td>
+    <td><input id="device7_port" name="dev7_port" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device7_user" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_user_name);</script></div></td>
+    <td><input id="device7_user" name="dev7_user" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device7_pwd" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_password);</script></div></td>
+    <td><input name="dev7_pwd" type="password" id="device7_pwd" maxlength="12"></td>
+  </tr>
+  <tr id="tr_device7_set" height="20" style="display:none">
+    <td>&nbsp;</td>
+    <td><button onClick="set_device7()" type="button"><script>                                            document.write(str_add);</script></button>
+        <button onClick="del_device7()" type="button"><script>                                            document.write(str_remove);</script></button></td>
+  </tr>
+
+<tr>
+    <td width="29%" bgcolor="#E6E6E6"><a href="javascript:set_9rd_device()">
+      <script>                                                                                document.write(str_ninth_dev);</script></a></td>
+	<td id="td_9rd_device">&nbsp;&nbsp;<script>	                                       document.write(str_none);</script></td>
+  </tr>
+  <tr id="tr_device8_alias" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_overlay_name);</script></div></td>
+    <td><input id="device8_alias" name="dev8_alias" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device8_host" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_ip_address);</script></div></td>
+    <td><input id="device8_host" name="dev8_host" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device8_port" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_http_port);</script></div></td>
+    <td><input id="device8_port" name="dev8_port" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device8_user" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_user_name);</script></div></td>
+    <td><input id="device8_user" name="dev8_user" maxlength="20"></td>
+  </tr>
+  <tr id="tr_device8_pwd" height="20" style="display:none">
+    <td><div align="right"><script>                               document.write(str_password);</script></div></td>
+    <td><input name="dev8_pwd" type="password" id="device8_pwd" maxlength="12"></td>
+  </tr>
+  <tr id="tr_device8_set" height="20" style="display:none">
+    <td>&nbsp;</td>
+    <td><button onClick="set_device8()" type="button"><script>                                            document.write(str_add);</script></button>
+        <button onClick="del_device8()" type="button"><script>                                            document.write(str_remove);</script></button></td>
+  </tr>
+  
+  
+  
+  <tr>
+    <td>&nbsp;</td>
+    <td></td>
+  </tr>
+</table>
+</form>
+</td>
+</tr>
+<tr>
+<td><div align="center">
+<button onClick="do_submit()" type="button"><script>document.write(str_sure)</script></button>    
+<button onClick="javascript:location.reload(true)" type="button"><script>document.write(str_refresh)</script></button>
+</div></td></tr>
+</table>
+		
+				
+	<form method="post" name="form2">
+	<input name="cmd" type="hidden" value="setdevices">
+	<input name="cururl" type="hidden"> 
+	<input name="dev1_number" type="hidden">
+	<input name="dev1_clear" type="hidden">	
+	<input name="dev1_host" type="hidden">
+	<input name="dev1_alias" type="hidden">
+	<input name="dev1_port" type="hidden">
+	<input name="dev1_user" type="hidden">
+	<input name="dev1_pwd" type="hidden">
+
+	<input name="cmd" type="hidden" value="setdevices">
+	<input name="dev2_number" type="hidden">
+	<input name="dev2_clear" type="hidden">	
+	<input name="dev2_host" type="hidden">
+	<input name="dev2_alias" type="hidden">
+	<input name="dev2_port" type="hidden">
+	<input name="dev2_user" type="hidden">
+	<input name="dev2_pwd" type="hidden">
+	
+	<input name="cmd" type="hidden" value="setdevices">
+	<input name="dev3_number" type="hidden">
+	<input name="dev3_clear" type="hidden">	
+	<input name="dev3_host" type="hidden">
+	<input name="dev3_alias" type="hidden">
+	<input name="dev3_port" type="hidden">
+	<input name="dev3_user" type="hidden">
+	<input name="dev3_pwd" type="hidden">
+	
+	<input name="cmd" type="hidden" value="setdevices">
+	<input name="dev4_number" type="hidden">
+	<input name="dev4_clear" type="hidden">	
+	<input name="dev4_host" type="hidden">
+	<input name="dev4_alias" type="hidden">
+	<input name="dev4_port" type="hidden">
+	<input name="dev4_user" type="hidden">
+	<input name="dev4_pwd" type="hidden">
+	
+	<input name="cmd" type="hidden" value="setdevices">
+	<input name="dev5_number" type="hidden">
+	<input name="dev5_clear" type="hidden">	
+	<input name="dev5_host" type="hidden">
+	<input name="dev5_alias" type="hidden">
+	<input name="dev5_port" type="hidden">
+	<input name="dev5_user" type="hidden">
+	<input name="dev5_pwd" type="hidden">
+	
+	<input name="cmd" type="hidden" value="setdevices">
+	<input name="dev6_number" type="hidden">
+	<input name="dev6_clear" type="hidden">	
+	<input name="dev6_host" type="hidden">
+	<input name="dev6_alias" type="hidden">
+	<input name="dev6_port" type="hidden">
+	<input name="dev6_user" type="hidden">
+	<input name="dev6_pwd" type="hidden">
+	
+	<input name="cmd" type="hidden" value="setdevices">
+	<input name="dev7_number" type="hidden">
+	<input name="dev7_clear" type="hidden">	
+	<input name="dev7_host" type="hidden">
+	<input name="dev7_alias" type="hidden">
+	<input name="dev7_port" type="hidden">
+	<input name="dev7_user" type="hidden">
+	<input name="dev7_pwd" type="hidden">
+	
+	<input name="cmd" type="hidden" value="setdevices">
+	<input name="dev8_number" type="hidden">
+	<input name="dev8_clear" type="hidden">	
+	<input name="dev8_host" type="hidden">
+	<input name="dev8_alias" type="hidden">
+	<input name="dev8_port" type="hidden">
+	<input name="dev8_user" type="hidden">
+	<input name="dev8_pwd" type="hidden">
+    </form>
+	
+	<OBJECT id=ipcam name = 0 style="LEFT: 0px; TOP: 0px" codebase="ENWebClientPlus.ocx#version=3,0,2,0" height=0 width=0 
+ classid="clsid:42B182F9-3F08-484E-9913-07193A5D36A6" VIEWASTEXT><PARAM NAME="_Version" VALUE="65536"><PARAM NAME="_ExtentX" VALUE="8467"><PARAM NAME="_ExtentY" VALUE="6350"><PARAM NAME="_StockProps" VALUE="0"></OBJECT>
+   
+<!-- ImageReady Slices (ipCAM.psd - Slices: 02, 05, 06, 08, 09, 11, 12, 13, 15, 21, 22, 28, 30, 35, 36, 39, 42, 46, 50, 53) -->
+<!-- End ImageReady Slices -->
+<iframe name="tst" style="none" width="0" height="0"></iframe>
+</body>
+</html>

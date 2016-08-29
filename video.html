@@ -1,0 +1,898 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<title>ipCAM</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+<META http-equiv="Pragma" CONTENT="no-cache">
+
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+
+<meta HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"> 
+<!-- ImageReady Preload Script (ipCAM.psd) -->
+<script src="public.js"></script>
+<script src="cgi-bin/hi3510/param.cgi?cmd=getoverlayattr&-region=0&cmd=getoverlayattr&-region=1" type="text/javascript"></script>
+<script src="cgi-bin/hi3510/param.cgi?cmd=getvencattr&-chn=011&cmd=getvencattr&-chn=012&cmd=getvencattr&-chn=013&cmd=getvideoattr&cmd=getimagemaxsize&cmd=getmobilesnapattr&cmd=getserverinfo" type="text/javascript"></script>
+<script src="lib/video.js"></script>
+<script type="text/javascript">
+<!--
+
+<!--
+
+function newImage(arg) {
+	if (document.images) {
+		rslt = new Image();
+		rslt.src = arg;
+		return rslt;
+	}
+}
+
+function changeImages() {
+	if (document.images && (preloadFlag == true)) {
+		for (var i=0; i<changeImages.arguments.length; i+=2) {
+			document[changeImages.arguments[i]].src = changeImages.arguments[i+1];
+		}
+	}
+}
+
+var preloadFlag = false;
+function preloadImages() {
+	if (document.images) {
+		index_08_Over = newImage("images/index_08-Over.gif");
+		index_09_Over = newImage("images/index_09-Over.gif");
+		index_11_Over = newImage("images/index_11-Over.gif");
+		index_12_Over = newImage("images/index_12-Over.gif");
+		index_13_Over = newImage("images/index_13-Over.gif");
+		index_39_Over = newImage("images/index_39-Over.gif");
+		index_39_Down = newImage("images/index_39-Down.gif");
+		preloadFlag = true;
+	}
+}
+
+// -->
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+function checkProhibitedCharacter (obj, string )
+{
+ if(( string.search("\/") != -1 )||( string.search(/\\/) != -1 )||( string.search(":") != -1 )||( string.search("&") != -1 )||( string.search("=") != -1 )||( string.search("\"") != -1 ))
+{
+	obj.select();
+  alert(str_alert4+"(:,&,=,\\\,\/,\")");
+  return false;
+}
+else
+{
+return true;
+}
+}
+function hasZenKaku(str){
+var code;
+for (var i = 0; i < str.length; ++i) {
+code = str.charCodeAt(i);
+if (code > 256 && (code < 0xff61 || code > 0xff9f)) {
+return true;
+}
+}
+return false;
+}
+
+function hasHankakuKana(str)
+{
+	var code;
+	for (var i = 0; i < str.length; ++i) 
+	{
+		code = str.charCodeAt(i);
+		if (code >= 0xff61 && code <= 0xff9f)
+ 		{
+			return true;
+		}
+	}
+	return false;
+}
+function checkHankakuNoKana(str,cObj,strMsg)
+{
+		var tmp;
+    if (hasZenKaku(str) == true || hasHankakuKana(str) == true)
+    {
+			if (strMsg==null || strMsg=='' ) alert(str_alert4);
+  		else alert(strMsg);
+			cObj.select();
+			return false;
+		}
+		return true;
+}
+
+function checkLen(str)   
+{   
+  var   x=0;   
+  for   (i=0;   i<str.length;   i++)   {   
+  if(str.charCodeAt(i)>128){   
+  x=x+2;   
+  }else{   
+  x=x+1;   
+  }   
+  }   
+  return   x;   
+}
+
+function on_load()
+{
+var strmode=model.charAt(5);
+if(strmode=="f") 
+{
+document.getElementById('f_size1f').style.display="";
+document.getElementById('f_size1e').style.display="none";
+document.getElementById('f_size1k').style.display="none";
+}
+else if(strmode=="k")
+{
+document.getElementById('f_size1k').style.display="";
+document.getElementById('f_size1e').style.display="none";
+document.getElementById('f_size1f').style.display="none";
+} 
+else
+{
+document.getElementById('f_size1e').style.display="";
+document.getElementById('f_size1f').style.display="none";
+document.getElementById('f_size1k').style.display="none";
+}
+
+	 if ((videomode == "51")||(videomode == "52")||(videomode == "53")||(videomode == "54"))
+	 {
+	    document.getElementById('s_size2v').style.display="";
+		//document.getElementById('s_size3v').style.display="";
+		document.getElementById('s_mizev').style.display="";
+		document.getElementById('s_size2q').style.display="none";
+		//document.getElementById('s_size3q').style.display="none";
+		document.getElementById('s_mizeq').style.display="none";
+		document.getElementById('s_size2d').style.display="none";
+		//document.getElementById('s_size3d').style.display="none";
+		document.getElementById('s_mized').style.display="none";
+		document.getElementById('f_vinorm').style.display="";
+		document.getElementById('f_vinormd').style.display="none";
+		
+		document.getElementById('f_bps1').style.display="";
+		document.getElementById('f_bps2').style.display="";
+		//document.getElementById('f_bps3').style.display="";
+		document.getElementById('f_bps1d').style.display="none";
+		document.getElementById('f_bps2d').style.display="none";
+		//document.getElementById('f_bps3d').style.display="none";
+		
+		
+		
+	}
+	else if ((videomode == "17")||(videomode == "20"))
+	{
+	    document.getElementById('s_size2v').style.display="none";
+		//document.getElementById('s_size3v').style.display="none";
+		document.getElementById('s_mizev').style.display="none";
+		document.getElementById('s_size2q').style.display="none";
+		//document.getElementById('s_size3q').style.display="none";
+		document.getElementById('s_mizeq').style.display="none";
+		document.getElementById('s_size2d').style.display="";
+		//document.getElementById('s_size3d').style.display="";
+		document.getElementById('s_mized').style.display="";
+		document.getElementById('f_vinorm').style.display="none";
+		document.getElementById('f_vinormd').style.display="";
+		
+		document.getElementById('f_bps1').style.display="none";
+		document.getElementById('f_bps2').style.display="none";
+		//document.getElementById('f_bps3').style.display="none";
+		document.getElementById('f_bps1d').style.display="";
+		document.getElementById('f_bps2d').style.display="";
+		//document.getElementById('f_bps3d').style.display="";
+	}
+	else
+	{
+	    document.getElementById('s_size2v').style.display="none";
+		//document.getElementById('s_size3v').style.display="none";
+		document.getElementById('s_mizev').style.display="none";
+		document.getElementById('s_size2q').style.display="";
+		//document.getElementById('s_size3q').style.display="";
+		document.getElementById('s_mizeq').style.display="";
+		document.getElementById('s_size2d').style.display="none";
+		//document.getElementById('s_size3d').style.display="none";
+		document.getElementById('s_mized').style.display="none";
+		document.getElementById('f_vinorm').style.display="";
+		document.getElementById('f_vinormd').style.display="none";
+		
+		document.getElementById('f_bps1').style.display="";
+		document.getElementById('f_bps2').style.display="";
+		//document.getElementById('f_bps3').style.display="";
+		document.getElementById('f_bps1d').style.display="none";
+		document.getElementById('f_bps2d').style.display="none";
+		//document.getElementById('f_bps3d').style.display="none";
+	}
+	
+	//初始化分辨率表单数据	
+	load_form_size1();	
+	load_form_size2();
+	load_form_size3();
+	
+	
+	//初始化帧率表单数据
+	load_form_bps1();
+	load_form_bps2();	
+	load_form_bps3();
+
+	//初始化主帧间隔表单数据
+	load_form_gop1();		
+	load_form_gop2();
+	load_form_gop3();
+
+	//初始化编码质量表单数据
+	load_form_imagegrade1();
+	load_form_imagegrade2();
+	load_form_imagegrade3();
+		
+	//初始化帧率表单数据
+	load_form_fps1();
+	load_form_fps2();
+	load_form_fps3();
+	
+	//初始化编码控制表单数据
+	load_form_brmode1();
+	load_form_brmode2();
+	load_form_brmode3();
+	//初始化手机分辨率
+	load_form_msize();
+	
+	//初始化制式表单数据
+	load_form_vinorm();	
+	load_form_profile();
+	
+	//初始化OSD显示数据
+	load_form_region0();
+	load_form_region1();
+}
+
+function change_size1()
+{
+ var f = document.getElementById("form_size1f");
+
+	if ((f.selectedIndex == 2)||(f.selectedIndex == 3))
+	{
+        document.getElementById('s_size2v').style.display="";
+		//document.getElementById('s_size3v').style.display="";
+		document.getElementById('s_mizev').style.display="";
+		document.getElementById('s_size2q').style.display="none";
+		//document.getElementById('s_size3q').style.display="none";
+		document.getElementById('s_mizeq').style.display="none";
+	}
+	else
+	{
+	    document.getElementById('s_size2v').style.display="none";
+		//document.getElementById('s_size3v').style.display="none";
+		document.getElementById('s_mizev').style.display="none";
+		document.getElementById('s_size2q').style.display="";
+		//document.getElementById('s_size3q').style.display="";
+		document.getElementById('s_mizeq').style.display="";
+	}
+}
+
+function do_submit()
+{
+	var f = document.getElementById("form_vinorm");
+
+	// P N 不同制式 cgi提交要不同的顺序
+	if (f.value == "50")
+	{
+		document.form3.id = "form_submit";
+	}
+	else
+	{
+		document.form2.id = "form_submit";
+	}
+	
+	var s = document.getElementById("form_submit");
+	
+	// 检测osd名字是否符合规则
+	if (!check_form_region1())
+		return false;	
+	// 检测帧率与制式是否冲突
+	if (!check_form_fps1())
+		return false;
+	if (!check_form_fps2())
+		return false;	
+	if (!check_form_fps3())
+		return false;	
+	// 主帧间隔范围检测
+	if (!check_form_gop1())
+		return false;
+	if (!check_form_gop2())
+		return false;
+	if (!check_form_gop3())
+		return false;
+	//码率范围检测
+	if (!check_form_bps1())
+		return false;
+	if (!check_form_bps2())
+		return false;
+	if (!check_form_bps3())
+		return false;	
+				
+	if (!check_form_region1)
+		return false;
+		
+	s.cururl.value = document.URL;
+	
+	// 视频制式
+	submit_form_vinorm();
+	submit_form_videomode();	
+	submit_form_profile();
+
+	s.chn1.value = 11;
+	s.chn1.name  = "-chn";
+
+	submit_form_bps1();		
+	submit_form_fps1();	
+	submit_form_brmode1();
+	submit_form_gop1();
+	submit_form_imagegrade1();
+
+	s.chn2.value = 12;
+	s.chn2.name  = "-chn";
+		
+  	submit_form_bps2();
+	submit_form_fps2();
+	submit_form_brmode2();	
+	submit_form_gop2();
+	submit_form_imagegrade2();
+	
+	s.chn3.value = 13;
+	s.chn3.name  = "-chn";
+		
+  	submit_form_bps3();
+	submit_form_fps3();
+	submit_form_brmode3();	
+	submit_form_gop3();
+	submit_form_imagegrade3();
+	
+	//the time osd 
+	submit_form_region0();
+	//the info osd
+	submit_form_region1();	
+	submit_form_msize();
+
+	s.action="cgi-bin/hi3510/param.cgi";
+  	s.submit();
+   	return true;	
+}
+//-->
+</script>
+<!-- End Preload Script -->
+<style type="text/css">
+<!--
+.style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.style2 {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style5 {font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style6 {color: #810000}
+.style_color {color: #CC3333}
+-->
+</style>
+</head>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="on_load();">
+		<table width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5">
+                <tr>
+                 <td colspan="2" style="font-size:24px" class="style6"><strong><script>document.write(str_video_set)</script></strong></td>
+          </tr>
+         <tr id="f_vinorm">
+                  <td width="220" align="left"><script>document.write(str_power_f)</script></td>
+                  <td>
+				<select id="form_vinorm" size="1" >
+	            <option value="50">50Hz</option>
+	            <option value="60">60Hz</option>
+			    </SELECT></td>
+          </tr>
+		 <tr id="f_vinormd">
+                <td width="220" align="left"><script>document.write(str_power_f)</script></td>
+                <td>
+	            <select id="form_vinormd" disabled="true" size="1" >
+	            <option value="50">PAL</option>
+	            <option value="60">NTSC</option>
+	            </select></td>
+         </tr>
+		 <tr>
+               <td width="220" align="left"><script type="text/javascript">document.write(str_videocoding);</script></td>
+               <td>
+			   <select name="select5" size="1" id="form_profile" >
+               <option>baseline</option>
+               <option>mainprofile</option>
+               </select></td>
+          </tr>
+                <tr>
+                  <td colspan="2" align="left" bgcolor="#CCCCCC"><b><font class="style6"><script>document.write(str_1stream)</script></font></b></td>
+          </tr>
+		   <tr id="f_size1e">
+    <td align="left"><script>document.write(str_resolution)</script></td>
+    <td><select  name="select0" size="1" id="form_size1e" >
+      <option>1280x720</option>
+	  <option>640x352</option>	  
+    </select></td>
+  </tr>
+  <tr id="f_size1f">
+   <td align="left"><script>document.write(str_resolution)</script></td>
+    <td><select name="select" size="1" id="form_size1f" onChange="change_size1()">
+      <option>1280x720</option>
+      <option>640x352</option>
+      <option>1280x960</option>
+      <option>640x480</option>
+    </select></td>
+  </tr>
+  <tr id="f_size1k">
+    <td align="left"><script>document.write(str_resolution)</script></td>
+    <td><select name="select" size="1" id="form_size1d" >
+      <option>D1</option>
+	<option>CIF</option>
+    </select></td>
+  </tr>
+		   <tr id="f_bps1">
+   <td align="left"><script>document.write(str_rate)</script></td>
+    <td><input type="text" id="form_bps1" size="6" maxlength="4">
+    &nbsp;&nbsp;kbps (32-6144)</td>
+  </tr>
+  
+  <tr id="f_bps1d">
+    <td align="left"><script>document.write(str_rate)</script></td>
+    <td><input type="text" id="form_bps1d" size="6" maxlength="4">
+    &nbsp;&nbsp;kbps (32-2048)</td>
+  </tr>
+                <tr align="left">
+                  <td><script>document.write(str_frame_rate)</script></td>
+                  <td><select id="form_fps1" size="1" onChange="change_form_fps1()">
+                    <option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+					<option value="13">13</option>
+					<option value="14">14</option>
+					<option value="15">15</option>
+					<option value="16">16</option>
+					<option value="17">17</option>
+					<option value="18">18</option>
+					<option value="19">19</option>
+					<option value="20">20</option>
+					<option value="21">21</option>
+					<option value="22">22</option>
+					<option value="23">23</option>
+					<option value="24">24</option>
+					<option value="25">25</option>
+					<option value="26">26</option>
+					<option value="27">27</option>
+					<option value="28">28</option>
+					<option value="29">29</option>
+					<option value="30">30</option>	
+                                    </select>&nbsp;&nbsp; fps </td>
+                </tr>
+                <tr align="left">
+                  <td><script>document.write(str_main_frame)</script></td>
+                  <td>
+					<input type="text" id="form_gop1" size="5" maxlength="4"> 
+					(2-150)</td>
+                </tr>
+                <tr align="left">
+                  <td><script>document.write(str_vedio_coding)</script></td>
+                  <td><input type="radio" id="form_brmode1_0" name="qualityradio" value="radiobutton">
+ 					<script>document.write(str_fixed_rate)</script></td>
+                </tr>
+                <tr align="left">
+                  <td>　</td>
+                  <td><input type="radio"  id="form_brmode1_1" name="qualityradio" value="radiobutton">
+ 					<script>document.write(str_not_fixed_rate)</script></td>
+                </tr>
+                <tr align="left">
+                  <td><script>document.write(str_vedio_cq)</script></td>
+                  <td><select id="form_imagegrade1" name="vqselect0" size="1">
+                    <option value="1">1&nbsp;</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+                                    </select> <font color="#CC3333"><script>document.write(str_alert97)</script></font></td>
+                </tr>
+                <tr>
+                 <td colspan="2" align="left" bgcolor="#CCCCCC"><b><font class="style6"><script>document.write(str_2stream)</script></font></b></td>
+                </tr>
+				<!--<tr>
+                  <td width="220" align="left"><script>document.write(str_definition)</script></td>
+                  <td align="left"> 
+					<select name="sizeselect0" onChange="do_sizechange()" size="1">
+                      <option value="1">CIF</option>
+                      <option value="2">QCIF</option>
+                    </select></td>
+          </tr>-->
+		   <tr id="s_size2v">
+   <td align="left"><script>document.write(str_resolution)</script></td>
+    <td>
+	<select name="select1" id="form_size2v" size="1">
+	<option>640x480</option>
+	<option>320x240</option>
+	</select>	</td>
+  </tr>
+  <tr id="s_size2q">
+  <td align="left"><script>document.write(str_resolution)</script></td>
+    <td><select name="select2" size="1" id="form_size2q">
+      <option >640x352</option>
+      <option >320x176</option>
+    </select></td>
+  </tr>
+  <tr id="s_size2d">
+   <td align="left"><script>document.write(str_resolution)</script></td>
+    <td><select name="select2" size="1" disabled="true" id="form_size2d">
+      <option>CIF</option>
+    </select></td>
+  </tr>
+				
+		   <tr id="f_bps2">
+   <td align="left"><script>document.write(str_rate)</script></td>
+    <td><input type="text" id="form_bps2" size="6" maxlength="4">
+    &nbsp;&nbsp;kbps (32-6144)</td>
+  </tr>
+  <tr id="f_bps2d">
+    <td align="left"><script>document.write(str_rate)</script></td>
+    <td><input type="text" id="form_bps2d" size="6" maxlength="4">
+    &nbsp;&nbsp;kbps (32-512)</td>
+  </tr>
+				<tr>
+                  <td><script>document.write(str_frame_rate)</script></td>
+                  <td><select id="form_fps2" size="1" onChange="change_form_fps2()">
+                    <option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+					<option value="13">13</option>
+					<option value="14">14</option>
+					<option value="15">15</option>
+					<option value="16">16</option>
+					<option value="17">17</option>
+					<option value="18">18</option>
+					<option value="19">19</option>
+					<option value="20">20</option>
+					<option value="21">21</option>
+					<option value="22">22</option>
+					<option value="23">23</option>
+					<option value="24">24</option>
+					<option value="25">25</option>
+					<option value="26">26</option>
+					<option value="27">27</option>
+					<option value="28">28</option>
+					<option value="29">29</option>
+					<option value="30">30</option>	
+                                    </select>&nbsp;&nbsp; fps </td>
+                </tr>
+				<tr>
+                  <td><script>document.write(str_main_frame)</script></td>
+                  <td>
+					<input type="text" id="form_gop2" name="vftxt1" size="5" maxlength="4"> 
+					(2-150)</td>
+                </tr>
+				<tr>
+                  <td><script>document.write(str_vedio_coding)</script></td>
+                  <td><input type="radio" id="form_brmode2_0" name="qualityradio0" value="radiobutton1" checked>
+                  <script>document.write(str_fixed_rate)</script></td>
+                </tr>
+				<tr>
+                  <td>　</td>
+                  <td>
+					<input type="radio" id="form_brmode2_1" name="qualityradio0" value="radiobutton2">
+ 					<script>document.write(str_not_fixed_rate)</script></td>
+                </tr>
+				<tr>
+                  <td><script>document.write(str_vedio_cq)</script></td>
+                  <td><select id="form_imagegrade2" name="vqselect1" size="1">
+                    <option value="1">1&nbsp;</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+                                    </select> <font color="#CC3333"><script>document.write(str_alert97)</script></font></td>
+                </tr>
+				
+				<tr style="display:none">
+				<td colspan="2" align="left" bgcolor="#CCCCCC"><b><font class="style6"><script>document.write(str_3stream)</script></font></b></td>
+                </tr>
+				<!--<tr>
+                  <td width="220" align="left"><script>document.write(str_definition)</script></td>
+                  <td align="left"> 
+					<select name="sizeselect0" onChange="do_sizechange()" size="1">
+                      <option value="1">CIF</option>
+                      <option value="2">QCIF</option>
+                    </select></td>
+          </tr>-->
+		  <tr id="s_size3v" style="display:none">
+   <td align="left"><script>document.write(str_resolution)</script></td>
+    <td><select name="select3" size="1" disabled="true" id="form_size3v">
+      <option>320x240</option>
+	  <option>160x120</option>
+    </select></td>
+  </tr>
+  <tr id="s_size3q" style="display:none">
+   <td align="left"><script>document.write(str_resolution)</script></td>
+    <td><select name="select4" size="1" disabled="true" id="form_size3q">
+      <option>320x176</option>
+      <option>160x112</option>
+    </select></td>
+  </tr>
+   <tr id="s_size3d" style="display:none">
+    <td align="left"><script>document.write(str_resolution)</script></td>
+    <td><select name="select4" size="1" disabled="true" id="form_size3d">
+      <option>CIF</option>
+    </select></td>
+  </tr>
+		  <tr id="f_bps3" style="display:none">
+    <td align="left"><script>document.write(str_rate)</script></td>
+    <td><input type="text" id="form_bps3" size="6" maxlength="4">
+    &nbsp;&nbsp;kbps (32-6144)</td>
+  </tr>
+   <tr id="f_bps3d" style="display:none">
+    <td align="left"><script>document.write(str_rate)</script></td>
+    <td><input type="text" id="form_bps3d" size="6" maxlength="4">
+    &nbsp;&nbsp;kbps (32-256)</td>
+  </tr>
+				<tr style="display:none">
+                  <td><script>document.write(str_frame_rate)</script></td>
+                  <td><select id="form_fps3" size="1" onChange="change_form_fps3()">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                  </select>                    &nbsp;&nbsp; fps </td>
+                </tr>
+				<tr style="display:none">
+                  <td><script>document.write(str_main_frame)</script></td>
+                  <td>
+					<input type="text" id="form_gop3" name="vftxt2" size="5" maxlength="4"> 
+					(2-150)</td>
+                </tr>
+				<tr style="display:none">
+                  <td><script>document.write(str_vedio_coding)</script></td>
+                  <td>
+					<input type="radio" id="form_brmode3_0" name="qualityradio1" value="radiobutton1" checked>
+ 					<script>document.write(str_fixed_rate)</script></td>
+                </tr>
+				<tr style="display:none">
+                  <td>　</td>
+                  <td>
+					<input type="radio" id="form_brmode3_1" name="qualityradio1" value="radiobutton2">
+ 					<script>document.write(str_not_fixed_rate)</script></td>
+                </tr>
+				<tr style="display:none">
+                  <td><script>document.write(str_vedio_cq)</script></td>
+                  <td><select id="form_imagegrade3" name="vqselect2" size="1">
+                    <option value="1">1&nbsp;</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+                                    </select> <font color="#CC3333"><script>document.write(str_alert97)</script></font></td></tr>
+									
+					
+					<tr>
+				<td colspan="2" align="left" bgcolor="#CCCCCC"><b><font class="style6"><script>document.write(str_phonestream)</script></font></b></td>
+                </tr>
+			 <tr id="s_mizev">
+     <td align="left"><script>document.write(str_resolution)</script></td>
+    <td>
+	<select id="form_msize1" size="1" >
+	    <option>640x480</option>
+	    <option>320x240</option>
+      </select>	</td>
+	  </tr>
+  <tr id="s_mizeq">
+     <td align="left"><script>document.write(str_resolution)</script></td>
+    <td>
+	<select id="form_msize2" size="1" >
+	    <option>640x352</option>
+	    <option>320x176</option>
+      </select>	</td>
+    </tr>
+	<tr id="s_mized">
+    <td align="left"><script>document.write(str_resolution)</script></td>
+    <td>
+	<select id="form_msize3" disabled="true" size="1" >
+	     <option>CIF</option>
+	    <option>CIF</option>
+      </select>	</td>
+    </tr>						
+				
+                <!--<tr id="layer4">
+                  <td colspan="2"><strong><span class="style_color"><script>document.write(str_alert99)</script></span></strong></td>
+                </tr>-->
+                <tr align="left" id="layer0">
+                  <td colspan="2" bgcolor="#CCCCCC"><font class="style6"><strong><script>document.write(str_overlay_option)</script></strong></span><strong><span class="style_color"> </span> </strong> </font></td>
+          </tr>
+				<tr align="left" id="layer1">
+   <td><script>document.write(str_overlay_time)</script></td>
+    <td><input type="radio" id="form_region0_on" name="timeradio" value="radiobutton" checked>
+      <script type="text/javascript">document.write(str_start_up);</script>
+	<input type="radio" id="form_region0_off" name="timeradio" value="radiobutton">
+	<script type="text/javascript">document.write(str_close1);</script>	</td>
+  </tr>
+                <tr align="left" id="layer2">
+                  <td><script>document.write(str_overlay_name)</script></td>
+    <td><input type="radio" id="form_region1_on" name="nameradio" value="radiobutton" checked >
+	<script type="text/javascript">document.write(str_start_up);</script>
+	<input type="radio" id="form_region1_off" name="nameradio" value="radiobutton">
+	<script type="text/javascript">document.write(str_close1);</script>	</td>
+  </tr>
+                </tr>
+                <tr align="left" id="layer3">
+                  <td><script>document.write(str_overlay_name)</script><strong></strong> </td>
+                  <td><input type="text" id="form_region1_name" size="15" maxlength="20"></td>                 
+					<!--<font color="#CC3333"><script>document.write(str_st1)</script></font>--></td>
+                </tr>
+      </table>
+                <table align="center" border="0" cellpadding="0" cellspacing="3" width="95%">
+                  <tr>
+				  	<td width="220"></td>
+                    <td width="80"><button onClick="do_submit()" type="button"><script>document.write(str_sure)</script></button></td>
+                    <td align="left"><button onClick="javascript:location.reload(true)" type="button"><script>document.write(str_cancle)</script></button></td>
+               <!--     <td><a  onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image181','','images/botton/help2-Over.gif',1)"><img src="images/botton/help2.gif" name="Image181" width="82" height="26" border="0" id="Image181"></a></td>-->
+                  </tr>
+      </table></td>
+          </tr>
+        </table>
+</form>
+    <form name="form2" method="post">	
+	<input name="cmd" type="hidden" value="setvideoattr">
+	<input name="videomode" type="hidden">
+	<input name="vinorm" type="hidden">
+	<input name="profile" type="hidden">
+	
+	<input name="cmd" type="hidden" value="setvencattr"> 
+	<input name="cururl" type="hidden">      	     
+	<input name="chn1" type="hidden">
+	<input name="bps1" type="hidden">
+	<input name="fps1" type="hidden">
+	<input name="brmode1" type="hidden">
+	<input name="imagegrade1" type="hidden">
+	<input name="gop1" type="hidden">	         			
+	
+	<input name="cmd" type="hidden" value="setvencattr">	 
+	<input name="chn2" type="hidden"> 
+	<input name="bps2" type="hidden">	    	    	        
+	<input name="fps2" type="hidden">
+	<input name="brmode2" type="hidden">	 
+	<input name="imagegrade2" type="hidden">
+	<input name="gop2" type="hidden">	
+	
+	<input name="cmd" type="hidden" value="setvencattr">	 
+	<input name="chn3" type="hidden"> 
+	<input name="bps3" type="hidden">	    	    	        
+	<input name="fps3" type="hidden">
+	<input name="brmode3" type="hidden">	 
+	<input name="imagegrade3" type="hidden">
+	<input name="gop3" type="hidden">	             
+	
+	<input name="cmd" type="hidden" value="setoverlayattr">
+	<input name="region0" type="hidden">
+	<input name="show0" type="hidden">
+	<input name="cmd" type="hidden" value="setoverlayattr">
+	<input name="region1" type="hidden">
+	<input name="show1" type="hidden">
+	<input name="name1" type="hidden">
+	<input name="cmd" type="hidden" value="setmobilesnapattr">	 
+	<input name="msize" type="hidden">
+</form>
+
+
+<form name="form3" method="post">	      
+	<input name="cmd" type="hidden" value="setvencattr"> 
+	<input name="cururl" type="hidden">      	     
+	<input name="chn1" type="hidden">
+	<input name="bps1" type="hidden">
+	<input name="fps1" type="hidden">	              	     	         
+	<input name="brmode1" type="hidden">
+	<input name="imagegrade1" type="hidden">
+	<input name="gop1" type="hidden">	         			
+	
+	<input name="cmd" type="hidden" value="setvencattr">	 
+	<input name="chn2" type="hidden">
+	<input name="bps2" type="hidden">        
+	<input name="fps2" type="hidden">
+	<input name="brmode2" type="hidden">
+	<input name="imagegrade2" type="hidden">
+	<input name="gop2" type="hidden">
+	
+	<input name="cmd" type="hidden" value="setvencattr">	 
+	<input name="chn3" type="hidden">
+	<input name="bps3" type="hidden">        
+	<input name="fps3" type="hidden">
+	<input name="brmode3" type="hidden">
+	<input name="imagegrade3" type="hidden">
+	<input name="gop3" type="hidden">	
+						  
+	<input name="cmd" type="hidden" value="setvideoattr">
+	<input name="videomode" type="hidden">
+	<input name="vinorm" type="hidden">
+	<input name="profile" type="hidden">
+	
+	<input name="cmd" type="hidden" value="setoverlayattr">
+	<input name="region0" type="hidden">
+	<input name="show0" type="hidden">
+	<input name="cmd" type="hidden" value="setoverlayattr">
+	<input name="region1" type="hidden">
+	<input name="show1" type="hidden">
+	<input name="name1" type="hidden">
+	<input name="cmd" type="hidden" value="setmobilesnapattr">	 
+	<input name="msize" type="hidden">
+</form>        
+
+<!-- ImageReady Slices (ipCAM.psd - Slices: 02, 05, 06, 08, 09, 11, 12, 13, 15, 21, 22, 28, 30, 35, 36, 39, 42, 46, 50, 53) -->
+<!-- End ImageReady Slices -->
+</body>
+</html>

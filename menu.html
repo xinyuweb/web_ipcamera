@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="css/css.css" rel="stylesheet" type="text/css">
+<title>IP Camera</title>
+<link rel="stylesheet" href="css/navigator.css" type="text/css">
+<link rel="stylesheet" href="style.css" type="text/css">
+<base target="contents">
+<script src="public.js"></script>
+<script LANGUAGE="JavaScript">
+<!--
+doc = document; 
+var indexOfEntries = new Array();
+var nEntries = 0;
+var imageWidth = new Array(0, 7, 10, 13, 16);
+var imagePath = "images/";
+
+function turnmpage(){
+		var nbrowser=getcookie('browser');
+		if(nbrowser=="1"){
+		 	if(language=='simple_chinese' || language=='traditional_chinese')
+				{
+				document.getElementById('tr_c').href='admin2.html';
+				//document.getElementById('tr_c').href='admin.html';
+				//document.getElementById('mainframe').src='monitor2.html';
+				}else if(language=='korean')
+				{
+				document.getElementById('tr_kr').href='admin2.html';
+				//document.getElementById('tr_c').href='admin.html';
+				//document.getElementById('mainframe').src='monitor2.html';
+				}
+			else{
+				document.getElementById('tr').href='admin2.html';
+				//document.getElementById('mainframe').src='monitor2.html';
+				}
+		}else{
+			if(language=='simple_chinese' || language=='traditional_chinese'){
+				document.getElementById('tr_c').href='admin1.html';
+				//document.getElementById('mainframe').src='mainpage.html';
+				}else if(language=='korean'){
+				document.getElementById('tr_kr').href='admin1.html';
+				//document.getElementById('mainframe').src='mainpage.html';
+				}
+			else{
+				document.getElementById('tr').href='admin1.html';
+				//document.getElementById('mainframe').src='mainpage.html';
+				}
+		}
+	}
+
+function setUnderline(unValue){
+  unValue.style.textDecoration='underline';
+  unValue.style.cursor='pointer'
+}
+
+function deleteUnderline(unValue){
+  unValue.style.textDecoration='none';
+}
+
+function onl(){
+	//var language1=getcookie('language');
+	if(language=='simple_chinese' || language=='traditional_chinese'){
+			document.getElementById('return_c').style.display="";
+			document.getElementById('return').style.display="none";
+			document.getElementById('return_kr').style.display="none";
+	}else if(language=='korean'){
+			document.getElementById('return_c').style.display="none";
+			document.getElementById('return').style.display="none";
+			document.getElementById('return_kr').style.display="";
+			}
+	else{
+			document.getElementById('return').style.display="";
+			document.getElementById('return_c').style.display="none";
+			document.getElementById('return_kr').style.display="none";
+			
+	}
+	
+	if (navigator.appName.indexOf("Microsoft Internet Explorer") == -1) {
+    	document.getElementById("addport").style.display = "none";
+	
+		document.getElementById("ie_md").style.display = "none";
+		document.getElementById("chrome_md").style.display = "";
+	}else {
+		document.getElementById("ie_md").style.display = "";
+		document.getElementById("chrome_md").style.display = "none";
+	}
+}
+
+//---------------------------------------------------------------------------
+//-->
+
+</script>
+</head>
+
+<body leftmargin="0" topmargin="0" class="menu_color" onLoad="onl()" >
+<script language="JavaScript">
+	function openset(i){
+		var wdiv;
+		wdiv=i;
+		for(var i=1;i<=5;i++){
+			document.getElementById("table"+i).style.display="none";
+		}
+		if(document.getElementById("table"+wdiv).style.display!="")
+		document.getElementById("table"+wdiv).style.display="";
+		else
+		document.getElementById("table"+wdiv).style.display="none";
+	}
+</script>
+<div><table align="center" width="170" border="0" cellspacing="0" cellpadding="2"><tr><td><img src="images/space.gif"/></td></tr></table></div>
+<div id="div1" onclick="openset(1);"><table align="center" width="170" border="0" cellspacing="0" cellpadding="2" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)" class="global_navigator_level1"><tr><td width="7"><img src="images/1_close.gif"/></td>
+<td width="127"><script>document.write(str_system_set)</script></td></tr></table><table align="center" width="170" border="0" cellspacing="0" cellpadding="2"><tr><td><img src="images/space.gif"/></td></tr></table></div>
+<div id="table1" style="display:none"><table align="center" width="170" border="0" cellspacing="0" cellpadding="2" class="global_navigator_level2">
+<tr><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='deviceinfo.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_dev_info)</script></td></tr>
+<tr bgcolor="#FFFFFF"><td colspan="2"><img src="images/space.gif"/></td></tr>
+<tr><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='time.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_time_reset)</script></td></tr>
+<tr bgcolor="#FFFFFF"><td colspan="2"><img src="images/space.gif"/></td></tr>
+<tr><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='initialize.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_initial_set)</script></td></tr>
+<tr bgcolor="#FFFFFF"><td colspan="2"><img src="images/space.gif"/></td></tr>
+</table></div>
+
+<div id="div2" onclick="openset(2);"><table align="center" width="170" border="0" cellspacing="0" cellpadding="2" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)" class="global_navigator_level1"><tr><td width="7"><img src="images/1_close.gif"/></td><td><script>document.write(str_net_set)</script></td></tr></table><table align="center" width="170" border="0" cellspacing="0" cellpadding="2"><tr><td><img src="images/space.gif"/></td></tr></table></div>
+<div id="table2" style="display:none"><table align='center' width='170' border='0' cellspacing='0' cellpadding='2' class="global_navigator_level2">
+<tr><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='network.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_net_set)</script></td></tr>
+<tr bgcolor="#FFFFFF"><td colspan="2"><img src="images/space.gif"/></td></tr>
+<tr><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='wifi.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_wireless_setting)</script></td></tr>
+<tr bgcolor="#FFFFFF"><td colspan="2"><img src="images/space.gif"/></td></tr>
+<tr><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='ddns.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_remote_access)</script></td></tr>
+<tr bgcolor="#FFFFFF"><td colspan="2"><img src="images/space.gif"/></td></tr>
+<tr><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='onvif.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_onvif_set)</script></td></tr>
+<tr bgcolor="#FFFFFF"><td colspan="2"><img src="images/space.gif"/></td></tr>
+</table></div>
+
+<div id="div3" onclick="openset(3);"><table align="center" width="170" border="0" cellspacing="0" cellpadding="2" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)" class="global_navigator_level1"><tr><td width="7"><img src="images/1_close.gif"/></td><td><script>document.write(str_advanced_set)</script></td></tr></table><table align="center" width="170" border="0" cellspacing="0" cellpadding="2"><tr><td><img src="images/space.gif"/></td></tr></table></div>
+<div id="table3" style="display:none"><table align="center" width="170" border="0" cellspacing="0" cellpadding="2" class="global_navigator_level2">
+<tr><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='user.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_user_manage)</script></td></tr>
+<tr bgcolor="#FFFFFF"><td colspan="2"><img src="images/space.gif"/></td></tr>
+<tr><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='autosnap.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_capture_time)</script></td></tr>
+<tr bgcolor="#FFFFFF"><td colspan="2"><img src="images/space.gif"/></td></tr>
+<tr><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='record.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_record_time)</script></td></tr>
+<tr bgcolor="#FFFFFF"><td colspan="2"><img src="images/space.gif"/></td></tr>
+<tr><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='email.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_email)</script></td></tr>
+<tr bgcolor="#FFFFFF"><td colspan="2"><img src="images/space.gif"/></td></tr>
+<tr><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='ftp.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_ftp)</script></td></tr>
+<tr bgcolor="#FFFFFF"><td colspan="2"><img src="images/space.gif"/></td></tr>
+<tr style="display:none"><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='server.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_police_server)</script></td></tr>
+<tr bgcolor="#FFFFFF"><td colspan="2"><img src="images/space.gif"/></td></tr>
+<tr id="addport"><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='addport.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_addport_set)</script></td></tr>
+<tr bgcolor="#FFFFFF"><td colspan="2"><img src="images/space.gif"/></td></tr>
+<tr><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='terminal.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_platset)</script></td></tr>
+<tr bgcolor="#FFFFFF"><td colspan="2"><img src="images/space.gif"/></td></tr>
+</table></div>
+
+<div id="div4" onclick="openset(4);"><table align="center" width="170" border="0" cellspacing="0" cellpadding="2" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)" class="global_navigator_level1"><tr><td width="7"><img src="images/1_close.gif"/></td><td><script>document.write(str_police_set)</script></td></tr></table><table align="center" width="170" border="0" cellspacing="0" cellpadding="2"><tr><td><img src="images/space.gif"/></td></tr></table></div>
+<div id="table4" style="display:none"><table align="center" width="170" border="0" cellspacing="0" cellpadding="2" class="global_navigator_level2">
+<tr style="display:none;"><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='alarmin.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_external_alarm)</script></td></tr>
+<tr bgcolor="#FFFFFF"><td colspan="2"><img src="images/space.gif"/></td></tr>
+
+<tr id="ie_md" style="display:none;"><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='md_ie.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_motion_alarm)</script></td></tr>
+
+<tr id="chrome_md" style="display:none"><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='md.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_motion_alarm)</script></td></tr>
+
+
+<tr bgcolor="#FFFFFF"><td colspan="2"><img src="images/space.gif"/></td></tr>
+<tr><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='alarmaudio.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_alarmaudio)</script></td></tr>
+<tr bgcolor="#FFFFFF"><td colspan="2"><img src="images/space.gif"/></td></tr>
+<tr><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='alarm.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_linkage_alarm)</script></td></tr>
+<tr bgcolor="#FFFFFF"><td colspan="2"><img src="images/space.gif"/></td></tr>
+<tr><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='schedule.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_alarm_time)</script></td></tr>
+<tr bgcolor="#FFFFFF"><td colspan="2"><img src="images/space.gif"/></td></tr>
+</table></div>
+
+<div id="div5" onclick="openset(5);"><table align="center" width="170" border="0" cellspacing="0" cellpadding="2" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)" class="global_navigator_level1"><tr><td width="7"><img src="images/1_close.gif"/></td><td><script>document.write(str_sound_video_set)</script></td></tr></table></div>
+<div id="table5" style="display:none"><table align="center" width="170" border="0" cellspacing="0" cellpadding="2" class="global_navigator_level2">
+<tr><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='display.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_image_parameters)</script></td></tr>
+<tr bgcolor="#FFFFFF"><td colspan="2"><img src="images/space.gif"/></td></tr>
+<tr><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='video.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_video_parameters)</script></td></tr>
+<tr bgcolor="#FFFFFF"><td colspan="2"><img src="images/space.gif"/></td></tr>
+<tr><td width="10"><img src="images/2_item.gif"/></td><td onclick="javascript:parent.document.getElementById('main').src='audio.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_audio_parameters)</script></td></tr>
+<tr bgcolor="#FFFFFF"><td colspan="2"><img src="images/space.gif"/></td></tr>
+</table></div>
+<p align="center">
+<div id="return_c" style="display: none" align="center"><a id="tr_c" target="_top" onClick="turnmpage()"  style="cursor:pointer;">
+<img id="img_return" name="img_return" border="0" src="images/return_c.gif" width="90" height="25" onMouseOver="this.src='images/return_on_c.gif'" onMouseOut="this.src='images/return_c.gif'"></a>
+</div>
+<div id="return" style="display: none" align="center"><a id="tr" target="_top" onClick="turnmpage()" style="cursor:pointer;" >
+<img id="img_return" name="img_return" border="0" src="images/return.gif" width="90" height="25" onMouseOver="this.src='images/return_on.gif'" onMouseOut="this.src='images/return.gif'">
+</a>
+</div>
+<div id="return_kr" style="display: none" align="center"><a id="tr_kr" target="_top" onClick="turnmpage()" style="cursor:pointer;" >
+<img id="img_return" name="img_return" border="0" src="images/return_kr.gif" width="90" height="25" onMouseOver="this.src='images/return_on_kr.gif'" onMouseOut="this.src='images/return_kr.gif'">
+</a>
+</div>
+</p>
+<p></p>
+</body>
+</html>

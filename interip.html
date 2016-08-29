@@ -1,0 +1,29 @@
+﻿<html>
+<head>
+<title>Internet IP Address</title>
+
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+<meta NAME="AUTHOR" CONTENT="mike@yoics">
+<META http-equiv="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+<script src="public.js"></script>
+<!-- Do a wifi scan -->
+<script language="JavaScript1.2" src="/cgi-bin/getinterip.cgi" type="text/javascript"></script>
+
+<script type="text/javascript"> 
+<!--
+function load()
+{
+	if (interip == "")
+		document.write(str_alert43);
+	else
+		document.write(str_alert44+interip);
+}
+//-->
+</script>
+
+</head>
+<body onLoad="load();">
+</body>
+</html>

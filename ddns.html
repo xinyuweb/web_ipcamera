@@ -1,0 +1,351 @@
+﻿<html>
+<head>
+<title>ipCAM</title>
+<meta content="text/html; charset=UTF-8" http-equiv="content-type">
+<META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+<META http-equiv="Pragma" CONTENT="no-cache">
+
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+
+<meta HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"> 
+<!-- ImageReady Preload Script (ipCAM.psd) -->
+<script src="public.js"></script>
+<script language="JavaScript1.2" src="cgi-bin/hi3510/param.cgi?cmd=getourddnsattr&cmd=get3thddnsattr&cmd=getupnpattr" type="text/javascript"></script>
+<script type="text/javascript">
+function on_load()
+{
+	if (our_enable ==1)
+	{
+		form1.ddnset[0].checked=true;
+		do_filename();
+	}
+	else
+	{
+		form1.ddnset[1].checked=true;
+		do_filename();
+	}
+	form1.fserver.value=our_server;
+	form1.fport.value=our_port;
+	form1.fuser.value=our_uname;
+	form1.fpasswd.value=our_passwd;
+	
+	
+	if (d3th_enable ==1)
+	{
+		form1.ddn3thset[0].checked=true;
+		do_filename1();
+	}
+	else
+	{
+		form1.ddn3thset[1].checked=true;
+		do_filename1();
+	}
+	if(d3th_service==0)
+	{
+		form1.serverselect.options[0].selected=true;
+	}
+	else if(d3th_service==1)
+	{
+		form1.serverselect.options[1].selected=true;
+	}
+	else if(d3th_service==2)
+	{
+		form1.serverselect.options[2].selected=true;
+	}
+	else if(d3th_service==3)
+	{
+		form1.serverselect.options[3].selected=true;
+	}
+	if (upm_enable ==1)
+	{
+		form1.upnpradio[0].checked=true;
+	}
+	else
+	{
+		form1.upnpradio[1].checked=true;
+	}
+	
+	form1.ddns3thuser.value=d3th_uname;
+	form1.ddns3thpwd.value=d3th_passwd;
+	form1.ddns3thdomain.value=d3th_domain;
+}
+
+function getwebip()
+{
+	window.open("interip.html","InternetIPAddress","height=120,width=350,top=200,left=300,toolbar=no,menubar=no,scrollbars=no,location=no,status=no");
+}
+
+function do_filename()
+{
+	var form=document.form1;
+	var i;
+	if(form.ddnset[0].checked==true)
+	{
+		document.getElementById('csdtym').style.display="";
+	}
+else
+	{
+		document.getElementById('csdtym').style.display="none";
+	}
+}
+
+function do_filename1()
+{
+	var form=document.form1;
+	var i;
+	if(form.ddn3thset[0].checked==true)
+	{
+		document.getElementById('layers').style.display='';
+	}
+else
+	{
+		document.getElementById('layers').style.display='none';
+	}
+}
+
+
+function do_submit()
+{
+    form=document.form2;
+	var ouren=0;
+	var d3then=0;
+	var d3thsvr=0;
+	var upmen=0;
+	if(form1.ddnset[0].checked)
+	{
+		ouren=1;
+	}
+	else
+	{
+		ouren=0;
+	}
+	if(form1.ddn3thset[0].checked)
+	{
+		d3then=1;
+	}
+	else
+	{
+		d3then=0;
+	}
+	if(form1.upnpradio[0].checked)
+	{
+		upmen=1;
+	}
+	else
+	{
+		upmen=0;
+	}
+		
+	form.our_enable.value=ouren;
+	form.fport.value=form1.fport.value;
+	form.fuser.value=form1.fuser.value;
+	form.fpasswd.value=form1.fpasswd.value
+	form.fserver.value=form1.fserver.value
+	form.d3th_enable.value=d3then;
+	form.d3th_service.value=form1.serverselect.value;
+	form.d3th_uname.value=form1.ddns3thuser.value;
+	form.d3th_passwd.value=form1.ddns3thpwd.value;
+	form.d3th_domain.value=form1.ddns3thdomain.value;
+	form.upm_enable.value=upmen;
+		
+	
+	if(checkProhibitedCharacter(form1.fserver,form1.fserver.value)==false)return false;
+	//if(checkHankakuNoKana(form1.fserver.value,form1.fserver,str_st8)==false)return false;	
+    if(checkProhibitedCharacter(form1.fport,form1.fport.value)==false)return false;
+	//if(checkHankakuNoKana(form1.fport.value,form1.fport,str_st8)==false)return false;		
+	if(checkProhibitedCharacter(form1.fuser,form1.fuser.value)==false)return false;
+	//if(checkHankakuNoKana(form1.fuser.value,form1.fuser,str_st8)==false)return false;		
+	if(checkProhibitedCharacter(form1.fpasswd,form1.fpasswd.value)==false)return false;
+	//if(checkHankakuNoKana(form1.fpasswd.value,form1.fpasswd,str_st8)==false)return false;		
+	if(checkProhibitedCharacter(form1.ddns3thuser,form1.ddns3thuser.value)==false)return false;
+	//if(checkHankakuNoKana(form1.ddns3thuser.value,form1.ddns3thuser,str_st8)==false)return false;		
+	if(checkProhibitedCharacter(form1.ddns3thpwd,form1.ddns3thpwd.value)==false)return false;
+	//if(checkHankakuNoKana(form1.ddns3thpwd.value,form1.ddns3thpwd,str_st8)==false)return false;	
+	if(checkProhibitedCharacter(form1.ddns3thdomain,form1.ddns3thdomain.value)==false)return false;
+	//if(checkHankakuNoKana(form1.ddns3thdomain.value,form1.ddns3thdomain,str_st8)==false)return false;	
+
+	
+	form.our_enable.name="-our_enable";
+	form.fport.name = "-our_port";
+	form.fuser.name = "-our_uname";
+	form.fpasswd.name = "-our_passwd";
+	form.fserver.name = "-our_server";
+	form.d3th_enable.name="-d3th_enable";
+	form.d3th_service.name="-d3th_service";
+	form.d3th_uname.name="-d3th_uname";
+	form.d3th_passwd.name="-d3th_passwd";
+	form.d3th_domain.name="-d3th_domain";
+	form.upm_enable.name="-upm_enable";
+
+	form.action="/cgi-bin/hi3510/param.cgi?";
+	form.cururl.value =document.URL;
+	form.submit();
+}
+
+
+</script>
+
+<style type="text/css">
+<!--
+.style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.style2 {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style5 {font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style6 {color: #810000}
+-->
+</style>
+</head>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="on_load();">
+	<form name="form1">
+            <table width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5">
+            <tr>
+            <td colspan="2" style="font-size:24px" class="style6"><strong><script>document.write(str_remote_access)</script></strong></td>                         
+            </tr>             
+   <!--     <tr align="left">
+            <td colspan=2 bgcolor="#CCCCCC"> <strong class="style6"><script>document.write(str_net_ip)</script></strong></td>
+            </tr>            
+            <td colspan=2>
+            <button name="B1" onClick="getwebip()"><script>document.write(str_search)</script></button></td>            
+             <tr>
+        <td colspan="2">
+		</td>
+		</tr> 
+
+	<tr id="layer5">
+ 	<td align="left" colspan=2> 
+<strong></strong> </td>    	
+	</tr>
+	<tr>
+	</tr>-->
+		<tr>
+ 	<td align="left" bgcolor="#CCCCCC" colspan="2"> 
+<strong><span class="style6"><script>document.write(str_trends_realm_name)</script></span></strong></td>    	
+	</tr>
+
+	<tr>
+ 	<td align="left" colspan=2> 
+                  	<input type="radio" name="ddnset" value="ddnsradiobutton1" onClick="do_filename()" checked>
+					<script>document.write(str_start_use)</script>
+                    <input type="radio" name="ddnset" value="ddnsradiobutton2" onClick="do_filename()">
+					<script>document.write(str_close1)</script></td>    	
+	</tr>
+	<tr><td colspan="2"><div id="csdtym" style="display:none"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5"><tr id="layer5">
+ 	<td width="220" align="left"> 
+<script>document.write(str_server_address2)</script></td>    	
+ 	<td align="left"> 
+<input type="text" name="fserver" maxlength="32" size="22" readonly="true"></td>    	
+	</tr>
+
+	<tr id="layer6">
+ 	<td align="left"> 
+<script>document.write(str_server_port)</script></td>    	
+ 	<td align="left"> 
+<input type="text" name="fport" maxlength="5" size="22"></td>    	
+	</tr>
+
+	<tr id="layer7">
+ 	<td align="left"> 
+<script>document.write(str_username)</script></td>    	
+ 	<td align="left"> 
+<input type="text" name="fuser" maxlength="32" size="22"></td>    	
+	</tr>
+
+	<tr id="layer8">
+ 	<td align="left"> 
+<script>document.write(str_password)</script></td>    	
+ 	<td align="left"> 
+<input type="password" name="fpasswd" maxlength="32" size="22" style="width:166px"></td>    	
+	</tr>
+	<tr id="layer9">
+ 	<td align="left" colspan=2> 
+　</td>    	
+	</tr>
+	<tr>
+<!--	<td colspan=2>
+	<a href="/cgi-bin/test.cgi">Remote Connectivity Diagnostics</a>
+	<br>
+	</td>
+	-->
+	</tr></table></div></td></tr>
+                <tr>
+                  <td align="left" bgcolor="#CCCCCC" colspan="2"><strong><span class="style6"><script>document.write(str_trends_realm_name_install)</script>
+					</span></strong></td>
+                </tr>
+               <tr align="left">
+               	
+                  <td colspan="2">
+                  	<input type="radio" name="ddn3thset" value="ddn3thsetbutton" onClick="do_filename1()">
+					<script>document.write(str_start_use)</script>
+                    <input type="radio" name="ddn3thset" value="ddn3thsetbutton" onClick="do_filename1()">
+					<script>document.write(str_close1)</script></td>
+              </tr></table><div id="layers" style="display:none"><table width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5">
+                <tr id="layer0">
+                  <td width="220" align="left"><script>document.write(str_service_providers)</script></td>
+                  <td align="left"><select name="serverselect" size="1">
+                    <option value="0">Dyndns.org </option>
+                    <option value="1">3322.org </option>
+                    <option value="2">Dynddns.us</option>
+					<option value="3">No-ip.com</option>
+                  </select></td>
+              </tr>
+                <tr id="layer1">
+                  <td align="left"><script>document.write(str_username)</script></td>
+                  <td align="left"><input name="ddns3thuser" type="text" id="ddns3thuser" maxlength="128" size="22"></td>
+              </tr>
+                <tr align="left" id="layer2">
+                  <td><script>document.write(str_password)</script></td>
+                  <td><input name="ddns3thpwd" type="password" id="ddns3thpwd" maxlength="64" size="22" style="width:166px"></td>
+                </tr>
+                <tr align="left" id="layer3">
+                  <td><script>document.write(str_host_name)</script></td>
+                  <td><input name="ddns3thdomain" type="text" id="ddns3thdomain" maxlength="128" size="22"></td>
+                </tr></table></div>
+				<table width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5">
+                    <tr align="left">
+                  <td bgcolor="#CCCCCC" colspan="2"> <strong class="style6"><script>document.write(str_upnp_auto)</script></strong></td>
+                </tr>
+                <tr align="left">
+                  <td colspan="2">
+                  	<input type="radio" name="upnpradio" value="radiobutton">
+					<script>document.write(str_start_use)</script>
+                    <input type="radio" name="upnpradio" value="radiobutton">
+					<script>document.write(str_close1)</script></td>
+              </tr>
+      </table>
+</form>        
+       <table align="center" border="0" cellpadding="0" cellspacing="3" width="95%">
+                  <tr>
+				  	<td width="220"></td>
+                    <td width="80"><button onClick="do_submit()"><script>document.write(str_sure)</script></button></td>
+                    <td align="left"><button onClick="javascript:location.reload(true)"><script>document.write(str_refresh)</script></button></td>
+         </tr>
+</table>
+     <form name="form2" method="post">
+	<input name="cmd" type="hidden" value="setourddnsattr">
+	<input name="cururl" type="hidden">
+	<input name="our_enable" type="hidden"> 
+	<input name="fport" type="hidden">
+	<input name="fuser" type="hidden">
+	<input name="fpasswd" type="hidden">
+	<input name="fserver" type="hidden">
+	
+	<input name="cmd" type="hidden" value="set3thddnsattr">
+	<input name="d3th_enable" type="hidden">
+	<input name="d3th_service" type="hidden">
+	<input name="d3th_uname" type="hidden">
+	<input name="d3th_passwd" type="hidden">
+	<input name="d3th_domain" type="hidden">
+	<input name="cmd" type="hidden" value="setupnpattr">
+	<input name="upm_enable" type="hidden">
+</form>
+<!-- ImageReady Slices (ipCAM.psd - Slices: 02, 05, 06, 08, 09, 11, 12, 13, 15, 21, 22, 28, 30, 35, 36, 39, 42, 46, 50, 53) -->
+<!-- End ImageReady Slices -->
+</body>
+</html>
