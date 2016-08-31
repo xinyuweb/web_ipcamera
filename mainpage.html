@@ -59,6 +59,7 @@ body {
 
 <link rel="stylesheet" href="style.css" type="text/css">
 <script src="public.js"></script>
+<script src="resources/AC_RunActiveContent.js"></script>
 
 <script>
 
@@ -778,6 +779,8 @@ p {
 }
 </style>
 
+<!-- valign 属性规定单元格中内容的垂直排列方式。 middle对内容进行居中对齐（默认值）。-->
+
 <body align="center" onLoad="load1();" onscroll="flush()">
     <table width="100%" height="100%"  border="0" cellpadding="0" cellspacing="0">
         <tr>
@@ -785,14 +788,21 @@ p {
                 <table width="352" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                         <td><img src="images/easyn2_10.gif" width="35" height="20"></td>
+
                         <td width="424" height="20" background="images/easyn2_11.gif"></td>
+
                         <td width="24"><img src="images/easyn2_12.gif" width="11" height="20"></td>
                     </tr>
 
+
+
+
+                    <!-- background-repeat 属性设置是否及如何重复背景图像。repeat-y表示在竖直方向上进行重复 -->
                     <tr>
                         <td valign="top" background="images/easyn2_26.gif" style="background-repeat:repeat-y">
                             <img src="images/easyn2_13.gif" width="35"><br><br>
                         </td>
+
 
                         <td rowspan="3" align="center" id="mydisplay">
 
@@ -813,11 +823,15 @@ p {
                             document.write('<param name="_StockProps" value="0">');
                             document.write('<embed src="65536" _version="65536" _extentx="10954" _extenty="6826" _stockprops="0" align="center" height="0" width="0"> </object>');
                             document.close();
+
                         }
                         else
                         {
 
                             var hasRequestedVersion = DetectFlashVer(10, 0, 0);
+
+                            hasRequestedVersion = false;
+
                             if(!hasRequestedVersion)
                             {
                                 var div = document.getElementById("ipcam_display");
