@@ -6,9 +6,6 @@
 
 
 <style type="text/css">
-
-
-<!--
 .style1 {font-weight: bold}
 .style2 {
 	font-size: 36px;
@@ -16,59 +13,31 @@
 }
 .style4 {color: black}
 .f15 {
-font-size: 12px;
-font-weight: bold;
-color: #810000;
-cursor: pointer;
+	font-size: 12px;
+	font-weight: bold;
+	color: #810000;
+	cursor: pointer;
 }
--->
-
-
 </style>
-
-
 
 <script src="public.js"></script>
 
 
-
 <script>
 
-var bnoshow=getcookie('noshow');
-if(bnoshow=="1")
+
+function onSetNoShow()
 {
-	var nbrowser=getcookie('browser');
-	if(nbrowser=="1")
-		location='monitor2.html';
-	else if(nbrowser=="2")
-		location='pda.html';
+	if(chknoagain.checked)
+	{
+		setcookie('noshow',"1",720);
+	}
 	else
-		location='mainpage.html';
+	{
+		setcookie('noshow',"0",720);
+	}
 }
 
-function onlanchanged()
-{
-	var vlanguage=lan.value;
-	if(vlanguage==2)		
-	{
-		setcookie('language',"simple_chinese",720);
-	}
-	else if(vlanguage==3)		
-	{
-		setcookie('language',"traditional_chinese",720);
-	}
-	else if(vlanguage==4)		
-	{
-		setcookie('language',"korean",720);
-	}
-	else 
-	{
-		setcookie('language',"english",720);
-	}
-	location.reload();
-}
-
-//Location 对象存储在 Window 对象的 Location 属性中，表示那个窗口中当前显示的文档的 Web 地址
 function signin_activex()
 {
 	onSetNoShow();
@@ -93,48 +62,83 @@ function signin_pda()
 }
 
 
-function signin_iphone(){
+function signin_iphone()
+{
 	onSetNoShow();
 	setcookie('browser',"2",720)
 	location='iph.html';
 }
 
-
-function onSetNoShow()
+function onlanchanged()
 {
-	if(chknoagain.checked)
-		setcookie('noshow',"1",720);
+	var vlanguage=lan.value;
+	if(vlanguage==2)
+	{
+		setcookie('language',"simple_chinese",720);
+	}
+	else if(vlanguage==3)
+	{
+		setcookie('language',"traditional_chinese",720);
+	}
+	else if(vlanguage==4)
+	{
+		setcookie('language',"korean",720);
+	}
 	else
-		setcookie('noshow',"0",720);
+	{
+		setcookie('language',"english",720);
+	}
+	location.reload();
 }
 
 
 function getLan()
 {
-if (language=='simple_chinese')
+	if (language=='simple_chinese')
+	{
 		return "cn";
-else if (language=='traditional_chinese')	
-	return "bib5";
-else if (language=='spanish')
-	return "es";
-else if (language=='french')
-	return "fr";
-else if (language=='russian')
-	return "ru";
-else if (language=='polski')
-	return "pl";
-else if (language=='Portuguese')
-	return "pt";
-else if (language=='italian')
-	return "it";
-else if (language=='deutsch')
-	return "de";	
-else
-	return "en";
+	}
+	else if (language=='traditional_chinese')
+	{
+		return "bib5";
+	}
+	else if (language=='spanish')
+	{
+		return "es";
+	}
+	else if (language=='french')
+	{
+		return "fr";
+	}
+	else if (language=='russian')
+	{
+		return "ru";
+	}
+	else if (language=='polski')
+	{
+		return "pl";
+	}
+	else if (language=='Portuguese')
+	{
+		return "pt";
+	}
+	else if (language=='italian')
+	{
+		return "it";
+	}
+	else if (language=='deutsch')
+	{
+		return "de";
+	}
+	else
+	{
+		return "en";
+	}
 
 }
+
 function openeasynsite()
-{	
+{
 	if (language=='simple_chinese')
 	{
 		newpage.action="http://www.easyn.cn";
@@ -145,7 +149,6 @@ function openeasynsite()
 	}
 	newpage.submit();
 }
-
 
 function openonlinetech()
 {
@@ -160,6 +163,28 @@ function openapp()
 	newpage.submit();
 }
 
+/*
+* 仅仅是用户当前所见页面，并没有操作
+*
+* */
+var bnoshow=getcookie('noshow');
+if(bnoshow=="1")
+{
+	var nbrowser=getcookie('browser');
+	if(nbrowser=="1")
+	{
+		location='monitor2.html';
+	}
+	else if(nbrowser=="2")
+	{
+		location='pda.html';
+	}
+	else
+	{
+		location='mainpage.html';
+	}
+
+}
 </script>
 </head>
 
@@ -177,13 +202,18 @@ tr 元素定义表格行，th 元素定义表头，td 元素定义表格单元�
 -->
 
 <table width="100%" height="62" border="0" cellPadding="0" cellSpacing="0">
-  <tr>
-    <td bordercolor="0" class="big_header style1">  &nbsp;&nbsp;
-      <div align="center">
-		  <span class="style2"><script>document.write(str_ipcam);</script></span>
-      </div>
-	</td>
-  </tr>
+	<tr>
+		<td bordercolor="0" class="big_header style1">  &nbsp;&nbsp;
+		  <div align="center">
+			  <span class="style2"><script>document.write(str_ipcam); </script></span>
+		  </div>
+
+		</td>
+	</tr>
+
+	<tr>
+		<script>document.write(Date());</script>
+	</tr>
 
   <tr>
 	<td height="5" bgcolor="#810000"></td>
@@ -192,114 +222,86 @@ tr 元素定义表格行，th 元素定义表头，td 元素定义表格单元�
 
 
 <!-- <br> 可插入一个简单的换行符。 -->
+<!--<span> 标签被用来组合文档中的行内元素,是对行内的某些元素进行格式化所用 -->
 
 <br>
 <br>
+
+
 <table width="333" height="141" border="0" align="center" cellpadding="0" cellspacing="0">
-  <tr class="f14">
-    <td width="429"><script>document.write(str_mode_activex)</script> </td>
-  </tr>
-
-
-	<!-- onClick：是单击鼠标左键事件。javascript：标示函数为javascript。mysub()：单击触发的javascript函数。 -->
-
-  <tr class="f14">
-    <td height="25"><span class="f16 curspan2" onClick="javascript:signin_activex()"><script>document.write(str_signin)</script></span></td>
-  </tr>
-
- <tr class="f14">
-    <td height="21">&nbsp;</td>
-  </tr>
- <!-- <tr class="f14">
-    <td><script>document.write(str_mode_serverpush)</script></td>
-  </tr>
-  <tr class="f14">
-    <td height="25"> <span class="f16 curspan2" onClick="javascript:signin_serverpush()" ><script>document.write(str_signin)</script></span> </td>
-  </tr>
-  <tr class="f14">
-    <td height="21">&nbsp;</td>
-  </tr>-->
-  <tr class="f14">
-    <td><script>document.write(str_mode_pda)</script></td>
-  </tr>
-  <tr class="f14">
-    <td height="25"> <span class="f16 curspan2" onClick="javascript:signin_pda()" ><script>document.write(str_signin)</script></span> </td>
-
 	<tr class="f14">
-	<td height="21">&nbsp;</td>
+		<td width="429"><script>document.write(str_mode_activex)</script> </td>
 	</tr>
 
-  </tr>
+	<tr class="f14">
+		<td height="25"><span class="f16 curspan2" onClick="javascript:signin_activex()"><script>document.write(str_signin)</script></span></td>
+	</tr>
 
-<tr class="f14">
-<td><script>document.write(str_m_iphone)</script></td>
-</tr>
-<tr class="f14"><td height="25"><a href="#"><span class="f16 cs2" onClick="javascript:signin_iphone()" ><script>document.write(str_signin)</script></span></a></td></tr>
-  <tr class="f14">
-    <td height="21">&nbsp;</td>
-  </tr>
-
-<!-- select 元素可创建单选或多选菜单。<select > 元素中的 <option> 标签用于定义列表中的可用选项。 -->
-  <tr class="f14">
-    <td><script>document.write(str_language);</script>
-       <select id="lan" name="lan" onChange="onlanchanged();">
-         <option value="1">English</option>
-         <option value="2">中文简体</option>
-		 <option value="3">中文繁體</option>   
-		 <option value="4">한국어</option>
-      </select></td>
-  </tr>
-
-  <tr class="f14">
-    <td>&nbsp;</td>
-  </tr>
+	<tr class="f14">
+		<td height="21">&nbsp;</td>
+	</tr>
 
 
-<!-- <input> 标签用于搜集用户信息。根据不同的 type 属性值，输入字段拥有很多种形式。输入字段可以是文本字段、复选框、掩码后的文本控件、单选按钮、按钮等等。 -->
-  <tr class="f14">
-    <td>
-      <input type="checkbox" name="chknoagain" id="chknoagain" value="1"/>
-	<script>document.write(str_noshownext);</script></td>
-  </tr>
 
-  <tr>
-    <td class="f13"></td>
-  </tr>
+	<tr class="f14">
+		<td><script>document.write(str_mode_pda)</script></td>
+	</tr>
+
+	<tr class="f14">
+		<td height="25"> <span class="f16 curspan2" onClick="javascript:signin_pda()" ><script>document.write(str_signin)</script></span> </td>
+	</tr>
+
+	<tr class="f14">
+		<td height="21">&nbsp;</td>
+	</tr>
+
+
+
+	<tr class="f14">
+		<td><script>document.write(str_m_iphone)</script></td>
+	</tr>
+
+	<tr class="f14">
+		<td height="25"><a href="#"><span class="f16 cs2" onClick="javascript:signin_iphone()" ><script>document.write(str_signin)</script></span></a></td>
+	</tr>
+
+	<tr class="f14">
+		<td height="21">&nbsp;</td>
+	</tr>
+
+
+	<tr class="f14">
+		<td><script>document.write(str_language);</script>
+			<select id="lan" name="lan" onChange="onlanchanged();">
+				<option value="1">English</option>
+				<option value="2">中文简体</option>
+				<option value="3">中文繁體</option>
+				<option value="4">한국어</option>
+			</select>
+		</td>
+	</tr>
+
+	<tr class="f14">
+		<td>&nbsp;</td>
+	</tr>
+
+
+	<tr class="f14">
+		<td>
+			<input type="checkbox" name="chknoagain" id="chknoagain" value="1"/><script>document.write(str_noshownext);</script>
+		</td>
+	</tr>
+
+	<tr>
+		<td class="f13"></td>
+	</tr>
+
+
+
 </table>
+
+
 <br>
 
-
-<div align="left" style="display:none;">
-  <table width="100%" border="0" cellspacing="0" cellpadding="0">
-    <tr>
-    <td valign="top" height="2" colspan="2" bgcolor="#810000"></td>
-  </tr>
-    <tr>
-      <td height="43" valign="top"><span class="f15" onClick="openeasynsite()"><script>document.write(str_easysite);</script></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="f15" onClick="openonlinetech()"><script>document.write(str_onhelp);</script></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="f15" onClick="openapp()"><script >document.write(str_app);</script></span></td>
-      <td><div align="right"><span class="big_header style1"><img class="f15" onClick="openeasynsite()" id="img_logo" src="images/logo.gif"></span></div></td>
-    </tr>
-  </table>
-	<form name="newpage" id="newpage" action="" method="get" target="_blank">
-</form>  
-</div>
 </body>
-<script>
-
-if(language=="simple_chinese"){
-	lan.value="2";	
-	document.getElementById('img_logo').src="images/logo.gif";
-}else if(language=="traditional_chinese"){
-	lan.value="3";	
-	document.getElementById('img_logo').src="images/logo.gif";
-}else if(language=="korean"){
-	lan.value="4";	
-	document.getElementById('img_logo').src="images/logo_en.gif";
-}
-else{
-	lan.value="1";
-	document.getElementById('img_logo').src="images/logo_kr.gif";
-}	
-
-</script>
-
 </html>
