@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
 <title>IP Camera</title>
 
@@ -784,6 +784,8 @@ p {
 <body align="center" onLoad="load1();" onscroll="flush()">
     <table width="100%" height="100%"  border="0" cellpadding="0" cellspacing="0">
         <tr>
+
+            <!--播放器框是右对齐   -->
             <td align="right" valign="middle" height="100%">
                 <table width="352" border="0" cellspacing="0" cellpadding="0">
                     <tr>
@@ -830,8 +832,6 @@ p {
 
                             var hasRequestedVersion = DetectFlashVer(10, 0, 0);
 
-                            hasRequestedVersion = false;
-
                             if(!hasRequestedVersion)
                             {
                                 var div = document.getElementById("ipcam_display");
@@ -873,22 +873,23 @@ p {
                                     h=540;
                                 }
 
-                                    AC_FL_RunContent(
-                                        "src", "swfs/StrobeMediaPlayback",
-                                        "width", w,
-                                        "height", h,
-                                        "id", "StrobeMediaPlayback",
-                                        "quality", "high",
-                                        "bgcolor", "#000000",
-                                        "name", "StrobeMediaPlayback",
-                                        "allowfullscreen","true",
-                                        "type", "application/x-shockwave-flash",
-                                        "pluginspage", "http://www.adobe.com/go/getflashplayer",
-                                        "flashvars", flashVars
-                                    );
-                                }
-
+                                /*
+                                AC_FL_RunContent(
+                                    "src", "swfs/StrobeMediaPlayback",
+                                    "width", w,
+                                    "height", h,
+                                    "id", "StrobeMediaPlayback",
+                                    "quality", "high",
+                                    "bgcolor", "#000000",
+                                    "name", "StrobeMediaPlayback",
+                                    "allowfullscreen","true",
+                                    "type", "application/x-shockwave-flash",
+                                    "pluginspage", "http://www.adobe.com/go/getflashplayer",
+                                    "flashvars", flashVars
+                                );*/
                             }
+
+                        }
                         </script>
                         </td>
 
@@ -897,13 +898,17 @@ p {
                         </td>
                     </tr>
 
+
+
                     <tr>
                         <td background="images/easyn2_26.gif" style="background-repeat:repeat-y"><img src="images/easyn2_16.gif" width="35"></td>
                     </tr>
 
+
                     <tr>
                         <td background="images/easyn2_26.gif" style="background-repeat:repeat-y"><img src="images/easyn2_17.gif" width="35"></td>
                     </tr>
+
 
                     <tr>
                         <td><img src="images/easyn2_18.gif" width="35" height="20"></td>
@@ -911,177 +916,199 @@ p {
                         <td><img src="images/easyn2_20.gif" width="11" height="20"></td>
                     </tr>
 
+
                 </table>
 
 
-    
+                <!-- 下面开始时操作界面-->
                 <td valign="middle">
                 <div id="maindiv" style="display:block">
+
                 <table width="209" border="0" cellpadding="0" cellspacing="0">
 
-                <tr>
-                    <td width="209"><img src="images/easyn2_08.gif" width="209" height="30"></td>
-                </tr>
-
-                <tr>
-                    <td align="center" background="images/easyn2_09.gif" bgcolor="#E1E1E1" style="background-repeat:repeat-x;repeat-y">
-                    <img id="img_logo" name="img_logo" src="images/logo_en.gif" width="174" height="36"><br/>
-                    <img id="img_line" name="img_line" src="images/line.gif" width="192" height="2"><br/>
-                    <div id="stream_num">
-                        <SCRIPT type=text/JavaScript>
-                            document.open();
-                            document.write('<form name="form1">');
-                            document.write('<table align="center" width="85%"><tr><td>');
-                            document.write("<span style='font-size:14px'>"+str_stream+"</span>");
-                            document.write('<select name="streamselect" onChange="streamchange()">');
-                            document.write('<option>');
-                            document.write("<span style='font-size:10px'>"+str_1stream+"</span>");
-                            document.write('</option>');
-                            document.write('<option>');
-                            document.write("<span style='font-size:10px'>"+str_2stream+"</span>");
-                            document.write('</option>');
-                            document.write('</select> ');
-                            document.write('</td></tr></table>');
-                            document.write('</form>');
-                            document.close();
-
-                        </SCRIPT>
-                    </div>
-
-                    <div id="menu" >
-                    <table border="0" align="center" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td><input type="radio" id="x1" name="x" language="javascript" onClick="return x_onclick()" checked="checked"></td>
-                            <td>
-                                <table width="38" height="38" border="1" cellpadding="0" cellspacing="0" bordercolor="#5A96BA">
-                                    <td align="center" id="y_1"><span class="STYLE4">1</span></td>
-                                </table>
-
-                            </td>
-
-                            <td><input type="radio" id="x4" name="x" language="javascript" onClick="return x_onclick()" ></td>
-                            <td>
-                                <table width="38" height="38" border="1" cellpadding="0" cellspacing="0" bordercolor="#5A96BA">
-
-                                    <tr>
-
-                                        <td width="50%" height="50%" align="center" ><span class="STYLE7">1</span></td>
-                                        <td width="50%" height="50%" align="center" ><span class="STYLE7">2</span></td>
-                                    </tr>
-
-                                    <tr>
-                                         <td width="50%" height="50%" align="center" ><span class="STYLE7">3</span></td>
-                                         <td width="50%" height="50%" align="center" ><span class="STYLE7">4</span></td>
-                                    </tr>
-                                </table>
-                            </td>
+                    <tr>
+                        <td width="209"><img src="images/easyn2_08.gif" width="209" height="30"></td>
+                    </tr>
 
 
-                            <td><input type="radio" id="x9" name="x" language="javascript" onClick="return x_onclick()"></td>
-                            <td>
-                                <table width="38" height="38" border="1" cellpadding="0" cellspacing="0" bordercolor="#5A96BA">
-                                   <tr>
-                                     <td width="33.3%" height="33.3%"><span class="STYLE6">1</span></td>
-                                     <td width="33.3%" height="33.3%"><span class="STYLE6">2</span></td>
-                                     <td width="33.3%" height="33.3%"><span class="STYLE6">3</span></td>
-                                   </tr>
+                    <tr>
+                        <td align="center" background="images/easyn2_09.gif" bgcolor="#E1E1E1" style="background-repeat:repeat-x;repeat-y">
+                        <img id="img_logo" name="img_logo" src="images/logo_en.gif" width="174" height="36"><br/>
+                        <img id="img_line" name="img_line" src="images/line.gif" width="192" height="2"><br/>
 
-                                   <tr>
-                                     <td width="33.3%" height="33.3%"><span class="STYLE6">4</span></td>
-                                     <td width="33.3%" height="33.3%"><span class="STYLE6">5</span></td>
-                                     <td width="33.3%" height="33.3%"><span class="STYLE6">6</span></td>
-                                   </tr>
+                        <div id="stream_num">
+                            <script>
+                                document.open();
+                                document.write('<form name="form1">');
+                                document.write('<table align="center" width="85%"><tr><td>');
+                                document.write("<span style='font-size:14px'>"+str_stream+"</span>");
+                                document.write('<select name="streamselect" onChange="streamchange()">');
+                                document.write('<option>');
+                                document.write("<span style='font-size:10px'>"+str_1stream+"</span>");
+                                document.write('</option>');
+                                document.write('<option>');
+                                document.write("<span style='font-size:10px'>"+str_2stream+"</span>");
+                                document.write('</option>');
+                                document.write('</select> ');
+                                document.write('</td></tr></table>');
+                                document.write('</form>');
+                                document.close();
 
-                                   <tr>
-                                     <td width="33.3%" height="33.3%"><span class="STYLE6">7</span></td>
-                                     <td width="33.3%" height="33.3%"><span class="STYLE6">8</span></td>
-                                     <td width="33.3%" height="33.3%"><span class="STYLE6">9</span></td>
-                                   </tr>
+                            </script>
+                        </div>
 
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                    </div>
 
-                    <p>
-                        <img id="img_circle" name="img_circle" src="images/btn_circle.gif" width="105" height="105" border="0" usemap="#Map7Map"><br/><br/>
-                        <table align="center">
+
+                        <!-- 选择4宫格 -->
+
+                        <div id="menu" >
+                        <table border="0" align="center" cellpadding="0" cellspacing="0">
                             <tr>
+                                <td><input type="radio" id="x1" name="x" language="javascript" onClick="return x_onclick()" checked="checked"></td>
                                 <td>
-                                  <img src="images/hpatrol_up.gif" width="24" height="23" border="0" id="hpatrol" onClick="ptzcmdSubmit('hscan')" alert="左右巡航">&nbsp;
+                                    <table width="38" height="38" border="1" cellpadding="0" cellspacing="0" bordercolor="#5A96BA">
+                                        <td align="center" id="y_1"><span class="STYLE4">1</span></td>
+                                    </table>
+
                                 </td>
 
+                                <td><input type="radio" id="x4" name="x" language="javascript" onClick="return x_onclick()" ></td>
                                 <td>
-                                  <img src="images/vpatrol_up.gif" width="24" height="23" border="0" id="vpatrol" onClick="ptzcmdSubmit('vscan')" alert="上下巡航">&nbsp;
+                                    <table width="38" height="38" border="1" cellpadding="0" cellspacing="0" bordercolor="#5A96BA">
+
+                                        <tr>
+
+                                            <td width="50%" height="50%" align="center" ><span class="STYLE7">1</span></td>
+                                            <td width="50%" height="50%" align="center" ><span class="STYLE7">2</span></td>
+                                        </tr>
+
+                                        <tr>
+                                             <td width="50%" height="50%" align="center" ><span class="STYLE7">3</span></td>
+                                             <td width="50%" height="50%" align="center" ><span class="STYLE7">4</span></td>
+                                        </tr>
+                                    </table>
                                 </td>
 
+
+                                <td><input type="radio" id="x9" name="x" language="javascript" onClick="return x_onclick()"></td>
+                                <td>
+                                    <table width="38" height="38" border="1" cellpadding="0" cellspacing="0" bordercolor="#5A96BA">
+                                       <tr>
+                                         <td width="33.3%" height="33.3%"><span class="STYLE6">1</span></td>
+                                         <td width="33.3%" height="33.3%"><span class="STYLE6">2</span></td>
+                                         <td width="33.3%" height="33.3%"><span class="STYLE6">3</span></td>
+                                       </tr>
+
+                                       <tr>
+                                         <td width="33.3%" height="33.3%"><span class="STYLE6">4</span></td>
+                                         <td width="33.3%" height="33.3%"><span class="STYLE6">5</span></td>
+                                         <td width="33.3%" height="33.3%"><span class="STYLE6">6</span></td>
+                                       </tr>
+
+                                       <tr>
+                                         <td width="33.3%" height="33.3%"><span class="STYLE6">7</span></td>
+                                         <td width="33.3%" height="33.3%"><span class="STYLE6">8</span></td>
+                                         <td width="33.3%" height="33.3%"><span class="STYLE6">9</span></td>
+                                       </tr>
+
+                                    </table>
+                                </td>
                             </tr>
                         </table>
+                        </div>
+
 
                         <p>
-                            <img id="play_back" class="curspan" name="play_back" src="images/play_back_en.gif" alt="" onClick="playback()" width="57" height="32" hspace="6" border="0">
-                            <img id="img_zoom" name="img_zoom" src="images/btn_zoom_en.gif" width="57" height="32" border="0" usemap="#Map8Map">
-                            <p id="lpj" >
-                              <img id="recImage_avi" class="curspan" name="recImage_avi" src="images/btn_luxiang_en.gif" alt="" onClick="record()" width="57" height="32" hspace="6" border="0">
-                              <img id="img_snapshot" class="curspan" name="img_snapshot" src="images/btn_paizhao_en.gif" alt="" onClick="snap()" width="57" height="32" border="0">
-                              <img id="img_listen" class="curspan" name="img_listen" src="images/btn_jianting_en.gif" alt="" onClick="speaker()" width="57" height="32" hspace="6" border="0">
-                            </p>
+                            <!--将一幅图像 映射为 n个区域，当用户单击其中某一个区域时，将被链接到不同的文档中。 -->
+                            <!-- 上下左右停止 -->
+                            <img id="img_circle" name="img_circle" src="images/btn_circle.gif" width="105" height="105" border="0" usemap="#Map7Map"><br/><br/>
+
+
+                            <!-- 左右旋转 -->
+                            <table align="center">
+                                <tr>
+                                    <td>
+                                      <img src="images/hpatrol_up.gif" width="24" height="23" border="0" id="hpatrol" onClick="ptzcmdSubmit('hscan')" alert="左右巡航">&nbsp;
+                                    </td>
+
+                                    <td>
+                                      <img src="images/vpatrol_up.gif" width="24" height="23" border="0" id="vpatrol" onClick="ptzcmdSubmit('vscan')" alert="上下巡航">&nbsp;
+                                    </td>
+
+                                </tr>
+                            </table>
+
 
                             <p>
-                                  <img class="curspan" id="img_talk" name="img_talk" src="images/btn_talk_en.gif" width="57" height="32" hspace="6" border="0" alt="" onClick="mic()">
-                                  <img class="curspan" id="img_preset1" name="img_preset1" src="images/btn_diaoyong_en.gif"width="57" height="32"  border="0" alt="" onClick="go_preset()">
-                                  <img class="curspan" id="img_preset2" name="img_preset2"src="images/btn_sheding_en.gif" width="57" height="32" hspace="6" border="0" alt="" onClick="set_preset()">
-                            </p>
+                                <!-- 回放 -->
+                                <img id="play_back" class="curspan" name="play_back" src="images/play_back_en.gif" alt="" onClick="playback()" width="57" height="32" hspace="6" border="0">
 
-                            <p>
-                                <img class="curspan" id="img_path" name="img_path"src="images/btn_lujing_en.gif" width="57" height="32" hspace="6" border="0" alt=""  onClick="path()">
-                                    <span style='font-size:14px'>
-                                    <script>document.write(str_setnum);</script>
-                                    </span>
-                                    <SELECT id="preset0">
-                                        <OPTION value="0">1</OPTION>
-                                        <OPTION value="1">2</OPTION>
-                                        <OPTION value="2">3</OPTION>
-                                        <OPTION value="3">4</OPTION>
-                                        <OPTION value="4">5</OPTION>
-                                        <OPTION value="5">6</OPTION>
-                                        <OPTION value="6">7</OPTION>
-                                        <OPTION value="7">8</OPTION>
-                                    </SELECT>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            </p>
+                                <!-- 放大或是缩小 -->
+                                <img id="img_zoom" name="img_zoom" src="images/btn_zoom_en.gif" width="57" height="32" border="0" usemap="#Map8Map">
 
-                            <div id="alarmaudio">
-                            <span style='font-size:14px'>
-                            <form name="form2">
-                                <script>document.write(str_alarmaudio1);</script>
-                                <select name="soundselect" onChange="soundchange()">
 
-                                    <option >
-                                        <script>document.write(str_start_up);</script>
-                                    </option>
+                                <p id="lpj" >
+                                  <img id="recImage_avi" class="curspan" name="recImage_avi" src="images/btn_luxiang_en.gif" alt="" onClick="record()" width="57" height="32" hspace="6" border="0">
+                                  <img id="img_snapshot" class="curspan" name="img_snapshot" src="images/btn_paizhao_en.gif" alt="" onClick="snap()" width="57" height="32" border="0">
+                                  <img id="img_listen" class="curspan" name="img_listen" src="images/btn_jianting_en.gif" alt="" onClick="speaker()" width="57" height="32" hspace="6" border="0">
+                                </p>
 
-                                    <option >
-                                        <script>document.write(str_close);</script>
-                                    </option>
 
-                                </select><br>
 
-                                <script>document.write(str_alarmrec);</script>
 
-                                <select name="alarmrecselect" onChange="alarmrecchange()">
-                                <option ><script>document.write(str_start_up);</script></option>
-                                <option ><script>document.write(str_close);</script></option>
-                                </select>
+                                <p>
+                                      <img class="curspan" id="img_talk" name="img_talk" src="images/btn_talk_en.gif" width="57" height="32" hspace="6" border="0" alt="" onClick="mic()">
+                                      <img class="curspan" id="img_preset1" name="img_preset1" src="images/btn_diaoyong_en.gif"width="57" height="32"  border="0" alt="" onClick="go_preset()">
+                                      <img class="curspan" id="img_preset2" name="img_preset2"src="images/btn_sheding_en.gif" width="57" height="32" hspace="6" border="0" alt="" onClick="set_preset()">
+                                </p>
 
-                            </form>
-                            </span>
-                            </div>
+                                <p>
+                                    <img class="curspan" id="img_path" name="img_path"src="images/btn_lujing_en.gif" width="57" height="32" hspace="6" border="0" alt=""  onClick="path()">
 
-                    </td>
-                </tr>
+                                        <span style='font-size:14px'>
+                                        <script>
+                                            document.write(str_setnum);  //预置位
+                                        </script>
+                                        </span>
 
+                                        <SELECT id="preset0">
+                                            <OPTION value="0">1</OPTION>
+                                            <OPTION value="1">2</OPTION>
+                                            <OPTION value="2">3</OPTION>
+                                            <OPTION value="3">4</OPTION>
+                                            <OPTION value="4">5</OPTION>
+                                            <OPTION value="5">6</OPTION>
+                                            <OPTION value="6">7</OPTION>
+                                            <OPTION value="7">8</OPTION>
+                                        </SELECT>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </p>
+
+                                <!-- 声音警报 -->
+                                <div id="alarmaudio">
+                                <span style='font-size:14px'>
+                                <form name="form2">
+                                    <script>document.write(str_alarmaudio1);</script>
+                                    <select name="soundselect" onChange="soundchange()">
+                                        <option ><script>document.write(str_start_up);</script></option>
+                                        <option ><script>document.write(str_close);</script></option>
+                                    </select><br>
+
+                                    <!-- 报警录像 -->
+                                    <script>document.write(str_alarmrec);</script>
+                                    <select name="alarmrecselect" onChange="alarmrecchange()">
+                                    <option ><script>document.write(str_start_up);</script></option>
+                                    <option ><script>document.write(str_close);</script></option>
+                                    </select>
+
+                                </form>
+                                </span>
+                                </div>
+
+                        </td>
+                    </tr>
+
+                <!-- 设置 -->
                 <tr>
                   <td align="center" background="images/easyn2_24.gif">
                       <a href="setup.html"><img id="img_setup" name="img_setup" src="images/btn_shezhi_en.gif" width="189" height="34" border="0"></a>
@@ -1155,6 +1182,8 @@ p {
 <INPUT id="contrast" type="hidden" name= "contrast" value= "">
 <INPUT id="saturation" type="hidden" name= "saturation" value= "">
 <script>
+
+    //alt代表的是属性
     document.getElementById('right').alt=str_right;
     document.getElementById('up').alt=str_up;
     document.getElementById('left').alt=str_left;
@@ -1178,6 +1207,7 @@ p {
     document.getElementById('img_preset1').alt=str_use_yzw;
     document.getElementById('img_preset2').alt=str_set_yzw;
     document.getElementById('img_path').alt=str_path;
+    //控制一些菜单不显示
     function dismisspic()
     {
         if((navigator.platform != "Mac68K")&&(navigator.platform != "MacPPC")&&(navigator.platform != "Macintosh")&&(navigator.platform!="MacIntel"))
