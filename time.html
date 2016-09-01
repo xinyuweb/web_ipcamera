@@ -1,14 +1,14 @@
 ﻿<html>
 <head>       
 <title>ipCAM</title>
+
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 <META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
 <META http-equiv="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<meta HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
 
-<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
 
-<meta HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"> 
-<!-- ImageReady Preload Script (ipCAM.psd) -->
 <script src="public.js"></script>
 <script language="JavaScript1.2" src="cgi-bin/hi3510/param.cgi?cmd=getservertime&cmd=getntpattr" type="text/javascript"></script>
 <script type="text/javascript">
@@ -18,90 +18,105 @@ function valideDate(itemc)
 	var beginT;
 	if(itemc.value == "")
 	  {
-	  	alert(str_note_inputdate);
-	  	return false;
+		alert(str_note_inputdate);
+		return false;
 	  }
-		beginT=itemc.value.split("-");
-		if(((beginT.length) != 3)||((beginT.length) != 3))
-		 {
-		 	alert(str_err_dateformat);
-		 	itemc.select();
-		 	return false;
-		}
-		if(( beginT[0].length != 4 )||(beginT[1].length != 2)||(beginT[2].length != 2))
-		{
-			alert(str_err_dateformat + comma + str_err_dfinput);
-			itemc.select();
-		 	return false;
-		}
-		
-		if(beginT[0]< 1971 || beginT[0]>2036 || beginT[1] < 1 || beginT[1] > 12 || beginT[2]< 1 || beginT[2] > 31)
-		{
-			alert(str_daterange);
-		 	itemc.select();
-		 	return false;
-		}
-		if( false == checkdatevalid(beginT[0],beginT[1],beginT[2]))
-		{
-			alert(str_err_reinputd);
-			itemc.select();
-			return false;
-		}
-		var i,j
-		for(i=0;i<3;i++)
-		{
-			for(j=0;j<(beginT[i].length);j++)
-			{
-				var ch=beginT[i].substring(j,j+1);
-	      if ("0">ch || ch>"9") 
-	      {
-	      	alert(str_err_invaildc);
-			 	  itemc.select();
-			   	return false;
-	      }
-			}
-	}
-}
-function valideTime(itemc)
-{
-	var beginT;
-	  if(itemc.value == "")
-	  {
-	  	alert(str_note_inputtime);
-	  	return false;
-	  }
-		beginT=itemc.value.split(":");
-		if(((beginT.length) != 3)||((beginT.length) != 3))
-		 {
-		 	alert(str_err_invaildtmf);
-		 	itemc.select();
-		 	return false;
-		}
 
-		if(( beginT[0].length != 2 )||(beginT[1].length != 2)||(beginT[2].length != 2))
-		{
-			alert(str_err_invaildtmf + comma + str_err_timeformat);
-			itemc.select();
-		 	return false;
-		}
-		if(beginT[0] < 0 || beginT[0]>23 || beginT[1]< 0 || beginT[1] > 59 || beginT[2]< 0 || beginT[2] > 59)
-		{
-			alert(str_err_imvaildtm);
-		 	itemc.select();
-		 	return false;
-		}
-		var i,j
-		for(i=0;i<3;i++)
+	beginT=itemc.value.split("-");
+	if(((beginT.length) != 3)||((beginT.length) != 3))
+	 {
+		alert(str_err_dateformat);
+		itemc.select();
+		return false;
+	}
+
+
+	if(( beginT[0].length != 4 )||(beginT[1].length != 2)||(beginT[2].length != 2))
+	{
+		alert(str_err_dateformat + comma + str_err_dfinput);
+		itemc.select();
+		return false;
+	}
+		
+	if(beginT[0]< 1971 || beginT[0]>2036 || beginT[1] < 1 || beginT[1] > 12 || beginT[2]< 1 || beginT[2] > 31)
+	{
+		alert(str_daterange);
+		itemc.select();
+		return false;
+	}
+
+
+	if( false == checkdatevalid(beginT[0],beginT[1],beginT[2]))
+	{
+		alert(str_err_reinputd);
+		itemc.select();
+		return false;
+	}
+
+	var i,j
+	for(i=0;i<3;i++)
+	{
 		for(j=0;j<(beginT[i].length);j++)
 		{
 			var ch=beginT[i].substring(j,j+1);
-      if ("0">ch || ch>"9") 
-      {
-      	alert(str_err_invaildc);
-		 	  itemc.select();
-		   	return false;
-      }
+			if ("0">ch || ch>"9")
+			{
+				alert(str_err_invaildc);
+				itemc.select();
+				return false;
+			}
 		}
+	}
+}
+
+
+
+
+function valideTime(itemc)
+{
+	var beginT;
+	if(itemc.value == "")
+	{
+		alert(str_note_inputtime);
+		return false;
+	}
+
+	beginT=itemc.value.split(":");
+	if(((beginT.length) != 3)||((beginT.length) != 3))
+	 {
+		alert(str_err_invaildtmf);
+		itemc.select();
+		return false;
+	}
+
+	if(( beginT[0].length != 2 )||(beginT[1].length != 2)||(beginT[2].length != 2))
+	{
+		alert(str_err_invaildtmf + comma + str_err_timeformat);
+		itemc.select();
+		return false;
+	}
+
+	if(beginT[0] < 0 || beginT[0]>23 || beginT[1]< 0 || beginT[1] > 59 || beginT[2]< 0 || beginT[2] > 59)
+	{
+		alert(str_err_imvaildtm);
+		itemc.select();
+		return false;
+	}
+
+
+	var i,j
+	for(i=0;i<3;i++)
+	for(j=0;j<(beginT[i].length);j++)
+	{
+		var ch=beginT[i].substring(j,j+1);
+		if ("0">ch || ch>"9")
+		{
+			alert(str_err_invaildc);
+			itemc.select();
+			return false;
+		}
+	}
+
 }
 
 var now;
@@ -154,20 +169,25 @@ function webWatch()
 {
     w_now=w_year+'-'+w_month+'-'+w_day+'   '+w_hour+':'+w_minute+':'+w_second;
 }
+
+
 function webWatchUp()
 {
-   var f = document.getElementById("form_stime");
-    w_second=w_second+1;
-    if(w_second==60)
-    {
-        w_second=0;
-        w_minute=w_minute+1;
-    }
+
+	var f = document.getElementById("form_stime");
+	w_second=w_second+1;
+	if(w_second==60)
+	{
+		w_second=0;
+		w_minute=w_minute+1;
+	}
+
     if(w_minute==60)
     {
         w_minute=0;
         w_hour=w_hour+1;
     }
+
     if(w_hour==24)
     {
         w_hour=0;
@@ -191,18 +211,22 @@ function webWatchUp()
             case 6:
             case 9:
             case 11:
-            w_day=w_day+1;
-            if(w_day==31){
-            w_day=1;
-            w_month=w_month+1;
-            }
-            break;
+
+				w_day=w_day+1;
+				if(w_day==31)
+				{
+					w_day=1;
+					w_month=w_month+1;
+				}
+				break;
+
             case 2:
+
             w_day=w_day+1;
             amari=w_year%4;
             amari1=w_year%100;
             amari4=w_year%400;
-            if(amari4==0)
+            if(amari4 == 0)
             {
                 if(w_day==30)
                 {
@@ -214,8 +238,8 @@ function webWatchUp()
             {
                 if(w_day==29)
                 {
-                w_day=1;
-                w_month=w_month+1;
+					w_day=1;
+					w_month=w_month+1;
                 }
             }
             else if(amari==0)
@@ -237,11 +261,14 @@ function webWatchUp()
             break;
         }
     }
+
+
     if(w_month==13)
     {
         w_month=1;
         w_year=w_year+1;
     }
+
     if(w_month<10) D1month="0"+w_month;
     else D1month=""+w_month;
     if(w_day<10) D1day="0"+w_day;
@@ -256,6 +283,8 @@ function webWatchUp()
     f.value=w_year+'-'+D1month+'-'+D1day+' '+D1hour+':'+D1minute+':'+D1second;
 
 }
+
+
 
 function tzSet()
 {
@@ -291,17 +320,25 @@ function tzSet()
 			"Asia/Magadan",
 			"Pacific/Auckland"
 		);
-		for(i=0;i<29;i++){
-		if(timeZone==tz[i]){
-			break;
+
+		for(i=0;i<29;i++)
+		{
+			if(timeZone==tz[i])
+			{
+				break;
+			}
 		}
-	}
+
 	document.form1.TimeZone.options[i].selected=true;
 }
+
+
+
 function doDst()
 {
 	no=document.form1.TimeZone.selectedIndex;
-	switch(no){
+	switch(no)
+	{
 		case 0:
 			document.getElementById('layer0').style.visibility="hidden";
 			break;
@@ -470,6 +507,7 @@ function tz_setvar()
         end=g_tz_hour.search(re);
         if(-1==end)
         {
+
         }
         else
         {
@@ -478,6 +516,9 @@ function tz_setvar()
         }
     }
 }
+
+
+
 function do_tz_dl_show()
 {
     var form=document.form1;
@@ -490,6 +531,7 @@ function do_tz_dl_show()
     {
         document.getElementById('td_tz_dl').style.visibility="hidden";
     }
+
 }
 
 
@@ -512,11 +554,11 @@ function on_load()
     w_minute=Number(js_minute);
     w_second=Number(js_second);
     
-  if(ntpenable==1)
-    {
+	if(ntpenable==1)
+	{
 		document.form1.Adst.checked=true;
-    }
-    else
+	}
+	else
 	{
 		document.form1.Adst.checked=false;
 	}
@@ -552,6 +594,8 @@ function on_load()
 	}
 	doDst();
 }
+
+
 function tz_mktimezone(form)
 {
     var form1=document.form1;
@@ -564,12 +608,17 @@ function tz_mktimezone(form)
     }
     form.timezone.name="-timezone";
 }
+
+
 function checkdatevalid(year,month,day)
 {
+
+
 	var dd=0;
-  var amari = 0;
-  var amari1 = 0;
-  var amari4 = 0;
+	var amari = 0;
+	var amari1 = 0;
+	var amari4 = 0;
+
 	switch(month){
 		case "01":
 		case "03":
@@ -578,32 +627,38 @@ function checkdatevalid(year,month,day)
 		case "08":
 		case "10":
 		case "12":
-		dd=31;
-		break;
+			dd=31;
+			break;
 		case "04":
 		case "06":
 		case "09":
 		case "11":
-		dd=30;
-		break;
+			dd=30;
+			break;
 		case "02":
 		amari=year%4;
 		amari1=year%100;
 		amari4=year%400;
-		if(amari4==0){
+		if(amari4==0)
+		{
 			dd=29;
-		}else if(amari1==0){
+		}
+		else if(amari1==0)
+		{
 			dd=28;
 		}
-		else if(amari==0){
+		else if(amari==0)
+		{
 			dd=29;
-		}else{
+		}else
+		{
 			dd=28;
 		}
 		break;
 	}
 	
-	if(dd<day){
+	if(dd<day)
+	{
 		return false;
 	}
 	return true;
@@ -613,92 +668,94 @@ function do_setpc()
 {
     var form=document.form3;
  	pcyear=now.getYear();
-    	    if( pcyear < 1000 )
-    	    pcyear += 1900;
-    			if((pcyear < 1971)||(pcyear > 2036))
-    			{
-    				
-    				alert(str_err_pctime);
-    				return false;
-    			}
-    		
-    			pcmonth=now.getMonth()+1;
-    			if(pcmonth<10) pcmonth="0"+pcmonth;
-    			pcday=now.getDate();
-    			if(pcday<10) pcday="0"+pcday;
-    			pchour=now.getHours();
-    			if(pchour<10) pchour="0"+pchour;
-    			pcminute=now.getMinutes();
-    			if(pcminute<10) pcminute="0"+pcminute;
-    			pcsecond=now.getSeconds();
-    			if(pcsecond<10) pcsecond="0"+pcsecond;
-    			form.stime.value=pcyear+'.'+pcmonth+'.'+pcday+'.'+pchour+'.'+pcminute+'.'+pcsecond;
+	if( pcyear < 1000 )
+	pcyear += 1900;
+
+
+	if((pcyear < 1971)||(pcyear > 2036))
+	{
+
+		alert(str_err_pctime);
+		return false;
+	}
+
+	pcmonth=now.getMonth()+1;
+	if(pcmonth<10) pcmonth="0"+pcmonth;
+	pcday=now.getDate();
+	if(pcday<10) pcday="0"+pcday;
+	pchour=now.getHours();
+	if(pchour<10) pchour="0"+pchour;
+	pcminute=now.getMinutes();
+	if(pcminute<10) pcminute="0"+pcminute;
+	pcsecond=now.getSeconds();
+	if(pcsecond<10) pcsecond="0"+pcsecond;
+	form.stime.value=pcyear+'.'+pcmonth+'.'+pcday+'.'+pchour+'.'+pcminute+'.'+pcsecond;
                 
-		var tz=(new Date().getTimezoneOffset()/60)*(-1);
-		if(tz==-11)
-		 {form.timezone.value="Pacific/Apia";}
-		 else if (tz==-10)
-		{form.timezone.value="Pacific/Honolulu";}
-		else if (tz==-9)
-		{form.timezone.value="America/Anchorage";}
-		else if (tz==-8)
-		{form.timezone.value="America/Los_Angeles";}
-		else if (tz==-7)
-		{form.timezone.value="America/Denver";}
-		else if (tz==-6)
-		{form.timezone.value="America/Chicago";}
-		else if (tz==-5)
-		{form.timezone.value="America/New_York";}
-		else if (tz==-4)
-		{form.timezone.value="America/Montreal";}
-		else if (tz==-3.5)
-		{form.timezone.value="America/St_Johns";}
-		else if (tz==-3)
-		{form.timezone.value="America/Thule";}
-		else if (tz==-2)
-		{form.timezone.value="Atlantic/South_Georgia";}
-		else if (tz==-1)
-		{form.timezone.value="Atlantic/Cape_Verde";}
-		else if (tz==0)
-		{form.timezone.value="Europe/Dublin";}
-		else if (tz==1)
-		{form.timezone.value="Europe/Brussels";}
-		else if (tz==2)
-		{form.timezone.value="Europe/Athens";}
-		else if (tz==3)
-		{form.timezone.value="Asia/Kuwait";}
-		else if (tz==3.5)
-		{form.timezone.value="Asia/Tehran";}
-		else if (tz==4)
-		{form.timezone.value="Asia/Baku";}
-		else if (tz==4.5)
-		{form.timezone.value="Asia/Kabul";}
-		else if (tz==5)
-		{form.timezone.value="Asia/Karachi";}
-		else if (tz==5.5)
-		{form.timezone.value="Asia/Calcutta";}
-		else if (tz==6)
-		{form.timezone.value="Asia/Almaty";}
-		else if (tz==7)
-		{form.timezone.value="Asia/Bangkok";}
-		else if (tz==8)
-		{form.timezone.value="Asia/Hong_Kong";}
-		else if (tz==9)
-		{form.timezone.value="Asia/Tokyo";}
-		else if (tz==9.5)
-		{form.timezone.value="Australia/Adelaide";}
-		else if (tz==10)
-		{form.timezone.value="Pacific/Guam";}
-		else if (tz==11)
-		{form.timezone.value="Asia/Magadan";}
-		else if (tz==12)
-		{form.timezone.value="Pacific/Auckland";}
-		else 
-		{form.timezone.value="Europe/Dublin";}
-		//form.timezone.value=(new Date().getTimezoneOffset()/60)*(-1);
-		
-		  form.timezone.name = "-timezone";
-    	  form.stime.name="-time";
+	var tz=(new Date().getTimezoneOffset()/60)*(-1);
+	if(tz==-11)
+	 {form.timezone.value="Pacific/Apia";}
+	 else if (tz==-10)
+	{form.timezone.value="Pacific/Honolulu";}
+	else if (tz==-9)
+	{form.timezone.value="America/Anchorage";}
+	else if (tz==-8)
+	{form.timezone.value="America/Los_Angeles";}
+	else if (tz==-7)
+	{form.timezone.value="America/Denver";}
+	else if (tz==-6)
+	{form.timezone.value="America/Chicago";}
+	else if (tz==-5)
+	{form.timezone.value="America/New_York";}
+	else if (tz==-4)
+	{form.timezone.value="America/Montreal";}
+	else if (tz==-3.5)
+	{form.timezone.value="America/St_Johns";}
+	else if (tz==-3)
+	{form.timezone.value="America/Thule";}
+	else if (tz==-2)
+	{form.timezone.value="Atlantic/South_Georgia";}
+	else if (tz==-1)
+	{form.timezone.value="Atlantic/Cape_Verde";}
+	else if (tz==0)
+	{form.timezone.value="Europe/Dublin";}
+	else if (tz==1)
+	{form.timezone.value="Europe/Brussels";}
+	else if (tz==2)
+	{form.timezone.value="Europe/Athens";}
+	else if (tz==3)
+	{form.timezone.value="Asia/Kuwait";}
+	else if (tz==3.5)
+	{form.timezone.value="Asia/Tehran";}
+	else if (tz==4)
+	{form.timezone.value="Asia/Baku";}
+	else if (tz==4.5)
+	{form.timezone.value="Asia/Kabul";}
+	else if (tz==5)
+	{form.timezone.value="Asia/Karachi";}
+	else if (tz==5.5)
+	{form.timezone.value="Asia/Calcutta";}
+	else if (tz==6)
+	{form.timezone.value="Asia/Almaty";}
+	else if (tz==7)
+	{form.timezone.value="Asia/Bangkok";}
+	else if (tz==8)
+	{form.timezone.value="Asia/Hong_Kong";}
+	else if (tz==9)
+	{form.timezone.value="Asia/Tokyo";}
+	else if (tz==9.5)
+	{form.timezone.value="Australia/Adelaide";}
+	else if (tz==10)
+	{form.timezone.value="Pacific/Guam";}
+	else if (tz==11)
+	{form.timezone.value="Asia/Magadan";}
+	else if (tz==12)
+	{form.timezone.value="Pacific/Auckland";}
+	else
+	{form.timezone.value="Europe/Dublin";}
+	//form.timezone.value=(new Date().getTimezoneOffset()/60)*(-1);
+
+	form.timezone.name = "-timezone";
+	form.stime.name="-time";
      
 	form.action="cgi-bin/hi3510/param.cgi";
 	form.cururl.value =document.URL ;	
@@ -725,7 +782,7 @@ function do_submit()
 	  else
 	 {
 	   var form=document.form3;
-	    form.ntpenable.value=0;
+		form.ntpenable.value=0;
 		form.ntpenable.name="-ntpenable";
 	 }
 	form.timezone.value = form1.TimeZone.value;
@@ -772,179 +829,232 @@ body {
 }
 -->
 </style>
+
+
 </head>
 <body leftmargin="0" topmargin="0" marginwidth="0" onLoad="on_load()" marginheight="0">
-    	<form name="form1">
-         <table width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5">
-                <tr class="style6">
-					<td colspan="4" style="font-size:24px"><strong><script>document.write(str_time_reset)</script></strong></td>
-           </tr>                
-                      <tr class="style6">
-                              <td colspan="4" bgcolor="#CCCCCC"><strong><script>document.write(str_now_datetime)</script></strong></td>   </tr>
-    <tr><td width="220">　</td><td colspan="3"><input id="form_stime" name="stime" type="text"  size="20" readonly="readonly"/></td>   </tr>    <tr><td colspan="4" bgcolor="#CCCCCC"> <span class="style6"><strong><script>document.write(str_change)</script></strong></span> </td>
-                                                </tr>
-                                                
-                                                
-                                                
-                                                <tr style="display:none">
-                                                  <td><input type="radio" name="adjust" value="radiobutton"> 
-													<script>document.write(str_handset)</script></td>
-                                                    <td colspan="3">　</td>
-                                                </tr>   
-                                                <tr style="display:none">
-                                                    <td><div align="left"><script>document.write(str_date1)</script></div></td>
-                                                    <td colspan="3"><input name="manuldate" type="text"  size="12" maxlength="12"><script>document.write(str_date2)</script>&nbsp;&nbsp;&nbsp;&nbsp; <script>document.write(str_time1)</script><input name="manultime" type="text"  size="10" maxlength="10"><script>document.write(str_time2)</script></td>
-                                                </tr>
-                                                 <tr style="display:none">
-                                                    <td></td>
-                                                    <td colspan="3" class="style6"><strong>
-													&nbsp;(1971-01-01 ~ 2036-12-31)</strong></td>
-                                                </tr> 
-                                                <tr style="display:none">
-                                                  <td colspan="4">
-                                                    <input type="radio" name="adjust" value="radiobutton"> 
-                                                    <script>document.write(str_pc_time)</script>                                                  </td>
-                                                </tr >
-                                                <tr style="display:none">
-                                                  <td><div align="left"><script>document.write(str_pc_time1)</script></div></td>
-                                                  <td colspan="3" id="pctime"> <input name="pctime" type="text" size="20" readonly="readonly" ></td>
-                                                </tr>
-                                                <tr>
-                                                  <td  >
-                                                    <script>document.write(str_net_time_server)</script>&nbsp;<input type=checkbox name=Adst></td>
-													<td colspan="3">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                  <td valign="top"><div align="left">&nbsp;&nbsp;&nbsp;<script>document.write(str_ntp_server)</script></div></td>
-                                                  <td colspan="3">
- 
- 
-	  <table width="100%%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="19%" valign="top"> <input id="form_ntpname" name="ntpname" type="text" maxlength="45" size="22"></td>
-    <td width="81%">&nbsp;time.windows.com<br>
-      &nbsp;time.nist.gov <br>
-      &nbsp;time.kriss.re.kr<br>
-      &nbsp;time.nuri.net</td>
-  </tr>
-</table>
-</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                   <div align="left">&nbsp;&nbsp;&nbsp;<script>document.write(str_sync_interval)</script></div>                                                    </td>
-                                                    <td colspan="3">
-                                                        <select name="ntpinterval">
-                                                            <option>01</option>
-                                                            <option>02</option>
-                                                            <option>03</option>
-                                                            <option>04</option>
-                                                            <option>05</option>
-                                                            <option>06</option>
-                                                            <option>07</option>
-                                                            <option>08</option>
-                                                            <option>09</option>
-                                                            <option>10</option>
-                                                            <option>11</option>
-                                                            <option>12</option>
-                                                            <option>13</option>
-                                                            <option>14</option>
-                                                            <option>15</option>
-                                                            <option>16</option>
-                                                            <option>17</option>
-                                                            <option>18</option>
-                                                            <option>19</option>
-                                                            <option>20</option>
-                                                            <option>21</option>
-                                                            <option>22</option>
-                                                            <option>23</option>
-                                                            <option>24</option>
-                                                        </select>
-                                                        <script>document.write(str_hour)</script>                                                  </td>
-                                                </tr>
-                                               			<tr>
-		<td align="left">
-			<script>document.write(str_time_zone)</script><span id="zone_select">
-			</span>		</TD>
-		<TD><select name="TimeZone" onChange="doDst()">
-          <option value="Pacific/Apia">(GMT-11:00)<script>document.write(str_tz1)</script></option>
-          <option value="Pacific/Honolulu">(GMT-10:00)<script>document.write(str_tz2)</script></option> 
-          <option value="America/Anchorage">(GMT-09:00)<script>document.write(str_tz3)</script></option>
-          <option value="America/Los_Angeles">(GMT-08:00)<script>document.write(str_tz4)</script></option>
-          <option value="America/Denver">(GMT-07:00)<script>document.write(str_tz5)</script></option>
-          <option value="America/Chicago">(GMT-06:00)<script>document.write(str_tz6)</script></option>
-          <option value="America/New_York">(GMT-05:00)<script>document.write(str_tz7)</script></option>
-          <option value="America/Montreal">(GMT-04:00)<script>document.write(str_tz8)</script></option>
-          <option value="America/St_Johns">(GMT-03:30)<script>document.write(str_tz9)</script></option>
-          <option value="America/Thule">(GMT-03:00)<script>document.write(str_tz10)</script></option>
-          <option value="Atlantic/South_Georgia">(GMT-02:00)<script>document.write(str_tz11)</script></option>
-          <option value="Atlantic/Cape_Verde">(GMT-01:00)<script>document.write(str_tz12)</script></option>
-          <option value="Europe/Dublin">(GMT)<script>document.write(str_tz13)</script></option>
-          <option value="Europe/Brussels">(GMT+01:00)<script>document.write(str_tz14)</script></option>
-          <option value="Europe/Athens">(GMT+02:00)<script>document.write(str_tz15)</script></option>
-          <option value="Asia/Kuwait">(GMT+03:00)<script>document.write(str_tz16)</script></option>
-          <option value="Asia/Tehran">(GMT+03:30) <script>document.write(str_tz17)</script></option>
-          <option value="Asia/Baku">(GMT+04:00)
-            <script>document.write(str_tz18)</script>
-          </option>
-          <option value="Asia/Kabul">(GMT+04:30)
-            <script>document.write(str_tz19)</script>
-          </option>
-          <option value="Asia/Karachi">(GMT+05:00)
-            <script>document.write(str_tz20)</script>
-          </option>
-          <option value="Asia/Calcutta">(GMT+05:30)
-            <script>document.write(str_tz21)</script>
-          </option>
-          <option value="Asia/Almaty">(GMT+06:00)
-            <script>document.write(str_tz22)</script>
-          </option>
-          <option value="Asia/Bangkok">(GMT+07:00)
-            <script>document.write(str_tz23)</script>
-          </option>
-          <option value="Asia/Hong_Kong">(GMT+08:00)
-            <script>document.write(str_tz24)</script>
-          </option>
-          <option value="Asia/Tokyo">(GMT+09:00)
-            <script>document.write(str_tz25)</script>
-          </option>
-          <option value="Australia/Adelaide">(GMT+09:30)
-            <script>document.write(str_tz26)</script>
-          </option>
-          <option value="Pacific/Guam">(GMT+10:00)
-            <script>document.write(str_tz27)</script>
-          </option>
-          <option value="Asia/Magadan">(GMT+11:00)
-            <script>document.write(str_tz28)</script>
-          </option>
-          <option value="Pacific/Auckland">(GMT+12:00)
-            <script>document.write(str_tz29)</script>
-          </option>
-        </select>
-</td>
+<form name="form1">
+<table width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5">
+	<tr class="style6">
+		<td colspan="4" style="font-size:24px"><strong><script>document.write(str_time_reset)</script></strong></td>
 	</tr>
-	<TR>
-		<TD ALIGN=left>　</TD>
-		<TD style="visibility:visible;" id="layer0">
-			<input type=checkbox name=Dst>
-			<span id="dst">&nbsp; <script>document.write(str_tz75)</script>
-			</span>		</TD>
-	</TR>
-          </table>
+
+	<tr class="style6">
+	  <td colspan="4" bgcolor="#CCCCCC"><strong><script>document.write(str_now_datetime)</script></strong></td>
+	</tr>
+
+    <tr><td width="220">　</td><td colspan="3"><input id="form_stime" name="stime" type="text"  size="20" readonly="readonly"/></td></tr>
+	<tr><td colspan="4" bgcolor="#CCCCCC"> <span class="style6"><strong><script>document.write(str_change)</script></strong></span> </td></tr>
+                                                
+
+	<tr style="display:none">
+	  <td><input type="radio" name="adjust" value="radiobutton"><script>document.write(str_handset)</script></td>
+	  <td colspan="3">　</td>
+	</tr>
+
+	<tr style="display:none">
+		<td><div align="left"><script>document.write(str_date1)</script></div></td>
+		<td colspan="3"><input name="manuldate" type="text"  size="12" maxlength="12"><script>document.write(str_date2)</script>&nbsp;&nbsp;&nbsp;&nbsp;
+			<script>
+				document.write(str_time1)</script>
+				<input name="manultime" type="text"  size="10" maxlength="10"><script>document.write(str_time2)
+			</script>
+		</td>
+	</tr>
+
+
+	 <tr style="display:none">
+		<td></td>
+		<td colspan="3" class="style6"><strong>
+		&nbsp;(1971-01-01 ~ 2036-12-31)</strong></td>
+	</tr>
+
+
+	<tr style="display:none">
+	  <td colspan="4"><input type="radio" name="adjust" value="radiobutton"><script>document.write(str_pc_time)</script>                                                  </td>
+	</tr >
+
+
+	<tr style="display:none">
+	  <td><div align="left"><script>document.write(str_pc_time1)</script></div></td>
+	  <td colspan="3" id="pctime"> <input name="pctime" type="text" size="20" readonly="readonly" ></td>
+	</tr>
+
+
+	<tr>
+	  <td  >
+		<script>document.write(str_net_time_server)</script>&nbsp;<input type=checkbox name=Adst></td>
+		<td colspan="3">&nbsp;</td>
+	</tr>
+
+
+	<tr>
+	  <td valign="top"><div align="left">&nbsp;&nbsp;&nbsp;<script>document.write(str_ntp_server)</script></div></td>
+
+		<td colspan="3">
+			<table width="100%%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td width="19%" valign="top"> <input id="form_ntpname" name="ntpname" type="text" maxlength="45" size="22"></td>
+					<td width="81%">&nbsp;time.windows.com<br>
+					  &nbsp;time.nist.gov <br>
+					  &nbsp;time.kriss.re.kr<br>
+					  &nbsp;time.nuri.net
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+
+
+	<tr>
+		<td>
+			<div align="left">&nbsp;&nbsp;&nbsp;<script>document.write(str_sync_interval)</script></div>
+		</td>
+
+		<td colspan="3">
+			<select name="ntpinterval">
+				<option>01</option>
+				<option>02</option>
+				<option>03</option>
+				<option>04</option>
+				<option>05</option>
+				<option>06</option>
+				<option>07</option>
+				<option>08</option>
+				<option>09</option>
+				<option>10</option>
+				<option>11</option>
+				<option>12</option>
+				<option>13</option>
+				<option>14</option>
+				<option>15</option>
+				<option>16</option>
+				<option>17</option>
+				<option>18</option>
+				<option>19</option>
+				<option>20</option>
+				<option>21</option>
+				<option>22</option>
+				<option>23</option>
+				<option>24</option>
+			</select>
+
+			<script>document.write(str_hour)</script>
+		</td>
+	</tr>
+
+
+	<tr>
+		<td align="left">
+			<script>document.write(str_time_zone)</script><span id="zone_select"></span>
+		</td>
+
+
+		<td>
+		<select name="TimeZone" onChange="doDst()">
+			<option value="Pacific/Apia">(GMT-11:00)<script>document.write(str_tz1)</script></option>
+			<option value="Pacific/Honolulu">(GMT-10:00)<script>document.write(str_tz2)</script></option>
+			<option value="America/Anchorage">(GMT-09:00)<script>document.write(str_tz3)</script></option>
+			<option value="America/Los_Angeles">(GMT-08:00)<script>document.write(str_tz4)</script></option>
+			<option value="America/Denver">(GMT-07:00)<script>document.write(str_tz5)</script></option>
+			<option value="America/Chicago">(GMT-06:00)<script>document.write(str_tz6)</script></option>
+			<option value="America/New_York">(GMT-05:00)<script>document.write(str_tz7)</script></option>
+			<option value="America/Montreal">(GMT-04:00)<script>document.write(str_tz8)</script></option>
+			<option value="America/St_Johns">(GMT-03:30)<script>document.write(str_tz9)</script></option>
+			<option value="America/Thule">(GMT-03:00)<script>document.write(str_tz10)</script></option>
+			<option value="Atlantic/South_Georgia">(GMT-02:00)<script>document.write(str_tz11)</script></option>
+			<option value="Atlantic/Cape_Verde">(GMT-01:00)<script>document.write(str_tz12)</script></option>
+			<option value="Europe/Dublin">(GMT)<script>document.write(str_tz13)</script></option>
+			<option value="Europe/Brussels">(GMT+01:00)<script>document.write(str_tz14)</script></option>
+			<option value="Europe/Athens">(GMT+02:00)<script>document.write(str_tz15)</script></option>
+			<option value="Asia/Kuwait">(GMT+03:00)<script>document.write(str_tz16)</script></option>
+			<option value="Asia/Tehran">(GMT+03:30) <script>document.write(str_tz17)</script></option>
+			<option value="Asia/Baku">(GMT+04:00)<script>document.write(str_tz18)</script></option>
+
+			<option value="Asia/Kabul">(GMT+04:30)
+			<script>document.write(str_tz19)</script>
+			</option>
+
+
+			<option value="Asia/Karachi">(GMT+05:00)
+			<script>document.write(str_tz20)</script>
+			</option>
+
+
+			<option value="Asia/Calcutta">(GMT+05:30)
+			<script>document.write(str_tz21)</script>
+			</option>
+
+
+
+			<option value="Asia/Almaty">(GMT+06:00)
+			<script>document.write(str_tz22)</script>
+			</option>
+
+
+			<option value="Asia/Bangkok">(GMT+07:00)
+			<script>document.write(str_tz23)</script>
+			</option>
+
+
+
+			<option value="Asia/Hong_Kong">(GMT+08:00)
+			<script>document.write(str_tz24)</script>
+			</option>
+
+
+			<option value="Asia/Tokyo">(GMT+09:00)
+			<script>document.write(str_tz25)</script>
+			</option>
+
+
+			<option value="Australia/Adelaide">(GMT+09:30)
+			<script>document.write(str_tz26)</script>
+			</option>
+
+
+			<option value="Pacific/Guam">(GMT+10:00)
+			<script>document.write(str_tz27)</script>
+			</option>
+
+
+			<option value="Asia/Magadan">(GMT+11:00)
+			<script>document.write(str_tz28)</script>
+			</option>
+
+
+			<option value="Pacific/Auckland">(GMT+12:00)
+			<script>document.write(str_tz29)</script>
+			</option>
+
+        </select>
+		</td>
+	</tr>
+
+
+	<tr>
+		<td ALIGN=left>　</td>
+		<td style="visibility:visible;" id="layer0">
+		<input type=checkbox name=Dst>
+		<span id="dst">&nbsp; <script>document.write(str_tz75)</script></span></td>
+	</tr>
+
+
+</table>
 </form>
+
+
+
+
 <table align="center" border="0" cellpadding="0" cellspacing="3" width="95%">
-           <tr>
-		   <td width="220"></td>
-             <td width="116"><button type="button" onClick="do_setpc()">
-               <script>document.write(str_pc_time)</script>
-             </button></td>
-             <td width="622" align="left"><button type="button" onClick="do_submit()" >
-               <script>document.write(str_sure)</script>
-             </button></td>
-           </tr>
-         </table>
+<tr>
+	<td width="220"></td>
+	<td width="116"><button type="button" onClick="do_setpc()"><script>document.write(str_pc_time)</script></button></td>
+	<td width="622" align="left"><button type="button" onClick="do_submit()" ><script>document.write(str_sure)</script></button></td>
+</tr>
+</table>
     	
-            <form name=form2 method="post" >
+<form name=form2 method="post" >
     <input name="cmd" type="hidden" value="setntpattr">
     <input name="cururl" type="hidden">
 	<input name="ntpenable" type="hidden">
@@ -954,6 +1064,8 @@ body {
     <input name="timezone" type="hidden">
     <input name="dstmode" type="hidden">
 </form>
+
+
 <form name=form3 method="post">
     <input name="cmd" type="hidden" value="setservertime">
     <input name="cururl" type="hidden">
@@ -963,5 +1075,6 @@ body {
 	<input name="cmd" type="hidden" value="setntpattr">
 	<input name="ntpenable" type="hidden">
 </form>
-        </body>
+
+</body>
 </html>

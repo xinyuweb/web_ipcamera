@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <link href="css/css.css" rel="stylesheet" type="text/css">
@@ -7,8 +7,10 @@
 <link rel="stylesheet" href="style.css" type="text/css">
 <base target="contents">
 <script src="public.js"></script>
+
+
 <script LANGUAGE="JavaScript">
-<!--
+
 doc = document; 
 var indexOfEntries = new Array();
 var nEntries = 0;
@@ -86,15 +88,13 @@ function onl(){
 	}
 }
 
-//---------------------------------------------------------------------------
-//-->
-
 </script>
+
 </head>
 
-<body leftmargin="0" topmargin="0" class="menu_color" onLoad="onl()" >
+<body leftmargin="0" topmargin="0" class="menu_color" onLoad="onl()">
 
-<script>
+<script LANGUAGE="JavaScript">
 	function openset(i)
 	{
 		var wdiv;
@@ -103,7 +103,7 @@ function onl(){
 		{
 			document.getElementById("table"+i).style.display="none";
 		}
-		if(document.getElementById("table"+wdiv).style.display!="")
+		if(document.getElementById("table"+wdiv).style.display != "")
 		{
 			document.getElementById("table"+wdiv).style.display="";
 		}
@@ -151,7 +151,7 @@ function onl(){
 		<td width="10">
 			<img src="images/2_item.gif"/>
 		</td>
-		<td onclick="javascript:parent.document.getElementById('main').src='deviceinfo.html'" onMouseOver="setUnderline(this)" onMouseOut="deleteUnderline(this)"><script>document.write(str_dev_info)</script></td>
+		<td onclick="javascript:parent.document.getElementById('main').src='deviceinfo.html'" onMouseOver="setUnderline(this)"  onMouseOut="deleteUnderline(this)"><script>document.write(str_dev_info)</script></td>
 	</tr>
 
 	<tr bgcolor="#FFFFFF">
@@ -451,7 +451,7 @@ function onl(){
 
 	<div id="return_c" style="display: none" align="center">
 		<a id="tr_c" target="_top" onClick="turnmpage()"  style="cursor:pointer;">
-			<img id="img_return" name="img_return" border="0" src="images/return_c.gif" width="90" height="25" onMouseOver="this.src='images/return_on_c.gif'" onMouseOut="this.src='images/return_c.gif'">
+			<img id="img_return_c" name="img_return" border="0" src="images/return_c.gif" width="90" height="25" onMouseOver="this.src='images/return_on_c.gif'" onMouseOut="this.src='images/return_c.gif'">
 		</a>
 	</div>
 
@@ -465,7 +465,7 @@ function onl(){
 
 	<div id="return_kr" style="display: none" align="center">
 		<a id="tr_kr" target="_top" onClick="turnmpage()" style="cursor:pointer;" >
-			<img id="img_return" name="img_return" border="0" src="images/return_kr.gif" width="90" height="25" onMouseOver="this.src='images/return_on_kr.gif'" onMouseOut="this.src='images/return_kr.gif'">
+			<img id="img_return_kr" name="img_return" border="0" src="images/return_kr.gif" width="90" height="25" onMouseOver="this.src='images/return_on_kr.gif'" onMouseOut="this.src='images/return_kr.gif'">
 		</a>
 	</div>
 
