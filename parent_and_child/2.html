@@ -1,0 +1,20 @@
+﻿<html>
+<head>
+<script type="text/javascript">
+function say() {
+alert("parent.html------>I'm at parent.html");
+}
+function callChild()
+{
+//document.frames["myFrame"].window.say();//只适用于ie浏览器
+myFrame.window.say();
+myFrame.window.document.getElementById("button").value="我变了";
+myFrame.window.document.getElementById("hello").innerHTML="12345678910";
+}
+</script>
+</head>
+<body>
+<input type=button value="调用child.html中的函数say()" onclick="callChild()">
+<iframe name="myFrame" src="3.html"></iframe>
+</body>
+</html>

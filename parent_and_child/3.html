@@ -1,0 +1,27 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+
+<script type="text/javascript">
+function say()
+{
+	alert("child.html--->I'm at child.html");
+}
+
+function callParent() 
+{
+	parent.say();
+	parent.window.document.getElementsByName("myFrame")[0].style.height="100px";
+}
+</script>
+</head>
+<body>
+<p id="hello"> this is a test </p>
+<input id="button" type=button value="调用parent.html中的say()函数" onclick="callParent()">
+</body>
+</html>
