@@ -4,36 +4,39 @@
 <meta content="text/html; charset=UTF-8" http-equiv="content-type">
 <META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
 <META http-equiv="Pragma" CONTENT="no-cache">
-
-<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
-
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
 <meta HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"> 
-<!-- ImageReady Preload Script (ipCAM.psd) -->
+
 <script src="public.js"></script>
 <script type="text/javascript">
-<!--
 
-<!--
 
-function newImage(arg) {
-	if (document.images) {
+function newImage(arg)
+{
+	if (document.images)
+	{
 		rslt = new Image();
 		rslt.src = arg;
 		return rslt;
 	}
 }
 
-function changeImages() {
-	if (document.images && (preloadFlag == true)) {
-		for (var i=0; i<changeImages.arguments.length; i+=2) {
+function changeImages()
+{
+	if (document.images && (preloadFlag == true))
+	{
+		for (var i=0; i<changeImages.arguments.length; i+=2)
+		{
 			document[changeImages.arguments[i]].src = changeImages.arguments[i+1];
 		}
 	}
 }
 
 var preloadFlag = false;
-function preloadImages() {
-	if (document.images) {
+function preloadImages()
+{
+	if (document.images)
+	{
 		index_08_Over = newImage("images/index_08-Over.gif");
 		index_09_Over = newImage("images/index_09-Over.gif");
 		index_11_Over = newImage("images/index_11-Over.gif");
@@ -45,108 +48,189 @@ function preloadImages() {
 	}
 }
 
-// -->
 
-function MM_preloadImages() { //v3.0
-  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
-    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
-    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
-}
+function MM_preloadImages()
+{
+	var d=document;
+	if(d.images)
+	{
+		if(!d.MM_p)
+		{
+			d.MM_p=new Array();
+		}
 
-function MM_swapImgRestore() { //v3.0
-  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
-}
+		var i,j=d.MM_p.length,a=MM_preloadImages.arguments;
+		for(i=0; i<a.length; i++)
+		{
+			if (a[i].indexOf("#")!=0)
+			{
+				d.MM_p[j]=new Image;
+				d.MM_p[j++].src=a[i];
+			}
+		}
 
-function MM_findObj(n, d) { //v4.01
-  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
-    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
-  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
-  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
-  if(!x && d.getElementById) x=d.getElementById(n); return x;
-}
-
-function MM_swapImage() { //v3.0
-  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
-   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
-}
-//-->
-	var initLength = 1;
-	var speed = 2;
-	var intval = 1000;
-	var maxLength = 1000;
-	var maxTimes = 0;
-	var maxMilliSeconds = 400000;
-	var intID;
-	var currentLength = initLength;
-	var currentTimes = 0;
-	var currentMilliSeconds = 0;
-	var seconds=45;
-	
-	function addMore() {
-		currentLength += speed;
-		currentTimes ++;
-		currentMilliSeconds += intval;
-		if( maxLength > 0 && currentLength > maxLength)
-			currentLength = initLength;
-		document.getElementById("tb").width  = currentLength;
-		if( maxTimes > 0 && currentTimes>= maxTimes ) stopIt();
-		if( maxMilliSeconds > 0 && currentMilliSeconds > maxMilliSeconds ) stopIt();
 	}
-	function startIt() {
-		
-		document.getElementById("upgrdwait").style.display = "block";
-	  document.getElementById("upgrdinfo").style.display = "block";
-	  document.getElementById("content").style.display = "none";
-	 
-	  //document.getElementById("noupgrdform").style.visibility="hidden";
-	  //document.getElementById("upgrdform").style.visibility="visible";
-	  intID = window.setInterval(addMore, intval);
-	}
-	function stopIt() {
-		window.clearInterval(intID);
-		alert(str_update_success);
-		window.location.reload();
-		window.location="http://"+window.location.host;
-	}
-	
- function reset1()
-    {
-    	if(confirm(str_alert34)==true)
-    	{
-    	//	setTimeout("window.location.reload()",100);
-	    	form =document.form4;
-	    	form.action="cgi-bin/hi3510/sysreset.cgi";
-	   // 	have_submit = true;
-	    	form.submit();
-  	//		showNotification();
-			minp.style.display="none";
-			setTimeout('timer1234()',1000);
-    	}
-    else
-    	{
-    		return false;
-    	}
-    }
+}
 
-    function reboot()
-    {
-    	if(confirm(str_alert35)==true)
-    	{ 
-			//ifrm.src="cgi-bin/hi3510/sysreboot.cgi";
-			form =document.form4;
-	    	form.action="cgi-bin/hi3510/sysreboot.cgi";
-			form.submit();
-			//ifrm.location.reload();
-			//setTimeout("window.location.reload()",100);
-				minp.style.display="none";
-				setTimeout('timer123()',1000);
+
+
+function MM_swapImgRestore()
+{
+	var i,x,a=document.MM_sr;
+	for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++)
+		x.src=x.oSrc;
+}
+
+
+function MM_findObj(n, d)
+{
+	var p,i,x;
+	if(!d)
+	{
+		d=document;
+	}
+
+	if((p=n.indexOf("?"))>0 &&  parent.frames.length)
+	{
+		d=parent.frames[n.substring(p+1)].document;
+		n=n.substring(0,p);
+	}
+
+
+	if(!(x=d[n]) && d.all)
+	{
+	  x=d.all[n];
+	}
+
+	for (i=0;!x&&i<d.forms.length;i++)
+	{
+		x=d.forms[i][n];
+	}
+
+
+	for(i=0;!x&&d.layers&&i<d.layers.length;i++)
+	{
+	  x=MM_findObj(n,d.layers[i].document);
+	}
+
+	if(!x && d.getElementById)
+	{
+	  x=d.getElementById(n);
+	}
+
+	return x;
+}
+
+
+
+
+function MM_swapImage()
+{
+	var i,j=0,x,a=MM_swapImage.arguments;
+	document.MM_sr=new Array;
+
+	for(i=0;i<(a.length-2);i+=3)
+	{
+		if ((x=MM_findObj(a[i]))!=null)
+		{
+			document.MM_sr[j++]=x;
+			if(!x.oSrc)
+				x.oSrc=x.src;
+
+			x.src=a[i+2];
+		}
+	}
+
+}
+
+var initLength = 1;
+var speed = 2;
+var intval = 1000;
+var maxLength = 1000;
+var maxTimes = 0;
+var maxMilliSeconds = 400000;
+var intID;
+var currentLength = initLength;
+var currentTimes = 0;
+var currentMilliSeconds = 0;
+var seconds=45;
 	
-    	}
-  		else
-  		{
-  			return false;
-  		}
-    }
+function addMore()
+{
+	currentLength += speed;
+	currentTimes ++;
+	currentMilliSeconds += intval;
+	if( maxLength > 0 && currentLength > maxLength)
+		currentLength = initLength;
+
+	document.getElementById("tb").width  = currentLength;
+
+	if( maxTimes > 0 && currentTimes>= maxTimes ) stopIt();
+
+	if( maxMilliSeconds > 0 && currentMilliSeconds > maxMilliSeconds ) stopIt();
+}
+
+
+function startIt()
+{
+
+	document.getElementById("upgrdwait").style.display = "block";
+	document.getElementById("upgrdinfo").style.display = "block";
+	document.getElementById("content").style.display = "none";
+
+	//document.getElementById("noupgrdform").style.visibility="hidden";
+	//document.getElementById("upgrdform").style.visibility="visible";
+	intID = window.setInterval(addMore, intval);
+}
+
+
+function stopIt()
+{
+	window.clearInterval(intID);
+	alert(str_update_success);
+	window.location.reload();
+	window.location="http://"+window.location.host;
+}
+	
+function reset1()
+{
+	if(confirm(str_alert34)==true)
+	{
+	//	setTimeout("window.location.reload()",100);
+		form =document.form4;
+		form.action="cgi-bin/hi3510/sysreset.cgi";
+   // 	have_submit = true;
+		form.submit();
+//		showNotification();
+		minp.style.display="none";
+		setTimeout('timer1234()',1000);
+	}
+	else
+	{
+		return false;
+	}
+}
+
+function reboot()
+{
+	if(confirm(str_alert35)==true)
+	{
+		//ifrm.src="cgi-bin/hi3510/sysreboot.cgi";
+		form =document.form4;
+		form.action="cgi-bin/hi3510/sysreboot.cgi";
+		form.submit();
+		//ifrm.location.reload();
+		//setTimeout("window.location.reload()",100);
+		minp.style.display="none";
+		setTimeout('timer123()',1000);
+
+	}
+	else
+	{
+		return false;
+	}
+}
+
 
 function timer123()
 {
@@ -157,6 +241,9 @@ function timer123()
 	else
 		setTimeout('timer123()',1000);	
 }
+
+
+
 function timer1234()
 {
 	Time.innerHTML=str_chucsz+seconds;
@@ -166,56 +253,67 @@ function timer1234()
 	else
 		setTimeout('timer1234()',1000);	
 }
+
+
 function upgrade()
-    {
-    	if(document.form5.setting_file.value=="")
-    	{
-    		alert(str_alert36);
-    		return false;
-    	}
-    	filename = document.form5.setting_file.value;
-    	filename=filename.substr(filename.lastIndexOf('\\')+1);    	
-    	if(confirm(str_alert37)==true)
-    	{ 
-    		document.form5.action = "cgi-bin/hi3510/upgrade.cgi?-filename="+filename;
-    		/*
-	    	form=document.form3;
-	    	form.action="cgi-bin/hi3510/updateuser.cgi";
-	    	*/
-	    	setTimeout("startIt()",500);
-	    	
-  			//showNotification();
-	    	return true;
-	    //	document.form5.submit();
-    	}
-  		else
-  		{
-  			return false;
-  		}
-    }
- function upload()
-    {
-    	if(document.form6.setting_file.value=="")
-    	{
-    		alert(str_alert38);
-    		return false;
-    	}
-    	if(confirm(str_alert39)==true)
-    	{ 
-	    	return true;
-    	}
-  		else
-  		{
-  			return false;
-  		}
-    }   
+{
+	if(document.form5.setting_file.value=="")
+	{
+		alert(str_alert36);
+		return false;
+	}
+	filename = document.form5.setting_file.value;
+	filename=filename.substr(filename.lastIndexOf('\\')+1);
+	if(confirm(str_alert37)==true)
+	{
+		document.form5.action = "cgi-bin/hi3510/upgrade.cgi?-filename="+filename;
+		/*
+		form=document.form3;
+		form.action="cgi-bin/hi3510/updateuser.cgi";
+		*/
+		setTimeout("startIt()",500);
+
+		//showNotification();
+		return true;
+	//	document.form5.submit();
+	}
+	else
+	{
+		return false;
+	}
+}
+
+
+function upload()
+{
+	if(document.form6.setting_file.value=="")
+	{
+		alert(str_alert38);
+		return false;
+	}
+
+	if(confirm(str_alert39)==true)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+
     
-function savetofile(){
+function savetofile()
+{
 parent.retframe.location.href="cgi-bin/hi3510/backup.cgi";
 
 }
+
 </script>
-<!-- End Preload Script -->
+
+
+
 <style type="text/css">
 <!--
 body {
@@ -240,78 +338,91 @@ color:#ffffff;
 }
 -->
 </style>
+
 </head>
 
+
+
 <center>
+
 	<div id=upgrdinfo class="style6" style="DISPLAY: none">
-		<P>
-	</p>
-	<P>
-	</P>
+		<P></p>
+		<P></P>
 		<P><br/><br/><script>document.write(str_alert40)</script></p>
+	</div>
+
+   <div id=upgrdwait style='margin-top:80px;width:600px; background-color:#c8c8c8;text-align:left;DISPLAY: none;'>
+
+	   <table id="tb" bgcolor="blue" width="1" height='20' >
+	   <tr>
+		 <td width="100%"></td>
+	   </tr>
+	  </table>
   </div>
-			   <div id=upgrdwait style='margin-top:80px;width:600px; background-color:#c8c8c8;text-align:left;DISPLAY: none;'>
-		          <table id="tb" bgcolor="blue" width="1" height='20' >
-			       <tr>
-			         <td width="100%"></td>
-			       </tr>
-		          </table>
-  </div>
+
 </center>
 
 
 <DIV id=content style="DISPLAY: block">
-		
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 
-     <div id="minp"> <table  width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5">
-                <tr class="style6">
-                  <td colspan="4" style="font-size:24px"><strong><script>document.write(str_initial_set)</script></strong></td>
-                </tr>
-                <tr class="style6">
-                  <td colspan="4" bgcolor="#CCCCCC"> <strong><script>document.write(str_initial_set)</script></strong></td>
-                </tr>
-                <tr>
-                  <td width="220"><script>document.write(str_start_system)</script></td>
-                  <td colspan="3">
-					<button type="submit" name="submit" onClick="reboot()" ><script>document.write(str_restart)</script></button>
-                  <!--	<a href="#" onclick="reboot()" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image23','','images/botton/Reboot-Over.gif',1)"><img src="images/botton/Reboot.gif" name="Image23" width="82" height="26" border="0"></a> --></td>
-                </tr>
-                <tr>
-                  <td><script>document.write(str_default_value)</script></td>
-                  <td colspan="3">
-                  	<button type="submit" name="submit" onClick="reset1()" ><script>document.write(str_default_value1)</script></button></td>
-                </tr>
-               <form>
-             <tr>
-                  <td><script>document.write(str_alert41)</script></td>
-                  <td colspan="3">
-                  	<button type="submit" onClick="savetofile()"><script>document.write(str_save)</script></button>
-           	   </td> 
-               	 </tr> 
-       	 </form>
-     <form name="form6" method="post"  enctype="multipart/form-data" action="cgi-bin/hi3510/restore.cgi" onSubmit="return upload()">             	
-    <tr> <td><script>document.write(str_alert42)</script></td>
-                  <td colspan="3"><input type="file" name="setting_file" >
-                  	<button type="submit"><script>document.write(str_sure)</script></button>
-   	  </td>   </tr> 			
-         </form> 
-		 <form name="form5" method="post" target="retframe"  enctype="multipart/form-data" action="cgi-bin/hi3510/upgrade.cgi" onSubmit="return upgrade()">      
-		 <tr> <td><script>document.write(str_system_up)</script></td>
-                  <td colspan="3"><input type="file" name="setting_file" >
-                  <button type="submit"><script>document.write(str_sure)</script></button>
-           </td>
-           </tr>
+<div id="minp">
+	<table  width="95%"  border="0" align="center" cellpadding="0" cellspacing="5" class="style5">
+		<tr class="style6">
+		  <td colspan="4" style="font-size:24px"><strong><script>document.write(str_initial_set)</script></strong></td>
+		</tr>
+
+		<tr class="style6">
+		  <td colspan="4" bgcolor="#CCCCCC"> <strong><script>document.write(str_initial_set)</script></strong></td>
+		</tr>
+
+		<tr>
+		  <td width="220"><script>document.write(str_start_system)</script></td>
+		  <td colspan="3">
+			<button type="submit" name="submit" onClick="reboot()" ><script>document.write(str_restart)</script></button>
+		  <!--	<a href="#" onclick="reboot()" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image23','','images/botton/Reboot-Over.gif',1)"><img src="images/botton/Reboot.gif" name="Image23" width="82" height="26" border="0"></a> -->
+		  </td>
+		</tr>
+
+
+		<tr>
+		  <td><script>document.write(str_default_value)</script></td>
+		  <td colspan="3"><button type="submit" name="submit" onClick="reset1()" ><script>document.write(str_default_value1)</script></button></td>
+		</tr>
+
+		<form>
+			<tr>
+				  <td><script>document.write(str_alert41)</script></td>
+				  <td colspan="3"><button type="submit" onClick="savetofile()"><script>document.write(str_save)</script></button></td>
+			</tr>
+		</form>
+
+
+	<form name="form6" method="post"  enctype="multipart/form-data" action="cgi-bin/hi3510/restore.cgi" onSubmit="return upload()">
+    <tr>
+		<td><script>document.write(str_alert42)</script></td>
+		<td colspan="3"><input type="file" name="setting_file" ><button type="submit"><script>document.write(str_sure)</script></button></td>
+	</tr>
+	</form>
+
+
+	<form name="form5" method="post" target="retframe"  enctype="multipart/form-data" action="cgi-bin/hi3510/upgrade.cgi" onSubmit="return upgrade()">
+	<tr> <td><script>document.write(str_system_up)</script></td>
+		<td colspan="3"><input type="file" name="setting_file" ><button type="submit"><script>document.write(str_sure)</script></button></td>
+	</tr>
+
 </form>	
-</table></div>
-                <br>
-              <form name="form3">
-              </form>
-			  <form name="form4" target="ifrm">
-              </form>
+</table>
+</div>
+
+
+<br>
+<form name="form3"></form>
+<form name="form4" target="ifrm"></form>
 <div align="center" id="Time"></div>
-<iframe id="ifrm" name="ifrm" style="display:none">
-</iframe>
+<iframe id="ifrm" name="ifrm" style="display:none"></iframe>
+
+
 </body>
 </DIV>
 </html>
