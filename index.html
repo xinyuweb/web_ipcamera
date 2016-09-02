@@ -1,20 +1,308 @@
-<html>
+﻿<html>
 <head>
-<meta charset="utf-8"/>
-<title>Upload</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="style.css" type="text/css">
+<title></title>
+
+
+<style type="text/css">
+.style1 {font-weight: bold}
+.style2 {
+	font-size: 36px;
+	font-weight: bold;
+}
+.style4 {color: black}
+.f15 {
+	font-size: 12px;
+	font-weight: bold;
+	color: #810000;
+	cursor: pointer;
+}
+</style>
+
+<script src="public.js"></script>
+
+
+<script>
+
+
+function onSetNoShow()
+{
+	if(chknoagain.checked)
+	{
+		setcookie('noshow',"1",720);
+	}
+	else
+	{
+		setcookie('noshow',"0",720);
+	}
+}
+
+function signin_activex()
+{
+	onSetNoShow();
+	setcookie('browser',"0",720);
+	//location='mainpage.asp';
+    location='asptest.asp';
+}
+
+
+function signin_serverpush()
+{
+	onSetNoShow();
+	setcookie('browser',"1",720);
+	location='monitor2.html';
+}
+
+
+function signin_pda()
+{
+	onSetNoShow();
+	setcookie('browser',"2",720);
+	location='pda.html';
+}
+
+
+function signin_iphone()
+{
+	onSetNoShow();
+	setcookie('browser',"2",720)
+	location='iph.html';
+}
+
+function onlanchanged()
+{
+	var vlanguage=lan.value;
+	if(vlanguage==2)
+	{
+		setcookie('language',"simple_chinese",720);
+	}
+	else if(vlanguage==3)
+	{
+		setcookie('language',"traditional_chinese",720);
+	}
+	else if(vlanguage==4)
+	{
+		setcookie('language',"korean",720);
+	}
+	else
+	{
+		setcookie('language',"english",720);
+	}
+	location.reload();
+}
+
+
+function getLan()
+{
+	if (language=='simple_chinese')
+	{
+		return "cn";
+	}
+	else if (language=='traditional_chinese')
+	{
+		return "bib5";
+	}
+	else if (language=='spanish')
+	{
+		return "es";
+	}
+	else if (language=='french')
+	{
+		return "fr";
+	}
+	else if (language=='russian')
+	{
+		return "ru";
+	}
+	else if (language=='polski')
+	{
+		return "pl";
+	}
+	else if (language=='Portuguese')
+	{
+		return "pt";
+	}
+	else if (language=='italian')
+	{
+		return "it";
+	}
+	else if (language=='deutsch')
+	{
+		return "de";
+	}
+	else
+	{
+		return "en";
+	}
+
+}
+
+function openeasynsite()
+{
+	if (language=='simple_chinese')
+	{
+		newpage.action="http://www.easyn.cn";
+	}
+	else
+	{
+		newpage.action="http://www.easyn.com";
+	}
+	newpage.submit();
+}
+
+function openonlinetech()
+{
+	newpage.action="http://support.easyn.com/"+getLan();
+	newpage.submit();
+}
+
+
+function openapp()
+{
+	newpage.action="http://app.easyn.com/"+getLan();
+	newpage.submit();
+}
+
+/*
+* 仅仅是用户当前所见页面，并没有操作
+*
+* */
+var bnoshow=getcookie('noshow');
+if(bnoshow=="1")
+{
+	var nbrowser=getcookie('browser');
+	if(nbrowser=="1")
+	{
+		location='monitor2.html';
+	}
+	else if(nbrowser=="2")
+	{
+		location='pda.html';
+	}
+	else
+	{
+		location='mainpage.html';
+	}
+
+}
+</script>
 </head>
+
 <body>
-    <h2>File Upload to HTML</h2>
-    <form method="post" action="/action/uploadTest" enctype="multipart/form-data">
-        <input type="hidden" name="MAX_FILE_SIZE" value="30000">
-        <table border="0">
-            <tr><td>Name</td><td><input type="text" name="Name"></td></tr>
-            <tr><td>Address</td><td><input type="text" name="Address"></td></tr>
-            <tr><td>File:</td><td><input type="file" name="file"></td></tr>
-        </table>
-        <input type="submit" value="send">
-        <input type="reset" value="cancel">
-    </form>
+
+<!--nbsp 代表空格 border="0"表示设置边框的大小 cellPadding：表示单元边框和单元内容之间的大小，cellSpacing表示单元格之间的间隔 -->
+<!-- span 它的唯一目的就是围绕你的HTML代码中的其它元素，这样你就可以为它们指定样式了。-->
+<!--主要是用在<script>document.write(" ")</script>标签内，表示输出并显示在页面上的内容 -->
+
+<!--
+<table> 标签定义 HTML 表格。
+简单的 HTML 表格由 table 元素以及一个或多个 tr、th 或 td 元素组成。
+tr 元素定义表格行，th 元素定义表头，td 元素定义表格单元。
+更复杂的 HTML 表格也可能包括 caption、col、colgroup、thead、tfoot 以及 tbody 元素。
+-->
+
+<table width="100%" height="62" border="0" cellPadding="0" cellSpacing="0">
+	<tr>
+		<td bordercolor="0" class="big_header style1">  &nbsp;&nbsp;
+		  <div align="center">
+			  <span class="style2"><script>document.write(str_ipcam); </script></span>
+		  </div>
+
+		</td>
+	</tr>
+
+	<tr>
+		<script>document.write(Date());</script>
+	</tr>
+
+  <tr>
+	<td height="5" bgcolor="#810000"></td>
+  </tr>
+</table>
+
+
+<!-- <br> 可插入一个简单的换行符。 -->
+<!--<span> 标签被用来组合文档中的行内元素,是对行内的某些元素进行格式化所用 -->
+
+<br>
+<br>
+
+
+<table width="333" height="141" border="0" align="center" cellpadding="0" cellspacing="0">
+	<tr class="f14">
+		<td width="429"><script>document.write(str_mode_activex)</script> </td>
+	</tr>
+
+	<tr class="f14">
+		<td height="25"><span class="f16 curspan2" onClick="javascript:signin_activex()"><script>document.write(str_signin)</script></span></td>
+	</tr>
+
+	<tr class="f14">
+		<td height="21">&nbsp;</td>
+	</tr>
+
+
+
+	<tr class="f14">
+		<td><script>document.write(str_mode_pda)</script></td>
+	</tr>
+
+	<tr class="f14">
+		<td height="25"> <span class="f16 curspan2" onClick="javascript:signin_pda()" ><script>document.write(str_signin)</script></span> </td>
+	</tr>
+
+	<tr class="f14">
+		<td height="21">&nbsp;</td>
+	</tr>
+
+
+
+	<tr class="f14">
+		<td><script>document.write(str_m_iphone)</script></td>
+	</tr>
+
+	<tr class="f14">
+		<td height="25"><a href="#"><span class="f16 cs2" onClick="javascript:signin_iphone()" ><script>document.write(str_signin)</script></span></a></td>
+	</tr>
+
+	<tr class="f14">
+		<td height="21">&nbsp;</td>
+	</tr>
+
+
+	<tr class="f14">
+		<td><script>document.write(str_language);</script>
+			<select id="lan" name="lan" onChange="onlanchanged();">
+				<option value="1">English</option>
+				<option value="2">中文简体</option>
+				<option value="3">中文繁體</option>
+				<option value="4">한국어</option>
+			</select>
+		</td>
+	</tr>
+
+	<tr class="f14">
+		<td>&nbsp;</td>
+	</tr>
+
+
+	<tr class="f14">
+		<td>
+			<input type="checkbox" name="chknoagain" id="chknoagain" value="1"/><script>document.write(str_noshownext);</script>
+		</td>
+	</tr>
+
+	<tr>
+		<td class="f13"></td>
+	</tr>
+
+
+
+</table>
+
+
+<br>
+
 </body>
 </html>
-
